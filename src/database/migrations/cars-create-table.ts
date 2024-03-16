@@ -1,5 +1,5 @@
 import { Model, QueryInterface, DataTypes } from 'sequelize';
-import { ICar } from '../../interfaces/ICar';
+import { ICar } from '../../interfaces/databaseModels/ICar';
 
 export default {
   up(queryInterface: QueryInterface) {
