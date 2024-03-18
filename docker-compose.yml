@@ -24,7 +24,7 @@ services:
       retries: 5
   db:
     image: mysql:8.0.32
-    container_name: db
+    container_name: oficina_db
     ports:
       - 3306:3306
     environment:

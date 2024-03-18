@@ -13,14 +13,46 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Car_service_1 = __importDefault(require("../services/Car.service"));
+const mapStatusHTTP_1 = __importDefault(require("../utils/mapStatusHTTP"));
 class CarController {
-    constructor(filmService = new Car_service_1.default()) {
-        this.filmService = filmService;
+    constructor(carService = new Car_service_1.default()) {
+        this.carService = carService;
     }
-    listFilms(_req, res) {
+    listCars(_req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { status, data } = yield this.filmService.listCars();
-            return res.status(status).json(data);
+            const { status, data } = yield this.carService.listCars();
+            return res.status((0, mapStatusHTTP_1.default)(status)).json(data);
+        });
+    }
+    insertCar(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { name, brand, year } = req.body;
+            const { status, data } = yield this.carService.insertCar({ name, year, brand });
+            return res.status((0, mapStatusHTTP_1.default)(status)).json(data);
+        });
+    }
+    removeCar(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { name, brand, year } = req.body;
+            const { status, data } = yield this.carService.removeCar({ name, year, brand });
+            return res.status((0, mapStatusHTTP_1.default)(status)).json(data);
+        });
+    }
+    findCar(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { name } = req.query;
+            if (typeof name === 'string') {
+                const { status, data } = yield this.carService.findCar(name);
+                return res.status((0, mapStatusHTTP_1.default)(status)).json(data);
+            }
+            return res.status(400).json({ message: 'Bad Request' });
+        });
+    }
+    updateCar(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id, name, brand, year } = req.body;
+            const { status, data } = yield this.carService.updateCar({ id, name, brand, year });
+            return res.status((0, mapStatusHTTP_1.default)(status)).json(data);
         });
     }
 }

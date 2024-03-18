@@ -14,14 +14,40 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const CarModel_1 = __importDefault(require("../models/CarModel"));
 class CarService {
-    constructor(filmModel = new CarModel_1.default()) {
-        this.filmModel = filmModel;
-        this.filmModel = filmModel;
+    constructor(carModel = new CarModel_1.default()) {
+        this.carModel = carModel;
     }
     listCars() {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.filmModel.listCars();
-            return { status: 200, data: result };
+            const result = yield this.carModel.listCars();
+            return { status: 'SUCCESSFUL', data: result };
+        });
+    }
+    insertCar(_a) {
+        return __awaiter(this, arguments, void 0, function* ({ name, brand, year }) {
+            const result = yield this.carModel.insertCar({ name: name.toUpperCase(), brand, year });
+            return { status: 'CREATED', data: result };
+        });
+    }
+    removeCar(_a) {
+        return __awaiter(this, arguments, void 0, function* ({ name, brand, year }) {
+            const result = yield this.carModel.removeCar({ name, year, brand });
+            if (result === 0) {
+                return { status: 'NOT_FOUND', data: { message: 'carro não encontrado' } };
+            }
+            return { status: 'SUCCESSFUL', data: { name, brand, year } };
+        });
+    }
+    findCar(name) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = yield this.carModel.findCar(name);
+            return { status: 'SUCCESSFUL', data: result };
+        });
+    }
+    updateCar(_a) {
+        return __awaiter(this, arguments, void 0, function* ({ id, name, brand, year }) {
+            yield this.carModel.updateCar({ id, name: name.toUpperCase(), brand, year });
+            return { status: 'SUCCESSFUL', data: { id, name: name.toUpperCase(), brand, year } };
         });
     }
 }

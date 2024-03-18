@@ -11,15 +11,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     up: (queryInterface) => __awaiter(void 0, void 0, void 0, function* () {
-        yield queryInterface.bulkInsert('users', [
+        yield queryInterface.bulkInsert('pieces', [
             {
-                name: 'Vitor',
-                email: 'jv6810@gmail.com',
-                password: '123456',
+                name: 'PASTILHA DE FREIO',
+            },
+            {
+                name: 'DISCO DE FREIO',
             },
         ], {});
     }),
     down: (queryInterface) => __awaiter(void 0, void 0, void 0, function* () {
-        yield queryInterface.bulkDelete('users', {});
+        yield queryInterface.bulkDelete('pieces', {});
     }),
 };
