@@ -29,4 +29,16 @@ export default class PieceController {
     const { status, data } = await this.pieceService.insertPiece(name);
     return res.status(mapStatusHTTP(status)).json(data);
   }
+
+  async deletePiece(req: Request, res: Response) {
+    const { id } = req.params;
+    const { status, data } = await this.pieceService.deletePiece(Number(id));
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
+  async updatePiece(req: Request, res: Response) {
+    const { id, name } = req.body;
+    const { status, data } = await this.pieceService.updatePiece({ id, name });
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
 }
