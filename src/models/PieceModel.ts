@@ -11,7 +11,7 @@ export default class PieceModel implements IPieceModel {
   }
 
   async updatePiece({ id, name }: { id: number; name: string; }): Promise<number> {
-    const [result] = await this.model.update({ id, name }, { where: { id } });
+    const [result] = await this.model.update({ name }, { where: { id } });
     return result;
   }
 
@@ -23,12 +23,13 @@ export default class PieceModel implements IPieceModel {
   async findPieces(name: string): Promise<IPieces[]> {
     const result = await this.model.findAll({ where: { name: {
       [Op.like]: `%${name}%`,
-    } } });
+    } },
+    order: [['id', 'ASC']] });
     return result;
   }
 
   async listPieces(): Promise<IPieces[]> {
-    const result = await this.model.findAll();
+    const result = await this.model.findAll({ order: [['id', 'ASC']] });
     return result;
   }
 }
