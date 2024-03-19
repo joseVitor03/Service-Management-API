@@ -19,4 +19,20 @@ export default class PieceService {
     const result = await this.pieceModel.insertPiece(name.toUpperCase());
     return { status: 'CREATED', data: result };
   }
+
+  async deletePiece(id: number): Promise<ServiceResponse<{ message: string }>> {
+    const result = await this.pieceModel.deletePiece(id);
+    if (result === 0) {
+      return { status: 'INVALID_DATA', data: { message: 'Peça não encontrada' } };
+    }
+    return { status: 'SUCCESSFUL', data: { message: 'Peça excluída com sucesso.' } };
+  }
+
+  async updatePiece({ id, name }: { id: number, name: string }): Promise<ServiceResponse<IPieces>> {
+    const result = await this.pieceModel.updatePiece({ id, name });
+    if (result === 0) {
+      return { status: 'INVALID_DATA', data: { message: 'Peça não encontrada' } };
+    }
+    return { status: 'SUCCESSFUL', data: { id, name } };
+  }
 }
