@@ -10,4 +10,16 @@ export default class AdminController {
     const { status, data } = await this.adminService.insertAdmin({ email, password });
     return res.status(mapStatusHTTP(status)).json(data);
   }
+
+  async loginAdmin(req: Request, res: Response) {
+    const { email, password } = req.body;
+    const { status, data } = await this.adminService.loginAdmin({ email, password });
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
+  async deleteAdmin(req: Request, res: Response) {
+    const { email } = req.body;
+    const { status, data } = await this.adminService.deleteAdmin({ email });
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
 }
