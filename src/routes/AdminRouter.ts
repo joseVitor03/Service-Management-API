@@ -14,8 +14,8 @@ adminRouter.post(
 
 adminRouter.post('/login', (req: Request, res: Response) => adminController.loginAdmin(req, res));
 
-adminRouter.post(
-  '/admin/delete',
+adminRouter.delete(
+  '/admin',
   Validate.validateToken,
   Validate.ValidateEmail,
   (req: Request, res: Response) => adminController.deleteAdmin(req, res),
