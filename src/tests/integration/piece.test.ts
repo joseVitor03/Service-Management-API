@@ -68,7 +68,6 @@ describe('testando rota de peças', function () {
   it(
     'testando rota POST /pieces',
     async function () {
-      // sinon.stub(SequelizePiece, 'findOne').resolves(null as any);
       sinon.stub(SequelizePiece, 'findOrCreate').resolves([{ id: 3, name: 'CABEÇOTE' }] as any);
       sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
@@ -81,9 +80,23 @@ describe('testando rota de peças', function () {
   );
 
   it(
+    'testando rota POST /pieces, mas sem o name no corpo da requisição',
+    async function () {
+      sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
+
+      const { status, body } = await chai.request(app).post('/pieces')
+        .set('Authorization', bearer);
+
+      expect(status).to.be.equal(400);
+      expect(body).to.be.deep.equal(
+        { message: 'Para cadastrar uma nova peça precisa ter pelo menos 4 caracteres' },
+      );
+    },
+  );
+
+  it(
     'testando rota DELETE /pieces',
     async function () {
-      // sinon.stub(SequelizePiece, 'findOne').resolves(null as any);
       sinon.stub(SequelizePiece, 'destroy').resolves(1 as number);
       sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
@@ -96,18 +109,45 @@ describe('testando rota de peças', function () {
   );
 
   it(
+    'testando rota DELETE /pieces, mas com peça inexistente',
+    async function () {
+      sinon.stub(SequelizePiece, 'destroy').resolves(0 as number);
+      sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
+
+      const { status, body } = await chai.request(app).delete('/pieces/1')
+        .set('Authorization', bearer);
+
+      expect(status).to.be.equal(400);
+      expect(body).to.be.deep.equal({ message: 'Peça não encontrada' });
+    },
+  );
+
+  it(
     'testando rota PATCH /pieces',
     async function () {
-      // sinon.stub(SequelizePiece, 'findOne').resolves(null as any);
       sinon.stub(SequelizePiece, 'update').resolves([1] as [number]);
       sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
       const { status, body } = await chai.request(app).patch('/pieces')
-        .send({ id: 2, name: 'filtro de ar' })
+        .send({ id: 2, name: 'cabeçote' })
         .set('Authorization', bearer);
 
       expect(status).to.be.equal(200);
-      expect(body).to.be.deep.equal({ id: 2, name: 'filtro de ar' });
+      expect(body).to.be.deep.equal({ id: 2, name: 'cabeçote' });
+    },
+  );
+  it(
+    'testando rota PATCH /pieces, mas com peça inexistente',
+    async function () {
+      sinon.stub(SequelizePiece, 'update').resolves([0] as [number]);
+      sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
+
+      const { status, body } = await chai.request(app).patch('/pieces')
+        .send({ id: 2, name: 'filtro de oleo' })
+        .set('Authorization', bearer);
+
+      expect(status).to.be.equal(400);
+      expect(body).to.be.deep.equal({ message: 'Peça não encontrada' });
     },
   );
 });
