@@ -24,6 +24,7 @@ export default function mapStatusHTTP(status: string): number {
     case 'NOT_FOUND': return 404;
     case 'CONFLICT': return 409;
     case 'UNPROCESSABLE': return 422;
+    case 'FORBIDDEN': return 403;
     default: return 500;
   }
 }
