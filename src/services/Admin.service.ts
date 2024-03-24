@@ -32,7 +32,6 @@ export default class AdminService {
       return { status: 'UNAUTHORIZED', data: { message: 'Email ou Senha incorretos.' } };
     }
     const token = jwt.sign({ email, password }, KEY as string, { expiresIn: '1d' });
-    console.log(result);
 
     return { status: 'SUCCESSFUL', data: { token } };
   }
