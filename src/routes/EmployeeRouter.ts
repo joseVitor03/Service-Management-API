@@ -28,7 +28,7 @@ employeeRouter.patch(
   '/employee',
   Validate.validateToken,
   Validate.validateUpdateEmployee,
-  (req: Request, res: Response) => employeeController.removeEmployee(req, res),
+  (req: Request, res: Response) => employeeController.updateEmployee(req, res),
 );
 
 export default employeeRouter;

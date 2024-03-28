@@ -14,8 +14,7 @@ export default class EmployeeModel implements IEmployeeModel {
     return result;
   }
 
-  async updateEmployee(employee: IEmployee): Promise<number> {
-    const { id, name } = employee;
+  async updateEmployee({ id, name }: IEmployee): Promise<number> {
     const [result] = await this.model.update({ name }, { where: { id } });
     return result;
   }
