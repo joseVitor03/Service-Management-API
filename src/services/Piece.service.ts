@@ -23,7 +23,7 @@ export default class PieceService {
   async deletePiece(id: number): Promise<ServiceResponse<{ message: string }>> {
     const result = await this.pieceModel.deletePiece(id);
     if (result === 0) {
-      return { status: 'INVALID_DATA', data: { message: 'Peça não encontrada' } };
+      return { status: 'NOT_FOUND', data: { message: 'Peça não encontrada' } };
     }
     return { status: 'SUCCESSFUL', data: { message: 'Peça excluída com sucesso.' } };
   }
