@@ -79,4 +79,27 @@ export default class Validate {
       return res.status(403).json({ message: 'Token incorreto ou expirado' });
     }
   }
+
+  static validateInsertEmployee(req: Request, res: Response, next: NextFunction) {
+    const { name } = req.body;
+    if (!name) {
+      return res.status(400).json({ message: ' "name" são obrigatórios' });
+    }
+    if (name.length < 3) {
+      return res.status(400).json({ message: '"name" precisa ter pelo menos 3 caracteres' });
+    }
+    next();
+  }
+
+  static validateUpdateEmployee(req: Request, res: Response, next: NextFunction) {
+    const { id, name } = req.body;
+    if (!id || !name) {
+      return res.status(400).json({ message: '"id" e "name" são obrigatórios' });
+    }
+    if (name.length < 3) {
+      return res.status(400).json({ message: '"name" precisa ter pelo menos 3 caracteres' });
+    }
+
+    next();
+  }
 }
