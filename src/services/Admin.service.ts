@@ -39,7 +39,7 @@ export default class AdminService {
   async deleteAdmin({ email }: { email: string }): Promise<ServiceResponse<{ message: string }>> {
     const result = await this.adminModel.deleteAdmin({ email });
     if (result === 0) {
-      return { status: 'INVALID_DATA', data: { message: 'Admin não encontrado.' } };
+      return { status: 'NOT_FOUND', data: { message: 'Admin não encontrado.' } };
     }
     return { status: 'SUCCESSFUL', data: { message: 'Admin removido do sucesso' } };
   }

@@ -31,7 +31,7 @@ export default class PieceService {
   async updatePiece({ id, name }: { id: number, name: string }): Promise<ServiceResponse<IPieces>> {
     const result = await this.pieceModel.updatePiece({ id, name: name.toUpperCase() });
     if (result === 0) {
-      return { status: 'INVALID_DATA', data: { message: 'Peça não encontrada' } };
+      return { status: 'NOT_FOUND', data: { message: 'Peça não encontrada' } };
     }
     return { status: 'SUCCESSFUL', data: { id, name } };
   }
