@@ -109,7 +109,7 @@ describe('testando rotas de admin', function () {
       { email: 'email@gmail.com' },
     ).set('Authorization', bearer);
 
-    expect(status).to.be.equal(400);
+    expect(status).to.be.equal(404);
     expect(body).to.be.deep.equal({ message: 'Admin não encontrado.' });
   });
 });
