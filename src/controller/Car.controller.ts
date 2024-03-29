@@ -24,11 +24,8 @@ export default class CarController {
 
   async findCar(req: Request, res: Response) {
     const { name } = req.query;
-    if (typeof name === 'string') {
-      const { status, data } = await this.carService.findCar(name);
-      return res.status(mapStatusHTTP(status)).json(data);
-    }
-    return res.status(400).json({ message: 'Bad Request' });
+    const { status, data } = await this.carService.findCar(name as string);
+    return res.status(mapStatusHTTP(status)).json(data);
   }
 
   async updateCar(req: Request, res: Response) {
