@@ -23,12 +23,12 @@ describe('testando rotas de admin', function () {
     sinon.stub(SequelizeAdmin, 'findOne').resolves({
       id: 1,
       email: 'jv681033@gmail.com',
-      password: 'senha',
+      password: 'senhA@12',
     } as any);
     sinon.stub(bcrypt, 'compare').resolves(true);
     sinon.stub(jwt, 'sign').returns('any' as any);
     const { status, body } = await chai.request(app).post('/login').send(
-      { email: 'any', password: 'senha' },
+      { email: 'any@gmail.com', password: 'senhA@12' },
     );
 
     expect(status).to.be.equal(200);
@@ -38,7 +38,7 @@ describe('testando rotas de admin', function () {
   it('testando rota POST /login, mas não possui este admin', async function () {
     sinon.stub(SequelizeAdmin, 'findOne').resolves(null as null);
     const { status, body } = await chai.request(app).post('/login').send(
-      { email: 'any', password: 'senha' },
+      { email: 'any@gmail.com', password: 'senhA@12' },
     );
 
     expect(status).to.be.equal(401);
@@ -49,12 +49,12 @@ describe('testando rotas de admin', function () {
     sinon.stub(SequelizeAdmin, 'findOne').resolves({
       id: 1,
       email: 'jv681033@gmail.com',
-      password: 'senha',
+      password: 'senhaS@12',
     } as any);
     sinon.stub(bcrypt, 'compare').resolves(false);
 
     const { status, body } = await chai.request(app).post('/login').send(
-      { email: 'any', password: 'senha' },
+      { email: 'any1@gmail.com', password: 'senhaA@12' },
     );
 
     expect(status).to.be.equal(401);
