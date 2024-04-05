@@ -11,11 +11,9 @@ export default class Validate {
     const { name, brand, year } = req.body;
     const currentYear = new Date().getFullYear();
     if (!name || !brand || !year) {
-      return res.status(400).json({ message: 'Informação incompleta.' });
+      return res.status(400).json({ message: '"name", "brand" e "year" são obrigatórios.' });
     }
     if (name.length < 2 || !brandCars.includes(brand) || year > currentYear) {
-      console.log(!brandCars.includes(brand));
-
       return res.status(400).json({ message: 'Dados incorretos.' });
     }
     next();
@@ -23,7 +21,10 @@ export default class Validate {
 
   static validatePiece(req: Request, res: Response, next:NextFunction) {
     const { id, name } = req.body;
-    if (!id || !name || typeof name !== 'string' || name.length < 4) {
+    if (!id || !name) {
+      return res.status(400).json({ message: '"id" e "name" são obrigatórios' });
+    }
+    if (typeof name !== 'string' || name.length < 4) {
       return res.status(400).json(
         { message: 'Para cadastrar uma nova peça precisa ter pelo menos 4 caracteres' },
       );
@@ -35,7 +36,7 @@ export default class Validate {
     const { email } = req.body;
 
     if (!email) {
-      return res.status(400).json({ message: '"email" ou "senha" são obrigatórios' });
+      return res.status(400).json({ message: '"email" são obrigatórios' });
     }
 
     if (!email.match(REGEXEMAIL)) {
@@ -83,7 +84,7 @@ export default class Validate {
   static validateInsertEmployee(req: Request, res: Response, next: NextFunction) {
     const { name } = req.body;
     if (!name) {
-      return res.status(400).json({ message: ' "name" são obrigatórios' });
+      return res.status(400).json({ message: ' "name" é obrigatório' });
     }
     if (name.length < 3) {
       return res.status(400).json({ message: '"name" precisa ter pelo menos 3 caracteres' });

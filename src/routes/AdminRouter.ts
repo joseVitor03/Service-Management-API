@@ -20,8 +20,8 @@ adminRouter.post(
 
 adminRouter.delete(
   '/admin',
-  Validate.validateToken,
   Validate.ValidateEmail,
+  Validate.validateToken,
   (req: Request, res: Response) => adminController.deleteAdmin(req, res),
 );
 export default adminRouter;
