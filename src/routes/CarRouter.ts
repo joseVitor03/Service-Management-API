@@ -19,22 +19,22 @@ carsRouter.get(
 
 carsRouter.post(
   '/cars',
-  Validate.validateCar,
   Validate.validateToken,
+  Validate.validateCar,
   (req: Request, res: Response) => carController.insertCar(req, res),
 );
 
 carsRouter.patch(
   '/cars',
+  // Validate.validateToken,
   Validate.validateCar,
-  Validate.validateToken,
   (req: Request, res: Response) => carController.updateCar(req, res),
 );
 
 carsRouter.delete(
   '/cars',
-  Validate.validateCar,
   Validate.validateToken,
+  Validate.validateCar,
   (req: Request, res: Response) => carController.removeCar(req, res),
 );
 

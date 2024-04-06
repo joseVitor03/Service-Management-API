@@ -29,8 +29,8 @@ pieceRouter.delete(
 
 pieceRouter.patch(
   '/pieces',
-  Validate.validatePiece,
   Validate.validateToken,
+  Validate.validatePiece,
   (req: Request, res: Response) => pieceController.updatePiece(req, res),
 );
 export default pieceRouter;

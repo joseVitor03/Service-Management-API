@@ -103,4 +103,46 @@ export default class Validate {
 
     next();
   }
+
+  static validateFindClient(req: Request, res: Response, next: NextFunction) {
+    const { name, plate } = req.body;
+    if (!name || !plate) {
+      return res.status(400).json({ message: '"name" e "plate" são obrigatórios.' });
+    }
+    next();
+  }
+
+  static validateUpdateClient(req: Request, res: Response, next: NextFunction) {
+    const REGEXPLATE = /^[a-zA-Z]{3}[0-9][A-Za-z0-9][0-9]{2}$/g;
+
+    const { id, name, phone, plate, carId, color } = req.body;
+    if (!id || !name || !phone || !plate || !carId || !color) {
+      return res.status(400).json({
+        message: '"id", "name", "phone", "plate", "carId", "color" são obrigatórios.',
+      });
+    }
+    if (name.length < 3 || !plate.match(REGEXPLATE) || phone.length !== 11 || color.length < 4) {
+      return res.status(400).json({
+        message: 'Algum dos dados enviados estão estão com o formato incorreto.',
+      });
+    }
+    next();
+  }
+
+  static validateInsertClient(req: Request, res: Response, next: NextFunction) {
+    const REGEXPLATE = /^[a-zA-Z]{3}[0-9][A-Za-z0-9][0-9]{2}$/g;
+
+    const { name, phone, plate, carId, color } = req.body;
+    if (!name || !phone || !plate || !carId || !color) {
+      return res.status(400).json({
+        message: '"name", "phone", "plate", "carId", "color" são obrigatórios.',
+      });
+    }
+    if (name.length < 3 || !plate.match(REGEXPLATE) || phone.length !== 11 || color.length < 4) {
+      return res.status(400).json({
+        message: 'Algum dos dados enviados estão estão com o formato incorreto.',
+      });
+    }
+    next();
+  }
 }

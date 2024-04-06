@@ -14,12 +14,14 @@ clientRouter.get(
 clientRouter.get(
   '/clients/findClient',
   Validate.validateToken,
+  Validate.validateFindClient,
   (req: Request, res: Response) => clientController.findClient(req, res),
 );
 
 clientRouter.post(
   '/clients',
   Validate.validateToken,
+  Validate.validateInsertClient,
   (req: Request, res: Response) => clientController.inserClient(req, res),
 );
 
@@ -32,6 +34,7 @@ clientRouter.delete(
 clientRouter.patch(
   '/clients',
   Validate.validateToken,
+  Validate.validateUpdateClient,
   (req: Request, res: Response) => clientController.updateClient(req, res),
 );
 

@@ -7,8 +7,8 @@ const employeeController = new EmployeeController();
 
 employeeRouter.post(
   '/employee',
-  Validate.validateInsertEmployee,
   Validate.validateToken,
+  Validate.validateInsertEmployee,
   (req: Request, res: Response) => employeeController.insertEmployee(req, res),
 );
 
@@ -26,8 +26,8 @@ employeeRouter.delete(
 
 employeeRouter.patch(
   '/employee',
-  Validate.validateUpdateEmployee,
   Validate.validateToken,
+  Validate.validateUpdateEmployee,
   (req: Request, res: Response) => employeeController.updateEmployee(req, res),
 );
 
