@@ -14,7 +14,7 @@ export default class ClientService {
   async findClient({ name, plate }: { name: string, plate: string }):
   Promise<ServiceResponse<IClient[]>> {
     const result = await this.clientModel.findClient({ name, plate });
-    if (!result) {
+    if (result.length === 0) {
       return { status: 'NOT_FOUND', data: { message: 'cliente não encontrado.' } };
     }
     return { status: 'SUCCESSFUL', data: result };
@@ -34,11 +34,10 @@ export default class ClientService {
     if (!car.find((c) => c.id === carId)) {
       return { status: 'NOT_FOUND', data: { message: 'carro inexistente' } };
     }
-    const foundClient = await this.findClient({ name, plate });
-    if (foundClient.status === 'NOT_FOUND') {
-      return { status: 'NOT_FOUND', data: foundClient.data };
+    const [result] = await this.clientModel.updateClient({ id, name, phone, plate, carId, color });
+    if (result === 0) {
+      return { status: 'NOT_FOUND', data: { message: 'cliente inexistente.' } };
     }
-    await this.clientModel.updateClient({ id, name, phone, plate, carId, color });
     return { status: 'SUCCESSFUL', data: client };
   }
 

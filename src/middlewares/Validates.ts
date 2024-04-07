@@ -106,8 +106,8 @@ export default class Validate {
 
   static validateFindClient(req: Request, res: Response, next: NextFunction) {
     const { name, plate } = req.body;
-    if (!name || !plate) {
-      return res.status(400).json({ message: '"name" e "plate" são obrigatórios.' });
+    if (!name && !plate) {
+      return res.status(400).json({ message: '"name" ou "plate" são obrigatórios.' });
     }
     next();
   }

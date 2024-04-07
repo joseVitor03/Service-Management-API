@@ -13,7 +13,9 @@ export default class ClientModel implements IClientModel {
       phone,
       plate,
       carId,
-      color } });
+      color },
+    include: { model: SequelizeCar, as: 'car' },
+    attributes: { exclude: ['carId'] } });
     return result;
   }
 
@@ -27,6 +29,8 @@ export default class ClientModel implements IClientModel {
           [Op.like]: `%${plate}%`,
         },
       },
+      include: { model: SequelizeCar, as: 'car' },
+      attributes: { exclude: ['carId'] },
     });
     return result;
   }

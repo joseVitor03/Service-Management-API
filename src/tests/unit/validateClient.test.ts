@@ -21,7 +21,7 @@ describe('testando validateFindClient e validateUpdateClient', function () {
       .set('Authorization', bearer);
 
     expect(status).to.be.equal(400);
-    expect(body).to.be.eqls({ message: '"name" e "plate" são obrigatórios.' });
+    expect(body).to.be.eqls({ message: '"name" ou "plate" são obrigatórios.' });
   });
 
   it('testando validateUpdateClient. com a plate em formato inválido', async function () {
