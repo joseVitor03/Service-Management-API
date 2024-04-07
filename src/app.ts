@@ -2,6 +2,8 @@ import express from 'express';
 import carsRouter from './routes/CarRouter';
 import pieceRouter from './routes/PieceRouter';
 import adminRouter from './routes/AdminRouter';
+import employeeRouter from './routes/EmployeeRouter';
+import clientRouter from './routes/ClientRouter';
 
 class App {
   public app: express.Express;
@@ -32,6 +34,8 @@ class App {
     this.app.use(carsRouter);
     this.app.use(pieceRouter);
     this.app.use(adminRouter);
+    this.app.use(employeeRouter);
+    this.app.use(clientRouter);
   }
 
   public start(PORT: string | number): void {

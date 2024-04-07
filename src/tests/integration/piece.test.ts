@@ -117,7 +117,7 @@ describe('testando rota de peças', function () {
       const { status, body } = await chai.request(app).delete('/pieces/1')
         .set('Authorization', bearer);
 
-      expect(status).to.be.equal(400);
+      expect(status).to.be.equal(404);
       expect(body).to.be.deep.equal({ message: 'Peça não encontrada' });
     },
   );
@@ -146,7 +146,7 @@ describe('testando rota de peças', function () {
         .send({ id: 2, name: 'filtro de oleo' })
         .set('Authorization', bearer);
 
-      expect(status).to.be.equal(400);
+      expect(status).to.be.equal(404);
       expect(body).to.be.deep.equal({ message: 'Peça não encontrada' });
     },
   );

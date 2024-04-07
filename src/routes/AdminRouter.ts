@@ -12,7 +12,11 @@ adminRouter.post(
   (req: Request, res: Response) => adminController.insertAdmin(req, res),
 );
 
-adminRouter.post('/login', (req: Request, res: Response) => adminController.loginAdmin(req, res));
+adminRouter.post(
+  '/login',
+  Validate.ValidateEmailAndPassword,
+  (req: Request, res: Response) => adminController.loginAdmin(req, res),
+);
 
 adminRouter.delete(
   '/admin',
