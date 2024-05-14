@@ -153,6 +153,12 @@
       "rules": {
         "max-lines-per-function": "off"
       }
+    },
+    {
+      "files": ["src/database/seeders/*.ts"],
+      "rules": {
+        "@typescript-eslint/naming-convention": "off"
+      }
     }
   ]
 }

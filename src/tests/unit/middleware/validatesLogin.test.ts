@@ -1,7 +1,7 @@
 import chai from 'chai';
 import chaiHttp = require('chai-http');
 // @ts-check
-import App from '../../app';
+import App from '../../../app';
 
 chai.use(chaiHttp);
 
@@ -36,4 +36,18 @@ describe('testando as validações da rota /login', function () {
     expect(status).to.be.equal(400);
     expect(body).to.be.eqls({ message: 'A senha deve ter pelo menos 8 caracteres' });
   });
+
+  it(
+    'testando com email em formato correto, mas senha não tenha letra maiúscula',
+    async function () {
+      const { status, body } = await chai.request(app).post('/login').send({
+        email: 'jv1@gmail.com',
+        password: '1234567@a',
+      });
+
+      expect(status).to.be.equal(400);
+      expect(body).to.be.eqls({ message: `A senha deve conter pelo menos uma letra maiúscula,
+      uma letra minúscula e um caractere especial` });
+    },
+  );
 });

@@ -3,6 +3,8 @@ import carsRouter from './routes/CarRouter';
 import pieceRouter from './routes/PieceRouter';
 import adminRouter from './routes/AdminRouter';
 import employeeRouter from './routes/EmployeeRouter';
+import clientRouter from './routes/ClientRouter';
+import serviceRouter from './routes/ServiceRouter';
 
 class App {
   public app: express.Express;
@@ -34,6 +36,8 @@ class App {
     this.app.use(pieceRouter);
     this.app.use(adminRouter);
     this.app.use(employeeRouter);
+    this.app.use(clientRouter);
+    this.app.use(serviceRouter);
   }
 
   public start(PORT: string | number): void {

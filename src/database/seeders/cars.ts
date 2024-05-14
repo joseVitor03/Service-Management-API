@@ -8,6 +8,11 @@ export default {
         year: 2020,
         brand: 'HONDA',
       },
+      {
+        name: 'PALIO',
+        year: 2015,
+        brand: 'FIAT',
+      },
     ], {});
   },
   down: async (queryInterface: QueryInterface) => {
