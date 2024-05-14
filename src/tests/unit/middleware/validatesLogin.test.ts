@@ -1,7 +1,7 @@
 import chai from 'chai';
 import chaiHttp = require('chai-http');
 // @ts-check
-import App from '../../app';
+import App from '../../../app';
 
 chai.use(chaiHttp);
 

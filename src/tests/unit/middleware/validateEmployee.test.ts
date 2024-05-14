@@ -3,7 +3,7 @@ import chaiHttp = require('chai-http');
 // @ts-check
 import jwt from 'jsonwebtoken';
 import sinon from 'sinon';
-import App from '../../app';
+import App from '../../../app';
 
 chai.use(chaiHttp);
 
