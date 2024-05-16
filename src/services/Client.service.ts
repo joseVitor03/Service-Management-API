@@ -29,12 +29,17 @@ export default class ClientService {
   }
 
   async updateClient(client: IClient): Promise<ServiceResponse<IClient>> {
-    const { id, name, phone, plate, carId, color } = client;
+    const { id, name, phone, plate, carId, carColor } = client;
     const car = await this.carModel.listCars();
     if (!car.find((c) => c.id === carId)) {
       return { status: 'NOT_FOUND', data: { message: 'carro inexistente' } };
     }
-    const [result] = await this.clientModel.updateClient({ id, name, phone, plate, carId, color });
+    const [result] = await this.clientModel.updateClient({ id,
+      name,
+      phone,
+      plate,
+      carId,
+      carColor });
     if (result === 0) {
       return { status: 'NOT_FOUND', data: { message: 'cliente inexistente.' } };
     }

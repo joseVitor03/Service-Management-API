@@ -5,7 +5,7 @@ export const mockListClients = [
     id: 1,
     name: 'Fulano',
     phone: '12345-6789',
-    color: 'Azul',
+    carColor: 'Azul',
     plate: 'ABC-1B23',
     car: {
       id: 1,
@@ -18,7 +18,7 @@ export const mockListClients = [
     id: 2,
     name: 'Ciclano',
     phone: '98765-4321',
-    color: 'Vermelho',
+    carColor: 'Vermelho',
     plate: 'XYZ-9A87',
     car: null,
   },
@@ -29,7 +29,7 @@ export const mockFindClient = [
     id: 1,
     name: 'Fulano',
     phone: '12345-6789',
-    color: 'Azul',
+    carColor: 'Azul',
     plate: 'ABC-1B23',
     car: {
       id: 1,
@@ -44,7 +44,7 @@ export const mockInsertClient = {
   id: 3,
   name: 'Vitor',
   phone: '61998227449',
-  color: 'PRATA',
+  carColor: 'PRATA',
   plate: 'MCH1B23',
   car: {
     id: 1,
@@ -60,5 +60,5 @@ export const mockUpdateClient = {
   phone: '61998227449',
   plate: 'MCH1A24',
   carId: 1,
-  color: 'PRATA',
+  carColor: 'PRATA',
 };

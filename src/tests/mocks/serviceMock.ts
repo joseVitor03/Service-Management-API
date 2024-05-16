@@ -11,7 +11,7 @@ export const listServiceMock = [
       id: 1,
       name: 'Fulano',
       phone: '12345-6789',
-      color: 'Azul',
+      carColor: 'Azul',
       plate: 'ABC-1B23',
       car: {
         id: 1,
@@ -30,7 +30,7 @@ export const listServiceMock = [
       id: 2,
       name: 'Ciclano',
       phone: FONE_EXAMPLE,
-      color: 'Vermelho',
+      carColor: 'Vermelho',
       plate: 'XYZ-9A87',
       car: {
         id: 2,
@@ -52,7 +52,7 @@ export const findServiceMockDataService = [
       id: 2,
       name: 'Ciclano',
       phone: FONE_EXAMPLE,
-      color: 'Vermelho',
+      carColor: 'Vermelho',
       plate: 'XYZ-9A87',
       car: {
         id: 2,
@@ -81,7 +81,7 @@ export const findServiceMockPieceService = [
         id: 2,
         name: 'Ciclano',
         phone: FONE_EXAMPLE,
-        color: 'Vermelho',
+        carColor: 'Vermelho',
         plate: 'XYZ-9A87',
         car: {
           id: 2,
@@ -108,7 +108,7 @@ export const findServiceMockPieceService = [
         id: 2,
         name: 'Ciclano',
         phone: FONE_EXAMPLE,
-        color: 'Vermelho',
+        carColor: 'Vermelho',
         plate: 'XYZ-9A87',
         car: {
           id: 2,
@@ -165,7 +165,7 @@ export const finalFindServiceResult = {
       id: 2,
       name: 'Ciclano',
       phone: FONE_EXAMPLE,
-      color: 'Vermelho',
+      carColor: 'Vermelho',
       plate: 'XYZ-9A87',
       car: {
         id: 2,

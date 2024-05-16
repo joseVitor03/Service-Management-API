@@ -22,15 +22,15 @@ export default {
         field: 'car_id',
         allowNull: false,
       },
-      color: {
+      carColor: {
         type: DataTypes.STRING,
+        field: 'car_color',
         allowNull: false,
       },
       plate: {
         type: DataTypes.STRING,
         allowNull: false,
-      },
-    });
+      } });
   },
   down(queryInterface: QueryInterface) {
     return queryInterface.dropTable('clients');

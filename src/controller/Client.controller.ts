@@ -23,24 +23,25 @@ export default class ClientController {
   }
 
   async updateClient(req: Request, res: Response) {
-    const { id, name, phone, plate, carId, color } = req.body;
-    const { status, data } = await this.clientService.updateClient({ id,
+    const { id } = req.params;
+    const { name, phone, plate, carId, carColor } = req.body;
+    const { status, data } = await this.clientService.updateClient({ id: Number(id),
       name,
       phone,
       plate,
       carId,
-      color });
+      carColor });
     return res.status(mapStatusHTTP(status)).json(data);
   }
 
   async inserClient(req: Request, res: Response) {
-    const { name, phone, plate, carId, color } = req.body;
+    const { name, phone, plate, carId, carColor } = req.body;
 
     const { status, data } = await this.clientService.insertClient({ name,
       phone,
       plate,
       carId,
-      color });
+      carColor });
     return res.status(mapStatusHTTP(status)).json(data);
   }
 }

@@ -24,7 +24,7 @@ carsRouter.post(
   (req: Request, res: Response) => carController.insertCar(req, res),
 );
 
-carsRouter.patch(
+carsRouter.put(
   '/cars',
   // Validate.validateToken,
   Validate.validateCar,

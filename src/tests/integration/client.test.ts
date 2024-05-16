@@ -72,67 +72,64 @@ describe('testando rotas client', function () {
         carId: 1,
         plate: 'MCH1B23',
         phone: '61998227449',
-        color: 'PRATA',
+        carColor: 'PRATA',
       });
 
     expect(status).to.be.equal(201);
     expect(body).to.be.eqls(mockInsertClient);
   });
 
-  it('PATCH /clients, atualizando client', async function () {
+  it('PUT /clients, atualizando client', async function () {
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
     sinon.stub(SequelizeClient, 'update').resolves([1] as any);
     sinon.stub(SequelizeCar, 'findAll').resolves(mockCars as any);
 
-    const { status, body } = await chai.request(app).patch('/clients')
+    const { status, body } = await chai.request(app).put('/clients/2')
       .set('Authorization', bearer)
       .send({
-        id: 2,
         name: 'Fbio',
         carId: 1,
         plate: 'MCH1A24',
         phone: '61998227449',
-        color: 'PRATA',
+        carColor: 'PRATA',
       });
 
     expect(status).to.be.equal(200);
     expect(body).to.be.eqls(mockUpdateClient);
   });
 
-  it('PATCH /clients, caso não exista o carId', async function () {
+  it('PUT /clients, caso não exista o carId', async function () {
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
     sinon.stub(SequelizeClient, 'update').resolves([1] as any);
     sinon.stub(SequelizeCar, 'findAll').resolves([]);
 
-    const { status, body } = await chai.request(app).patch('/clients')
+    const { status, body } = await chai.request(app).put('/clients/3')
       .set('Authorization', bearer)
       .send({
-        id: 2,
         name: 'Fbio',
         carId: 6,
         plate: 'MCH1A24',
         phone: '61998227449',
-        color: 'PRATA',
+        carColor: 'PRATA',
       });
 
     expect(status).to.be.equal(404);
     expect(body).to.be.eqls({ message: 'carro inexistente' });
   });
 
-  it('PATCH /clients, caso não exista o cliente', async function () {
+  it('PUT /clients, caso não exista o cliente', async function () {
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
     sinon.stub(SequelizeClient, 'update').resolves([0] as any);
     sinon.stub(SequelizeCar, 'findAll').resolves(mockCars as any);
 
-    const { status, body } = await chai.request(app).patch('/clients')
+    const { status, body } = await chai.request(app).put('/clients/2')
       .set('Authorization', bearer)
       .send({
-        id: 2,
         name: 'Fbio',
         carId: 1,
         plate: 'MCH1A24',
         phone: '61998227449',
-        color: 'PRATA',
+        carColor: 'PRATA',
       });
 
     expect(status).to.be.equal(404);

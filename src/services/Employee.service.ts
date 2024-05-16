@@ -1,6 +1,8 @@
+import { EmployeeProductivityType, TypedEmployeeProductivity } from '../interfaces/IEmployeeModel';
 import IEmployee from '../interfaces/databaseModels/IEmployee';
 import EmployeeModel from '../models/EmployeeModel';
 import { ServiceResponse } from '../utils/mapStatusHTTP';
+import simplifyProductivityByDate from '../utils/simplifyProductivityByDate';
 
 export default class EmployeeService {
   constructor(private employeeModel = new EmployeeModel()) {}
@@ -29,5 +31,16 @@ export default class EmployeeService {
       return { status: 'NOT_FOUND', data: { message: 'funcionário não encontrado.' } };
     }
     return { status: 'SUCCESSFUL', data: { id, name } };
+  }
+
+  async employeeProductivityByDate(data: { dateInitial: string; dateFinal: string; id: string }):
+  Promise<ServiceResponse<EmployeeProductivityType[]>> {
+    const result = await this.employeeModel.employeeProductivityByDate(data);
+    if (result.length === 0) {
+      return { status: 'NOT_FOUND', data: { message: 'nenhum serviço' } };
+    }
+    const resultFinal = simplifyProductivityByDate(result as
+      unknown as TypedEmployeeProductivity[]);
+    return { status: 'SUCCESSFUL', data: resultFinal };
   }
 }
