@@ -1,6 +1,7 @@
 import { Request, Response, Router } from 'express';
 import EmployeeController from '../controller/Employee.controller';
 import Validate from '../middlewares/Validates';
+import ValidateService from '../middlewares/ValidateService';
 
 const employeeRouter = Router();
 const employeeController = new EmployeeController();
@@ -16,6 +17,13 @@ employeeRouter.get(
   '/employee',
   Validate.validateToken,
   (req: Request, res: Response) => employeeController.listEmployees(req, res),
+);
+
+employeeRouter.get(
+  '/employee/services/:id',
+  Validate.validateToken,
+  ValidateService.validateDateService,
+  (req: Request, res: Response) => employeeController.employeeProductivityByDate(req, res),
 );
 
 employeeRouter.delete(

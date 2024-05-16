@@ -7,13 +7,14 @@ import { IClient } from '../interfaces/databaseModels/IClient';
 export default class ClientModel implements IClientModel {
   constructor(private model = SequelizeClient) {}
 
-  async insertClient({ name, phone, plate, color, carId }: Omit<IClient, 'id'>): Promise<IClient> {
+  async insertClient({ name, phone, plate, carColor, carId }: Omit<IClient, 'id'>):
+  Promise<IClient> {
     const [result] = await this.model.findOrCreate({ where: {
       name,
       phone,
       plate,
       carId,
-      color },
+      carColor },
     include: { model: SequelizeCar, as: 'car' },
     attributes: { exclude: ['carId'] } });
     return result;
@@ -41,8 +42,12 @@ export default class ClientModel implements IClientModel {
   }
 
   async updateClient(client: IClient): Promise<[number]> {
-    const { id, name, phone, plate, carId, color } = client;
-    const result = await this.model.update({ name, phone, plate, carId, color }, { where: { id } });
+    const { id, name, phone, plate, carId, carColor } = client;
+    const result = await this.model.update({ name,
+      phone,
+      plate,
+      carId,
+      carColor }, { where: { id } });
     return result;
   }
 

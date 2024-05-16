@@ -13,7 +13,7 @@ InferCreationAttributes<SequelizeClient>> {
 
   declare carId: number;
 
-  declare color: string;
+  declare carColor: string;
 
   declare plate: string;
 }
@@ -37,8 +37,9 @@ SequelizeClient.init({
     field: 'car_id',
     allowNull: false,
   },
-  color: {
+  carColor: {
     type: DataTypes.STRING,
+    field: 'car_color',
     allowNull: false,
   },
   plate: {

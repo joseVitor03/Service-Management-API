@@ -3,6 +3,6 @@ export interface IClient {
   name: string;
   phone: string;
   carId: number;
-  color: string;
+  carColor: string;
   plate: string;
 }

@@ -81,7 +81,7 @@ describe('Cars Test', function () {
     sinon.stub(SequelizeCar, 'update').resolves([1]);
     sinon.stub(jwt, 'verify').returns({ email: 'any', password: 'any' } as any);
 
-    const { status, body } = await chai.request(app).patch('/cars').send(updateCarMock)
+    const { status, body } = await chai.request(app).put('/cars').send(updateCarMock)
       .set('Authorization', bearer);
 
     expect(status).to.be.equal(200);

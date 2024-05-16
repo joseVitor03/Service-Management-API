@@ -38,7 +38,7 @@ interface Client {
   id: number;
   name: string;
   phone: string;
-  color: string;
+  carColor: string;
   plate: string;
   car: Car;
 }
@@ -79,7 +79,7 @@ export interface BasicDataService {
     id: number,
     name: string,
     phone: string,
-    color: string,
+    carColor: string,
     plate: string,
     car: {
       id: number,

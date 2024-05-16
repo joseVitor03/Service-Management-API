@@ -3,7 +3,7 @@ import chai from 'chai';
 import jwt from 'jsonwebtoken';
 import chaiHttp = require('chai-http');
 import SequelizeServices from '../../database/models/SequelizeServices';
-import { finalFindServiceResult, findServiceMockDataService,
+import { finalFindServiceResult,
   findServiceMockEmployee,
   findServiceMockPieceService, listServiceMock } from '../mocks/serviceMock';
 import SequelizeEmployeeServices from '../../database/models/SequelizeEmployeeServices';
@@ -36,12 +36,10 @@ describe('testando rota de services', function () {
     sinon.stub(SequelizePiecesServices, 'findAll')
       .resolves(findServiceMockPieceService as any);
 
-    // sinon.stub(SequelizeServices, 'findAll').resolves(findServiceMockDataService as any);
-
     sinon.stub(SequelizeEmployeeServices, 'findAll')
       .resolves(findServiceMockEmployee as any);
 
-    const { status, body } = await chai.request(app).get('/services/2')
+    const { status, body } = await chai.request(app).get('/services/findService/2')
       .set('Authorization', bearer);
 
     expect(status).to.be.equal(200);

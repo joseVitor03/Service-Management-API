@@ -27,4 +27,13 @@ export default class EmployeeController {
     const { status, data } = await this.employeeService.updateEmployee({ id, name });
     return res.status(mapStatusHTTP(status)).json(data);
   }
+
+  async employeeProductivityByDate(req: Request, res: Response) {
+    const { dateInitial, dateFinal } = req.body;
+    const { id } = req.params;
+    const { status, data } = await this.employeeService
+      .employeeProductivityByDate({ dateInitial, dateFinal, id });
+
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
 }

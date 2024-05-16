@@ -31,8 +31,8 @@ clientRouter.delete(
   (req: Request, res: Response) => clientController.deleteClient(req, res),
 );
 
-clientRouter.patch(
-  '/clients',
+clientRouter.put(
+  '/clients/:id',
   Validate.validateToken,
   Validate.validateUpdateClient,
   (req: Request, res: Response) => clientController.updateClient(req, res),
