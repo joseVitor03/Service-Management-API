@@ -7,6 +7,19 @@ const serviceRouter = Router();
 const serviceController = new ServiceController();
 const SERVICE_ROUTE = '/services';
 
+serviceRouter.delete(
+  `${SERVICE_ROUTE}/:id`,
+  Validate.validateToken,
+  (req: Request, res: Response) => serviceController.deleteService(req, res),
+);
+
+serviceRouter.patch(
+  `${SERVICE_ROUTE}/:id`,
+  Validate.validateToken,
+  ValidateService.validateUpdateStatusService,
+  (req: Request, res: Response) => serviceController.updateStatusService(req, res),
+);
+
 serviceRouter.get(
   `${SERVICE_ROUTE}/client/:clientId`,
   Validate.validateToken,
@@ -27,22 +40,15 @@ serviceRouter.get(
 );
 
 serviceRouter.get(
-  '/services',
+  '/services/paymentStatusFalse',
   Validate.validateToken,
-  (req: Request, res: Response) => serviceController.listServices(req, res),
+  (req: Request, res: Response) => serviceController.listServicesPaymentStatusFalse(req, res),
 );
 
-serviceRouter.delete(
-  `${SERVICE_ROUTE}/:id}`,
+serviceRouter.get(
+  '/services/paymentStatusTrue',
   Validate.validateToken,
-  (req: Request, res: Response) => serviceController.deleteService(req, res),
-);
-
-serviceRouter.patch(
-  `${SERVICE_ROUTE}/:id}`,
-  Validate.validateToken,
-  ValidateService.validateUpdateStatusService,
-  (req: Request, res: Response) => serviceController.updateStatusService(req, res),
+  (req: Request, res: Response) => serviceController.listServicesPaymentStatusTrue(req, res),
 );
 
 serviceRouter.post(

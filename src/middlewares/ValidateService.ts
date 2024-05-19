@@ -11,8 +11,8 @@ export default class ValidateService {
       return res.status(400).json('"employeeServices" ou "pieces" estão no formato incorreto.');
     }
     if (employeeServices.length === 0 && pieces.length === 0) {
-      return res.status(400).json({ message: `O serviço precisa ter peças 
-      ou mão de obra de pelo menos um funcionário` });
+      return res.status(400).json({ message: `O serviço precisa ter ao menos 1 peça
+    ou mão de obra de pelo menos um funcionário` });
     }
     const serviceDate = new Date(date);
     if (serviceDate > currentDate) {

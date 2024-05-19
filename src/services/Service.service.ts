@@ -7,8 +7,13 @@ import simplifyFindService from '../utils/simplifyFindService';
 export default class ServicesService {
   constructor(private serviceModel = new ServiceModel()) {}
 
-  async listServices(): Promise<ServiceResponse<IServices[]>> {
-    const result = await this.serviceModel.findAll();
+  async listServicesPaymentStatusFalse(): Promise<ServiceResponse<IServices[]>> {
+    const result = await this.serviceModel.findAllServicesPaymentStatusFalse();
+    return { status: 'SUCCESSFUL', data: result };
+  }
+
+  async listServicesPaymentStatusTrue(): Promise<ServiceResponse<IServices[]>> {
+    const result = await this.serviceModel.findAllServicesPaymentStatusTrue();
     return { status: 'SUCCESSFUL', data: result };
   }
 
