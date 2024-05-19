@@ -5,7 +5,8 @@ import SequelizeServices from '../database/models/SequelizeServices';
 import SequelizePiecesServices from '../database/models/SequelizePiecesServices';
 
 export default interface IServiceModel {
-  findAll(): Promise<IServices[]>;
+  findAllServicesPaymentStatusFalse(): Promise<IServices[]>;
+  findAllServicesPaymentStatusTrue(): Promise<IServices[]>;
   findService(id: number): Promise<IServiceResult>;
   insertService(data: TypeInsertService): Promise<InsertService>;
   deleteService(id: number): Promise<number>;
@@ -17,8 +18,8 @@ export default interface IServiceModel {
 
 export interface InsertService {
   service: SequelizeServices;
-  pieces: Promise<SequelizePiecesServices>[];
-  employeeServices: Promise<SequelizeEmployeeServices>[];
+  pieces: SequelizePiecesServices[];
+  employeeServices: SequelizeEmployeeServices[];
 
 }
 

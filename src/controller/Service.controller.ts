@@ -5,8 +5,13 @@ import mapStatusHTTP from '../utils/mapStatusHTTP';
 export default class ServiceController {
   constructor(private servicesService = new ServicesService()) {}
 
-  async listServices(_req: Request, res: Response) {
-    const { status, data } = await this.servicesService.listServices();
+  async listServicesPaymentStatusFalse(_req: Request, res: Response) {
+    const { status, data } = await this.servicesService.listServicesPaymentStatusFalse();
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
+  async listServicesPaymentStatusTrue(_req: Request, res: Response) {
+    const { status, data } = await this.servicesService.listServicesPaymentStatusTrue();
     return res.status(mapStatusHTTP(status)).json(data);
   }
 
