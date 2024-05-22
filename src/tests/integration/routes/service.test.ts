@@ -2,16 +2,16 @@ import sinon from 'sinon';
 import chai from 'chai';
 import jwt from 'jsonwebtoken';
 import chaiHttp = require('chai-http');
-import SequelizeServices from '../../database/models/SequelizeServices';
+import SequelizeServices from '../../../database/models/SequelizeServices';
 import { finalFindServiceResult,
   findServiceMockEmployee,
   findServiceMockPieceService, listServiceFalseMock, insertServiceCompleteMock,
   listServiceTrueMock, insertServiceFailedMock,
-  servicesByClientMock } from '../mocks/serviceMock';
-import SequelizeEmployeeServices from '../../database/models/SequelizeEmployeeServices';
-import SequelizePiecesServices from '../../database/models/SequelizePiecesServices';
-import App from '../../app';
-import servicesByDatesMock from '../mocks/serviceMock2';
+  servicesByClientMock } from '../../mocks/serviceMock';
+import SequelizeEmployeeServices from '../../../database/models/SequelizeEmployeeServices';
+import SequelizePiecesServices from '../../../database/models/SequelizePiecesServices';
+import App from '../../../app';
+import servicesByDatesMock from '../../mocks/serviceMock2';
 
 const { app } = new App();
 const { expect } = chai;

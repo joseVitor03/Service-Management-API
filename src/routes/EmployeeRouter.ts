@@ -20,7 +20,7 @@ employeeRouter.get(
 );
 
 employeeRouter.get(
-  '/employee/services/:id',
+  '/employee/services/:employeeId',
   Validate.validateToken,
   ValidateService.validateDateService,
   (req: Request, res: Response) => employeeController.employeeProductivityByDate(req, res),
