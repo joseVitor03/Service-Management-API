@@ -29,7 +29,7 @@ export const insertServiceCompleteMock = {
   employeeServices: [{
     labor: 600,
     employeeId: 2,
-    description: '',
+    description: 'null',
   }] };
 
 export const insertServiceFailedMock = {

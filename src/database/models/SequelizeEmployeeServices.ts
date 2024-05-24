@@ -9,8 +9,8 @@ class SequelizeEmployeeServices extends Model<InferAttributes<SequelizeEmployeeS
 InferCreationAttributes<SequelizeEmployeeServices>> {
   declare serviceId: number;
   declare employeeId: number;
-  declare labor: number;
-  declare description: string;
+  declare labor: number | null;
+  declare description: string | null;
 }
 
 SequelizeEmployeeServices.init({
