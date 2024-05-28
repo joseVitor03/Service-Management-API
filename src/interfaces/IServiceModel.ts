@@ -68,7 +68,7 @@ export interface Pieces {
 export type EmployeeService = {
   labor: number,
   employeeId: number,
-  description: string
+  description: string | null
 };
 
 export interface BasicDataService {

@@ -132,15 +132,15 @@ describe('testando rota de services', async function () {
   it('testando rota POST /services', async function () {
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
     sinon.stub(SequelizeServices, 'findOrCreate').resolves([{
-      id: 3, clientId: 2, totalService: '800.00', date: '2024-05-09', paymentStatus: false,
+      id: 3, clientId: 2, totalService: 800, date: '2024-05-09', paymentStatus: false,
     }] as any);
 
     sinon.stub(SequelizeEmployeeServices, 'findOrCreate').resolves([{
-      serviceId: 3, employeeId: 2, labor: '600.00', description: '',
+      serviceId: 3, employeeId: 2, labor: 600.00, description: 'aloo',
     }] as any);
 
     sinon.stub(SequelizePiecesServices, 'findOrCreate').resolves([{
-      serviceId: 3, qtdUnit: 2, pieceId: 2, priceUnit: '100.00',
+      serviceId: 3, qtdUnit: 2, pieceId: 2, priceUnit: 100,
     }] as any);
 
     const { status, body } = await chai.request(app).post('/services')
@@ -157,8 +157,7 @@ describe('testando rota de services', async function () {
       .set('Authorization', bearer).send(insertServiceFailedMock);
 
     expect(status).to.be.equal(400);
-    expect(body).to.be.eqls({ message: `O serviço precisa ter ao menos 1 peça
-    ou mão de obra de pelo menos um funcionário` });
+    expect(body).to.be.eqls({ message: 'Precisa ter dados em "employeeServices"' });
   });
 
   it('testando rota GET /services/client/:id', async function () {
