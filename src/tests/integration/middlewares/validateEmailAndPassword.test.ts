@@ -57,6 +57,6 @@ describe('validateEmailAndPassword Test', function () {
 
     expect(status).to.be.equal(400);
     expect(body).to.be.eqls({ message: `A senha deve conter pelo menos uma letra maiúscula,
-    uma letra minúscula e um caractere especial` });
+    uma letra minúscula, um dígito e um caractere especial` });
   });
 });

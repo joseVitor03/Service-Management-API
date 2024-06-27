@@ -18,6 +18,7 @@ services:
       DB_PORT: ${DB_PORT}
       DB_HOST: ${DB_HOST}
       DB_NAME: ${DB_NAME}
+      FRONT_OFICINA: ${FRONT_OFICINA}
       SALT_ROUNDS: ${SALT_ROUNDS}
     healthcheck:
       test: ["CMD", "lsof", "-t", "-i:3001"] # Caso utilize outra porta interna para o back, altere ela aqui também

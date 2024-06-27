@@ -17,6 +17,12 @@ carsRouter.get(
   (req: Request, res: Response) => carController.findCar(req, res),
 );
 
+carsRouter.get(
+  '/cars/brand',
+  Validate.validateToken,
+  (req: Request, res: Response) => carController.findCarByBrand(req, res),
+);
+
 carsRouter.post(
   '/cars',
   Validate.validateToken,

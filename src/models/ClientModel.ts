@@ -20,6 +20,15 @@ export default class ClientModel implements IClientModel {
     return result;
   }
 
+  async clientById(id: number): Promise<IClient | null> {
+    const result = await this.model.findOne({ where: { id },
+      include: {
+        model: SequelizeCar, as: 'car',
+      } });
+
+    return result;
+  }
+
   async findClient({ name, plate }: { name: string, plate: string }): Promise<IClient[]> {
     const result = await this.model.findAll({
       where: {

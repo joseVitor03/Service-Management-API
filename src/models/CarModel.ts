@@ -29,6 +29,11 @@ export default class CarModel implements ICarModel {
     return result;
   }
 
+  async findCarByBrand(brand: string): Promise<ICar[]> {
+    const result = await this.model.findAll({ where: { brand } });
+    return result;
+  }
+
   async updateCar({ id, name, brand, year }: ICar): Promise<number> {
     const [result] = await this.model.update({ name, brand, year }, { where: { id } });
     return result;

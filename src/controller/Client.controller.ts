@@ -10,6 +10,12 @@ export default class ClientController {
     return res.status(mapStatusHTTP(status)).json(data);
   }
 
+  async clientById(req: Request, res: Response) {
+    const { id } = req.params;
+    const { status, data } = await this.clientService.clientById(Number(id));
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
   async findClient(req: Request, res: Response) {
     const { name, plate } = req.body;
     const { status, data } = await this.clientService.findClient({ name, plate });

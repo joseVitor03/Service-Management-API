@@ -11,6 +11,14 @@ export default class ClientService {
     return { status: 'SUCCESSFUL', data: result };
   }
 
+  async clientById(id: number): Promise<ServiceResponse<IClient>> {
+    const result = await this.clientModel.clientById(id);
+    if (!result) {
+      return { status: 'NOT_FOUND', data: { message: 'cliente não encontrado' } };
+    }
+    return { status: 'SUCCESSFUL', data: result };
+  }
+
   async findClient({ name, plate }: { name: string, plate: string }):
   Promise<ServiceResponse<IClient[]>> {
     const result = await this.clientModel.findClient({ name, plate });

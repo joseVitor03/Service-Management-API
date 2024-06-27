@@ -20,6 +20,10 @@ export default {
       carId: {
         type: DataTypes.INTEGER,
         field: 'car_id',
+        references: {
+          model: 'cars',
+          key: 'id',
+        },
         allowNull: false,
       },
       carColor: {

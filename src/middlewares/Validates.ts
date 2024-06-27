@@ -63,7 +63,7 @@ export default class Validate {
 
     if (!password.match(REGEXPASS)) {
       return res.status(400).json({ message: `A senha deve conter pelo menos uma letra maiúscula,
-    uma letra minúscula e um caractere especial` });
+    uma letra minúscula, um dígito e um caractere especial` });
     }
     next();
   }

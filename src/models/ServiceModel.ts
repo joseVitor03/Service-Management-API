@@ -35,6 +35,7 @@ export default class ServiceModel implements IServiceModel {
           as: 'car',
         }],
       }],
+      order: [['id', 'DESC']],
       attributes: { exclude: ['clientId'] }, // Exclua clientId do resultado principal
     });
     return result;
@@ -60,6 +61,7 @@ export default class ServiceModel implements IServiceModel {
           as: 'car',
         }],
       }],
+      order: [['id', 'DESC']],
       attributes: { exclude: ['clientId'] }, // Exclua clientId do resultado principal
     });
     return result;
