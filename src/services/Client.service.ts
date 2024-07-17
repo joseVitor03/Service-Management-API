@@ -21,7 +21,8 @@ export default class ClientService {
 
   async findClient({ name, plate }: { name: string, plate: string }):
   Promise<ServiceResponse<IClient[]>> {
-    const result = await this.clientModel.findClient({ name, plate });
+    const result = await this.clientModel.findClient({
+      name: name.toLocaleUpperCase(), plate: plate.toLocaleUpperCase() });
 
     if (result.length === 0) {
       return { status: 'NOT_FOUND', data: { message: 'cliente não encontrado.' } };
@@ -44,11 +45,11 @@ export default class ClientService {
       return { status: 'NOT_FOUND', data: { message: 'carro inexistente' } };
     }
     const [result] = await this.clientModel.updateClient({ id,
-      name,
+      name: name.toLocaleUpperCase(),
       phone,
-      plate,
+      plate: plate.toLocaleUpperCase(),
       carId,
-      carColor });
+      carColor: carColor.toLocaleUpperCase() });
     if (result === 0) {
       return { status: 'NOT_FOUND', data: { message: 'cliente inexistente.' } };
     }
@@ -56,7 +57,11 @@ export default class ClientService {
   }
 
   async insertClient(client: Omit<IClient, 'id'>): Promise<ServiceResponse<IClient>> {
-    const result = await this.clientModel.insertClient(client);
+    const result = await this.clientModel.insertClient({ ...client,
+      name: client.name.toLocaleUpperCase(),
+      plate: client.plate.toLocaleUpperCase(),
+      carColor: client.carColor.toLocaleUpperCase(),
+    });
     return { status: 'CREATED', data: result };
   }
 }

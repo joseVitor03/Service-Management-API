@@ -20,7 +20,7 @@ describe('validateFindClient Test', function () {
   it('testando campos obrigatórios "name" e "plate"', async function () {
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
-    const { status, body } = await chai.request(app).get('/clients/findClient')
+    const { status, body } = await chai.request(app).post('/clients/findClient')
       .set('Authorization', bearer);
 
     expect(status).to.be.equal(400);

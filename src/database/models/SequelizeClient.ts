@@ -58,7 +58,7 @@ SequelizeClient.init({
 });
 
 SequelizeClient.belongsTo(SequelizeCar, {
-  foreignKey: 'car_Id', // deve ser 'carId' para alinhar com o campo em SequelizeClient
+  foreignKey: 'carId', // deve ser 'carId' para alinhar com o campo em SequelizeClient
   targetKey: 'id',
   as: 'car',
 });

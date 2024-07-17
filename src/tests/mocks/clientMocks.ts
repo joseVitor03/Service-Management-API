@@ -43,7 +43,7 @@ export const mockFindClient = [
 export const mockInsertClient = {
   id: 3,
   name: 'Vitor',
-  phone: '61998227449',
+  phone: '77 12345-6789',
   carColor: 'PRATA',
   plate: 'MCH1B23',
   car: {
@@ -57,8 +57,23 @@ export const mockInsertClient = {
 export const mockUpdateClient = {
   id: 2,
   name: 'Fbio',
-  phone: '61998227449',
-  plate: 'MCH1A24',
+  phone: '77 12345-6789',
+  plate: 'MCH-1A24',
   carId: 1,
   carColor: 'PRATA',
+};
+
+export const findClientById = {
+  id: 3,
+  name: 'Fulano',
+  phone: '12345-6781',
+  carId: 1,
+  carColor: 'Azul',
+  plate: 'ABC-1B23',
+  car: {
+    id: 1,
+    name: 'HONDA CIVIC',
+    year: 2020,
+    brand: 'HONDA',
+  },
 };

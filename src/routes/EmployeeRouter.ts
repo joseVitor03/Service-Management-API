@@ -19,7 +19,7 @@ employeeRouter.get(
   (req: Request, res: Response) => employeeController.listEmployees(req, res),
 );
 
-employeeRouter.get(
+employeeRouter.post(
   '/employee/services/:employeeId',
   Validate.validateToken,
   ValidateService.validateDateService,

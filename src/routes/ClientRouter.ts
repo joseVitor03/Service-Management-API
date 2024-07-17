@@ -12,12 +12,12 @@ clientRouter.get(
 );
 
 clientRouter.get(
-  '/clients/findClient/:id',
+  '/clients/:id',
   Validate.validateToken,
   (req: Request, res: Response) => clientController.clientById(req, res),
 );
 
-clientRouter.get(
+clientRouter.post(
   '/clients/findClient',
   Validate.validateToken,
   Validate.validateFindClient,

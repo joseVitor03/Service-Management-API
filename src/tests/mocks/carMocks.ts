@@ -28,4 +28,25 @@ const updateCarMock = {
   brand: 'HYUNDAI',
 };
 
-export { mockCars, mockFindCar, mockInsert, updateCarMock };
+const findCarByBrandMock = [{
+  name: 'VOLKSWAGEN GOL',
+  year: 2024,
+  brand: 'VOLKSWAGEN',
+},
+{
+  name: 'VOLKSWAGEN POLO',
+  year: 2024,
+  brand: 'VOLKSWAGEN',
+},
+{
+  name: 'VOLKSWAGEN GOLF',
+  year: 2024,
+  brand: 'VOLKSWAGEN',
+},
+{
+  name: 'VOLKSWAGEN JETTA',
+  year: 2024,
+  brand: 'VOLKSWAGEN',
+}];
+
+export { mockCars, mockFindCar, mockInsert, updateCarMock, findCarByBrandMock };
