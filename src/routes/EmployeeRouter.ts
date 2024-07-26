@@ -19,11 +19,17 @@ employeeRouter.get(
   (req: Request, res: Response) => employeeController.listEmployees(req, res),
 );
 
-employeeRouter.get(
+employeeRouter.post(
   '/employee/services/:employeeId',
   Validate.validateToken,
   ValidateService.validateDateService,
   (req: Request, res: Response) => employeeController.employeeProductivityByDate(req, res),
+);
+
+employeeRouter.get(
+  '/employee/:id/services',
+  Validate.validateToken,
+  (req: Request, res: Response) => employeeController.listServicesByEmployee(req, res),
 );
 
 employeeRouter.delete(

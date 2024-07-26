@@ -7,7 +7,8 @@ export default interface IEmployeeModel {
   listEmployees(): Promise<IEmployee[]>;
   updateEmployee(employee: IEmployee): Promise<number>;
   employeeProductivityByDate(data: { dateInitial: string, dateFinal: string, id: string }):
-  Promise<SequelizeEmployeeServices[]>
+  Promise<SequelizeEmployeeServices[]>;
+  listServicesByEmployee(id: number): Promise<SequelizeEmployeeServices[]>
 }
 
 export type EmployeeProductivityType = {

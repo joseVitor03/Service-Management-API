@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import carsRouter from './routes/CarRouter';
 import pieceRouter from './routes/PieceRouter';
 import adminRouter from './routes/AdminRouter';
@@ -8,7 +9,6 @@ import serviceRouter from './routes/ServiceRouter';
 
 class App {
   public app: express.Express;
-
   constructor() {
     this.app = express();
 
@@ -25,7 +25,15 @@ class App {
       res.header('Access-Control-Allow-Headers', '*');
       next();
     };
+    const frontend = [process.env.FRONT_OFICINA] || ['http://localhost:3000'];
 
+    this.app.use(cors({ origin(origin, callback) {
+      if (frontend.indexOf(origin) !== -1 || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    } }));
     this.app.use(express.json());
     this.app.use(accessControl);
     this.routes();

@@ -53,4 +53,22 @@ export default class EmployeeModel implements IEmployeeModel {
       }] });
     return result;
   }
+
+  async listServicesByEmployee(id: number): Promise<SequelizeEmployeeServices[]> {
+    const result = await this.employeeServices.findAll({ where: { employeeId: id },
+      attributes: { exclude: ['employeeId', 'serviceId'] },
+      include: { model: SequelizeServices,
+        as: 'service',
+        attributes: { exclude: ['clientId'] },
+        include: [{ model: SequelizeClient,
+          as: 'client',
+          attributes: { exclude: ['carId'] },
+          include: [{ model: SequelizeCar, as: 'car' }],
+        },
+        ],
+      },
+      limit: 100,
+      order: [['serviceId', 'DESC']] });
+    return result;
+  }
 }

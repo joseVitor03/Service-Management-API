@@ -1,3 +1,4 @@
+import SequelizeEmployeeServices from '../database/models/SequelizeEmployeeServices';
 import { EmployeeProductivityType, TypedEmployeeProductivity } from '../interfaces/IEmployeeModel';
 import IEmployee from '../interfaces/databaseModels/IEmployee';
 import EmployeeModel from '../models/EmployeeModel';
@@ -42,5 +43,10 @@ export default class EmployeeService {
     const resultFinal = simplifyProductivityByDate(result as
       unknown as TypedEmployeeProductivity[]);
     return { status: 'SUCCESSFUL', data: resultFinal };
+  }
+
+  async listServicesByEmployee(id: number): Promise<ServiceResponse<SequelizeEmployeeServices[]>> {
+    const result = await this.employeeModel.listServicesByEmployee(id);
+    return { status: 'SUCCESSFUL', data: result };
   }
 }

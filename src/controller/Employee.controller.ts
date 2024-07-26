@@ -36,4 +36,10 @@ export default class EmployeeController {
 
     return res.status(mapStatusHTTP(status)).json(data);
   }
+
+  async listServicesByEmployee(req: Request, res: Response) {
+    const { id } = req.params;
+    const { status, data } = await this.employeeService.listServicesByEmployee(Number(id));
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
 }

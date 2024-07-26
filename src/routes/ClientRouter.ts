@@ -4,7 +4,7 @@ import Validate from '../middlewares/Validates';
 
 const clientRouter = Router();
 const clientController = new ClientController();
-
+const ROUTECLIENT = '/clients/:id';
 clientRouter.get(
   '/clients',
   Validate.validateToken,
@@ -12,6 +12,12 @@ clientRouter.get(
 );
 
 clientRouter.get(
+  '/clients/:id',
+  Validate.validateToken,
+  (req: Request, res: Response) => clientController.clientById(req, res),
+);
+
+clientRouter.post(
   '/clients/findClient',
   Validate.validateToken,
   Validate.validateFindClient,
@@ -26,13 +32,13 @@ clientRouter.post(
 );
 
 clientRouter.delete(
-  '/clients/:id',
+  ROUTECLIENT,
   Validate.validateToken,
   (req: Request, res: Response) => clientController.deleteClient(req, res),
 );
 
 clientRouter.put(
-  '/clients/:id',
+  ROUTECLIENT,
   Validate.validateToken,
   Validate.validateUpdateClient,
   (req: Request, res: Response) => clientController.updateClient(req, res),

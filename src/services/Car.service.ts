@@ -30,6 +30,11 @@ export default class CarService {
     return { status: 'SUCCESSFUL', data: result };
   }
 
+  async findCarByBrand(brand: string): Promise<ServiceResponse<ICar[]>> {
+    const result = await this.carModel.findCarByBrand(brand);
+    return { status: 'SUCCESSFUL', data: result };
+  }
+
   async updateCar({ id, name, brand, year }: ICar): Promise<ServiceResponse<ICar>> {
     await this.carModel.updateCar({ id, name: name.toUpperCase(), brand, year });
 

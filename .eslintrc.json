@@ -74,7 +74,7 @@
     "max-lines-per-function": [
       "error",
       {
-        "max": 30,
+        "max": 40,
         "skipBlankLines": true,
         "skipComments": true
       }
@@ -157,7 +157,9 @@
     {
       "files": ["src/database/seeders/*.ts"],
       "rules": {
-        "@typescript-eslint/naming-convention": "off"
+        "@typescript-eslint/naming-convention": "off",
+        "max-lines-per-function": "off",
+        "max-lines": "off"
       }
     }
   ]

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import CarService from '../services/Car.service';
 import mapStatusHTTP from '../utils/mapStatusHTTP';
+import brandCars from '../utils/brandCars';
 
 export default class CarController {
   constructor(private carService = new CarService()) {}
@@ -25,6 +26,15 @@ export default class CarController {
   async findCar(req: Request, res: Response) {
     const { name } = req.query;
     const { status, data } = await this.carService.findCar(name as string);
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
+  async findCarByBrand(req: Request, res: Response) {
+    const { brand } = req.body;
+    if (!brand || !brandCars.includes(brand)) {
+      return res.status(400).json({ message: '"brand" inexistente ou incorreta' });
+    }
+    const { status, data } = await this.carService.findCarByBrand(brand);
     return res.status(mapStatusHTTP(status)).json(data);
   }
 

@@ -35,6 +35,10 @@ SequelizeClient.init({
   carId: {
     type: DataTypes.INTEGER,
     field: 'car_id',
+    references: {
+      model: 'cars',
+      key: 'id',
+    },
     allowNull: false,
   },
   carColor: {
@@ -54,7 +58,7 @@ SequelizeClient.init({
 });
 
 SequelizeClient.belongsTo(SequelizeCar, {
-  foreignKey: 'carId',
+  foreignKey: 'carId', // deve ser 'carId' para alinhar com o campo em SequelizeClient
   targetKey: 'id',
   as: 'car',
 });
