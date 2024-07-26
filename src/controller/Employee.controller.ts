@@ -30,10 +30,16 @@ export default class EmployeeController {
 
   async employeeProductivityByDate(req: Request, res: Response) {
     const { dateInitial, dateFinal } = req.body;
-    const { id } = req.params;
+    const { employeeId } = req.params;
     const { status, data } = await this.employeeService
-      .employeeProductivityByDate({ dateInitial, dateFinal, id });
+      .employeeProductivityByDate({ dateInitial, dateFinal, id: employeeId });
 
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
+
+  async listServicesByEmployee(req: Request, res: Response) {
+    const { id } = req.params;
+    const { status, data } = await this.employeeService.listServicesByEmployee(Number(id));
     return res.status(mapStatusHTTP(status)).json(data);
   }
 }

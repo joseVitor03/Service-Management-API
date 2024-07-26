@@ -3,9 +3,9 @@ import chai from 'chai';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import chaiHttp = require('chai-http');
-import SequelizeAdmin from '../../database/models/SequelizeAdmin';
+import SequelizeAdmin from '../../../database/models/SequelizeAdmin';
 // @ts-check
-import App from '../../app';
+import App from '../../../app';
 
 chai.use(chaiHttp);
 

@@ -2,10 +2,11 @@ import sinon from 'sinon';
 import chai from 'chai';
 import jwt from 'jsonwebtoken';
 import chaiHttp = require('chai-http');
-import SequelizeCar from '../../database/models/SequelizeCar';
+import SequelizeCar from '../../../database/models/SequelizeCar';
 // @ts-check
-import App from '../../app';
-import { mockCars, mockFindCar, mockInsert, updateCarMock } from '../mocks/carMocks';
+import App from '../../../app';
+import { findCarByBrandMock, mockCars, mockFindCar,
+  mockInsert, updateCarMock } from '../../mocks/carMocks';
 
 chai.use(chaiHttp);
 
@@ -87,4 +88,27 @@ describe('Cars Test', function () {
     expect(status).to.be.equal(200);
     expect(body).to.be.deep.equal(updateCarMock);
   });
+  it('testando encontrar carro pela marca', async function () {
+    sinon.stub(SequelizeCar, 'findAll').resolves(findCarByBrandMock as any);
+    sinon.stub(jwt, 'verify').returns({ email: 'any', password: 'any' } as any);
+
+    const { status, body } = await chai.request(app).post('/cars/brand')
+      .send({ brand: 'VOLKSWAGEN' }).set('Authorization', bearer);
+
+    expect(status).to.be.eqls(200);
+    expect(body).to.be.eqls(findCarByBrandMock);
+  });
+
+  it(
+    'testando encontrar carro pela marca, mas a marca não existe no corpo da requisição',
+    async function () {
+      sinon.stub(jwt, 'verify').returns({ email: 'any', password: 'any' } as any);
+
+      const { status, body } = await chai.request(app).post('/cars/brand')
+        .set('Authorization', bearer);
+
+      expect(status).to.be.eqls(400);
+      expect(body).to.be.eqls({ message: '"brand" inexistente ou incorreta' });
+    },
+  );
 });

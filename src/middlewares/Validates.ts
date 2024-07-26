@@ -4,6 +4,7 @@ import brandCars from '../utils/brandCars';
 
 const REGEXEMAIL = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const REGEXPASS = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#]).*$/;
+const REGEXPLATE = /^[a-zA-Z]{3}-[0-9][A-Za-z0-9][0-9]{2}$/g;
 const KEY = process.env.TOKEN;
 
 export default class Validate {
@@ -36,7 +37,7 @@ export default class Validate {
     const { email } = req.body;
 
     if (!email) {
-      return res.status(400).json({ message: '"email" são obrigatórios' });
+      return res.status(400).json({ message: '"email" é obrigatório' });
     }
 
     if (!email.match(REGEXEMAIL)) {
@@ -62,7 +63,7 @@ export default class Validate {
 
     if (!password.match(REGEXPASS)) {
       return res.status(400).json({ message: `A senha deve conter pelo menos uma letra maiúscula,
-      uma letra minúscula e um caractere especial` });
+    uma letra minúscula, um dígito e um caractere especial` });
     }
     next();
   }
@@ -86,8 +87,8 @@ export default class Validate {
     if (!name) {
       return res.status(400).json({ message: ' "name" é obrigatório' });
     }
-    if (name.length < 3) {
-      return res.status(400).json({ message: '"name" precisa ter pelo menos 3 caracteres' });
+    if (name.length < 5) {
+      return res.status(400).json({ message: '"name" precisa ter pelo menos 5 caracteres' });
     }
     next();
   }
@@ -97,8 +98,8 @@ export default class Validate {
     if (!id || !name) {
       return res.status(400).json({ message: '"id" e "name" são obrigatórios' });
     }
-    if (name.length < 3) {
-      return res.status(400).json({ message: '"name" precisa ter pelo menos 3 caracteres' });
+    if (name.length < 5) {
+      return res.status(400).json({ message: '"name" precisa ter pelo menos 5 caracteres' });
     }
 
     next();
@@ -113,7 +114,6 @@ export default class Validate {
   }
 
   static validateUpdateClient(req: Request, res: Response, next: NextFunction) {
-    const REGEXPLATE = /^[a-zA-Z]{3}[0-9][A-Za-z0-9][0-9]{2}$/g;
     const { id } = req.params;
     const { name, phone, plate, carId, carColor } = req.body;
     if (!id || !name || !phone || !plate || !carId || !carColor) {
@@ -121,7 +121,8 @@ export default class Validate {
         message: '"id", "name", "phone", "plate", "carId", "carColor" são obrigatórios.',
       });
     }
-    if (name.length < 3 || !plate.match(REGEXPLATE) || phone.length !== 11 || carColor.length < 4) {
+    if (name.length < 3 || !plate.match(REGEXPLATE) || !phone.match(/^\d{2} \d{5}-\d{4}$/)
+      || carColor.length < 4) {
       return res.status(400).json({
         message: 'Algum dos dados enviados estão estão com o formato incorreto.',
       });
@@ -130,15 +131,14 @@ export default class Validate {
   }
 
   static validateInsertClient(req: Request, res: Response, next: NextFunction) {
-    const REGEXPLATE = /^[a-zA-Z]{3}[0-9][A-Za-z0-9][0-9]{2}$/g;
-
     const { name, phone, plate, carId, carColor } = req.body;
     if (!name || !phone || !plate || !carId || !carColor) {
       return res.status(400).json({
         message: '"name", "phone", "plate", "carId", "carColor" são obrigatórios.',
       });
     }
-    if (name.length < 3 || !plate.match(REGEXPLATE) || phone.length !== 11 || carColor.length < 4) {
+    if (name.length < 3 || !plate.match(REGEXPLATE) || !phone.match(/^\d{2} \d{5}-\d{4}$/)
+      || carColor.length < 4) {
       return res.status(400).json({
         message: 'Algum dos dados enviados estão estão com o formato incorreto.',
       });
