@@ -26,6 +26,12 @@ employeeRouter.post(
   (req: Request, res: Response) => employeeController.employeeProductivityByDate(req, res),
 );
 
+employeeRouter.get(
+  '/employee/:id/services',
+  Validate.validateToken,
+  (req: Request, res: Response) => employeeController.listServicesByEmployee(req, res),
+);
+
 employeeRouter.delete(
   '/employee/:id',
   Validate.validateToken,
