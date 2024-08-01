@@ -6,3 +6,4 @@ build
 src/database/seeders/admin.ts
 
 .nyc_output
+.vercel
