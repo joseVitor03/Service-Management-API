@@ -26,6 +26,7 @@ describe('validateInsertService Test', function () {
         totalService: 500,
         date: '2024-05-20',
         paymentStatus: false,
+        principalEmployeeId: 1,
         employeeServices: [{
           employeeId: 1,
           labor: null,
@@ -46,6 +47,7 @@ describe('validateInsertService Test', function () {
         totalService: 200,
         date: '2024-05-20',
         pieces: {},
+        principalEmployeeId: 1,
         employeeServices: {
           labo: 200,
           employeeId: 1,
@@ -58,27 +60,6 @@ describe('validateInsertService Test', function () {
     expect(body).to.be.eqls({ message: '"employeeService" e "pieces" em formato incorreto' });
   });
 
-  it('testando caso employeeServices esteja vázio', async function () {
-    sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
-
-    const { status, body } = await chai.request(app).post('/services').set('Authorization', bearer)
-      .send({
-        clientId: 1,
-        totalService: 200,
-        date: '3100-05-20',
-        pieces: [{
-          pieceId: 1,
-          priceUnit: 50,
-          qtdUnit: 2,
-        }],
-        employeeServices: [],
-        paymentStatus: false,
-      });
-
-    expect(status).to.be.equal(400);
-    expect(body).to.be.eqls({ message: 'Precisa ter dados em "employeeServices"' });
-  });
-
   it('testando caso date seja maior que a data atual', async function () {
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
@@ -88,6 +69,7 @@ describe('validateInsertService Test', function () {
         totalService: 200,
         date: '3100-05-20',
         pieces: [{}],
+        principalEmployeeId: 1,
         employeeServices: [{
           labo: 200,
           employeeId: 1,

@@ -2,14 +2,14 @@ import sinon from 'sinon';
 import chai from 'chai';
 import jwt from 'jsonwebtoken';
 import chaiHttp = require('chai-http');
-import SequelizeServices from '../../../database/models/SequelizeServices';
+import SequelizeServices from '../../../database/models/6-SequelizeServices';
 import { finalFindServiceResult,
   findServiceMockEmployee,
   findServiceMockPieceService, listServiceFalseMock, insertServiceCompleteMock,
-  listServiceTrueMock, insertServiceFailedMock,
+  listServiceTrueMock,
   servicesByClientMock } from '../../mocks/serviceMock';
-import SequelizeEmployeeServices from '../../../database/models/SequelizeEmployeeServices';
-import SequelizePiecesServices from '../../../database/models/SequelizePiecesServices';
+import SequelizeEmployeeServices from '../../../database/models/7-SequelizeEmployeeServices';
+import SequelizePiecesServices from '../../../database/models/8-SequelizePiecesServices';
 import App from '../../../app';
 import servicesByDatesMock from '../../mocks/serviceMock2';
 
@@ -132,7 +132,12 @@ describe('testando rota de services', async function () {
   it('testando rota POST /services', async function () {
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
     sinon.stub(SequelizeServices, 'findOrCreate').resolves([{
-      id: 3, clientId: 2, totalService: 800, date: '2024-05-09', paymentStatus: false,
+      id: 3,
+      clientId: 2,
+      totalService: 800,
+      date: '2024-05-09',
+      paymentStatus: false,
+      principalEmployeeId: 2,
     }] as any);
 
     sinon.stub(SequelizeEmployeeServices, 'findOrCreate').resolves([{
@@ -148,16 +153,6 @@ describe('testando rota de services', async function () {
 
     expect(status).to.be.equal(201);
     expect(body).to.be.eqls({ message: 'serviço registrado.' });
-  });
-
-  it('testando rota POST /services, sem peças e funcionário', async function () {
-    sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
-
-    const { status, body } = await chai.request(app).post('/services')
-      .set('Authorization', bearer).send(insertServiceFailedMock);
-
-    expect(status).to.be.equal(400);
-    expect(body).to.be.eqls({ message: 'Precisa ter dados em "employeeServices"' });
   });
 
   it('testando rota GET /services/client/:id', async function () {

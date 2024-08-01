@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import SequelizeServices from '../../../database/models/SequelizeServices';
+import SequelizeServices from '../../../database/models/6-SequelizeServices';
 import ServicesService from '../../../services/Service.service';
-import SequelizePiecesServices from '../../../database/models/SequelizePiecesServices';
-import SequelizeEmployeeServices from '../../../database/models/SequelizeEmployeeServices';
+import SequelizePiecesServices from '../../../database/models/8-SequelizePiecesServices';
+import SequelizeEmployeeServices from '../../../database/models/7-SequelizeEmployeeServices';
 import { finalFindServiceResult, findServiceMockEmployee,
   findServiceMockPieceService, listServiceFalseMock,
   listServiceTrueMock } from '../../mocks/serviceMock';

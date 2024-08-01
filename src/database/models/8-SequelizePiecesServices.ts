@@ -1,8 +1,8 @@
 import { Model, InferAttributes, InferCreationAttributes,
   DataTypes } from 'sequelize';
 import db from '.';
-import SequelizeServices from './SequelizeServices';
-import SequelizePiece from './SequelizePieces';
+import SequelizeServices from './6-SequelizeServices';
+import SequelizePiece from './5-SequelizePieces';
 
 class SequelizePiecesServices extends Model<InferAttributes<SequelizePiecesServices>,
 InferCreationAttributes<SequelizePiecesServices>> {
@@ -21,6 +21,10 @@ SequelizePiecesServices.init({
     allowNull: false,
     primaryKey: true,
     field: 'service_id',
+    references: {
+      model: 'services',
+      key: 'id',
+    },
   },
   qtdUnit: {
     type: DataTypes.INTEGER,
@@ -32,6 +36,10 @@ SequelizePiecesServices.init({
     allowNull: true,
     primaryKey: true,
     field: 'piece_id',
+    references: {
+      model: 'pieces',
+      key: 'id',
+    },
   },
   priceUnit: {
     type: DataTypes.DECIMAL(10, 2),

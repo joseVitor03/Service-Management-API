@@ -1,4 +1,4 @@
-import SequelizeEmployeeServices from '../database/models/SequelizeEmployeeServices';
+import SequelizeEmployeeServices from '../database/models/7-SequelizeEmployeeServices';
 import IEmployee from './databaseModels/IEmployee';
 
 export default interface IEmployeeModel {

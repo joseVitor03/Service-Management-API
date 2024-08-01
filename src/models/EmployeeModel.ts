@@ -1,11 +1,11 @@
 import { Op } from 'sequelize';
 import IEmployeeModel from '../interfaces/IEmployeeModel';
-import SequelizeEmployee from '../database/models/SequelizeEmployee';
+import SequelizeEmployee from '../database/models/4-SequelizeEmployee';
 import IEmployee from '../interfaces/databaseModels/IEmployee';
-import SequelizeEmployeeServices from '../database/models/SequelizeEmployeeServices';
-import SequelizeServices from '../database/models/SequelizeServices';
-import SequelizeClient from '../database/models/SequelizeClient';
-import SequelizeCar from '../database/models/SequelizeCar';
+import SequelizeEmployeeServices from '../database/models/7-SequelizeEmployeeServices';
+import SequelizeServices from '../database/models/6-SequelizeServices';
+import SequelizeClient from '../database/models/3-SequelizeClient';
+import SequelizeCar from '../database/models/2-SequelizeCar';
 
 export default class EmployeeModel implements IEmployeeModel {
   private employeeServices = SequelizeEmployeeServices;

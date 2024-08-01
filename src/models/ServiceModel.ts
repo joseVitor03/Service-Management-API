@@ -1,13 +1,13 @@
 import { Op } from 'sequelize';
 import IServiceModel, { IServiceResult,
   InsertService, TypeInsertService } from '../interfaces/IServiceModel';
-import SequelizeServices from '../database/models/SequelizeServices';
-import SequelizeClient from '../database/models/SequelizeClient';
-import SequelizePiecesServices from '../database/models/SequelizePiecesServices';
-import SequelizeEmployeeServices from '../database/models/SequelizeEmployeeServices';
-import SequelizeCar from '../database/models/SequelizeCar';
-import SequelizeEmployee from '../database/models/SequelizeEmployee';
-import SequelizePiece from '../database/models/SequelizePieces';
+import SequelizeServices from '../database/models/6-SequelizeServices';
+import SequelizeClient from '../database/models/3-SequelizeClient';
+import SequelizePiecesServices from '../database/models/8-SequelizePiecesServices';
+import SequelizeEmployeeServices from '../database/models/7-SequelizeEmployeeServices';
+import SequelizeCar from '../database/models/2-SequelizeCar';
+import SequelizeEmployee from '../database/models/4-SequelizeEmployee';
+import SequelizePiece from '../database/models/5-SequelizePieces';
 import IServices from '../interfaces/databaseModels/IServices';
 import IPieceServices from '../interfaces/databaseModels/IPiecesServices';
 import IEmployeeServices from '../interfaces/databaseModels/IEmployeeServices';
@@ -34,9 +34,11 @@ export default class ServiceModel implements IServiceModel {
           model: SequelizeCar,
           as: 'car',
         }],
+      }, {
+        model: SequelizeEmployee, as: 'principalEmployee',
       }],
       order: [['id', 'DESC']],
-      attributes: { exclude: ['clientId'] }, // Exclua clientId do resultado principal
+      attributes: { exclude: ['clientId', 'principalEmployeeId'] }, // Exclua clientId do resultado principal
     });
     return result;
   }
@@ -60,9 +62,11 @@ export default class ServiceModel implements IServiceModel {
           model: SequelizeCar,
           as: 'car',
         }],
+      }, {
+        model: SequelizeEmployee, as: 'principalEmployee',
       }],
       order: [['id', 'DESC']],
-      attributes: { exclude: ['clientId'] }, // Exclua clientId do resultado principal
+      attributes: { exclude: ['clientId', 'principalEmployeeId'] }, // Exclua clientId do resultado principal
     });
     return result;
   }
@@ -73,12 +77,14 @@ export default class ServiceModel implements IServiceModel {
       include: [{ model: SequelizePiece, as: 'pieceName' }, {
         model: SequelizeServices,
         as: 'service',
-        attributes: { exclude: ['clientId'] },
+        attributes: { exclude: ['clientId', 'principalEmployeeId'] },
         include: [{
           model: SequelizeClient,
           as: 'client',
           attributes: { exclude: ['carId'] },
-          include: [{ model: SequelizeCar, as: 'car' }] }] }] });
+          include: [{ model: SequelizeCar, as: 'car' }] }, {
+          model: SequelizeEmployee, as: 'principalEmployee',
+        }] }] });
 
     const employeesOfService = await this.employeeService.findAll({ where: { serviceId: id },
       attributes: { exclude: ['serviceId', 'employeeId'] },
@@ -86,13 +92,14 @@ export default class ServiceModel implements IServiceModel {
 
     if (dataService.length === 0) {
       const service = await this.model.findAll({ where: { id },
-        attributes: { exclude: ['clientId'] },
+        attributes: { exclude: ['clientId', 'principalEmployeeId'] },
         include: [{
           model: SequelizeClient,
           as: 'client',
           attributes: { exclude: ['carId'] },
           include: [{
-            model: SequelizeCar, as: 'car' }] }] });
+            model: SequelizeCar, as: 'car' }] },
+        { model: SequelizeEmployee, as: 'principalEmployee' }] });
       return { dataService: service, employeesOfService };
     }
 
@@ -106,7 +113,8 @@ export default class ServiceModel implements IServiceModel {
       where: { totalService: data.totalService,
         clientId: data.clientId,
         date: data.date,
-        paymentStatus: data.paymentStatus },
+        paymentStatus: data.paymentStatus,
+        principalEmployeeId: data.principalEmployeeId },
     });
 
     const pieces = await Promise
@@ -120,17 +128,16 @@ export default class ServiceModel implements IServiceModel {
         return responsePieces;
       }));
 
-    const employeeServices = await Promise
-      .all(data.employeeServices
-        .map(async ({ labor, employeeId, description }:
-        Omit<IEmployeeServices, 'serviceId'>) => {
-          const [result] = await this.employeeService.findOrCreate({ where: {
-            serviceId: service.id, employeeId, labor, description,
-          } });
-          // console.log(result);
+    const employeeServices = await Promise.all(data.employeeServices
+      .map(async ({ labor, employeeId, description }:
+      Omit<IEmployeeServices, 'serviceId'>) => {
+        const [result] = await this.employeeService.findOrCreate({ where: {
+          serviceId: service.id, employeeId, labor, description,
+        } });
+        console.log(result);
 
-          return result;
-        }));
+        return result;
+      }));
 
     const resultFinal = { service, pieces, employeeServices };
 
@@ -139,10 +146,10 @@ export default class ServiceModel implements IServiceModel {
 
   async servicesByClient(clientId: number): Promise<IServices[]> {
     const result = await this.model.findAll({ where: { clientId },
-      attributes: { exclude: ['clientId'] },
-      include: {
+      attributes: { exclude: ['clientId', 'principalEmployeeId'] },
+      include: [{
         model: SequelizeClient, as: 'client',
-      } });
+      }, { model: SequelizeEmployee, as: 'principalEmployee' }] });
     return result;
   }
 

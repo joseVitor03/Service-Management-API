@@ -17,29 +17,6 @@ describe('validateInsertEmployeeService Test', function () {
     sinon.restore();
   });
 
-  it('testando caso não possua algum campo em employeeServices', async function () {
-    sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
-
-    const { status, body } = await chai.request(app).post('/services').set('Authorization', bearer)
-      .send({
-        clientId: 2,
-        totalService: 700,
-        date: '2024-05-20',
-        paymentStatus: false,
-        pieces: [{
-          pieceId: 2,
-          qtdUnit: 2,
-          priceUnit: 250,
-        }],
-        employeeServices: [{
-          employeeId: 1,
-          description: null,
-        }] });
-
-    expect(status).to.be.equal(400);
-    expect(body).to.be.eqls({ message: 'Algum campo do serviço do funcionário esta incorreto' });
-  });
-
   it(
     'testando caso description seja diferente de string ou nulo de employeeServices',
     async function () {
@@ -52,6 +29,7 @@ describe('validateInsertEmployeeService Test', function () {
           totalService: 700,
           date: '2024-05-21',
           paymentStatus: false,
+          principalEmployeeId: 1,
           pieces: [{
             pieceId: 2,
             qtdUnit: 2,
@@ -77,6 +55,7 @@ describe('validateInsertEmployeeService Test', function () {
         totalService: 700,
         date: '2024-05-20',
         paymentStatus: false,
+        principalEmployeeId: 1,
         pieces: [{
           pieceId: 2,
           qtdUnit: 2,

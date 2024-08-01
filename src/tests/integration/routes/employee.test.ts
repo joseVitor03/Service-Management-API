@@ -2,12 +2,12 @@ import sinon from 'sinon';
 import chai from 'chai';
 import jwt from 'jsonwebtoken';
 import chaiHttp = require('chai-http');
-import SequelizeEmployee from '../../../database/models/SequelizeEmployee';
+import SequelizeEmployee from '../../../database/models/4-SequelizeEmployee';
 import { employeeProductivityByDateFinalMock,
   mockFindAll, mockInsert, employeeProductivityByDateMock } from '../../mocks/employeeMocks';
 // @ts-check
 import App from '../../../app';
-import SequelizeEmployeeServices from '../../../database/models/SequelizeEmployeeServices';
+import SequelizeEmployeeServices from '../../../database/models/7-SequelizeEmployeeServices';
 
 chai.use(chaiHttp);
 

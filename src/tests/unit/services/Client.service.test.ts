@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import SequelizeClient from '../../../database/models/SequelizeClient';
+import SequelizeClient from '../../../database/models/3-SequelizeClient';
 import { mockFindClient, mockInsertClient, mockListClients } from '../../mocks/clientMocks';
 import ClientService from '../../../services/Client.service';
 

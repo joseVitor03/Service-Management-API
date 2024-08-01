@@ -1,9 +1,8 @@
 import { Model, InferAttributes, InferCreationAttributes,
   DataTypes } from 'sequelize';
 import db from '.';
-import SequelizeServices from './SequelizeServices';
-import SequelizeEmployee from './SequelizeEmployee';
-import SequelizePiecesServices from './SequelizePiecesServices';
+import SequelizeServices from './6-SequelizeServices';
+import SequelizeEmployee from './4-SequelizeEmployee';
 
 class SequelizeEmployeeServices extends Model<InferAttributes<SequelizeEmployeeServices>,
 InferCreationAttributes<SequelizeEmployeeServices>> {
@@ -19,12 +18,20 @@ SequelizeEmployeeServices.init({
     allowNull: false,
     primaryKey: true,
     field: 'service_id',
+    references: {
+      model: 'services',
+      key: 'id',
+    },
   },
   employeeId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
     field: 'employee_id',
+    references: {
+      model: 'employees',
+      key: 'id',
+    },
   },
   labor: {
     allowNull: true,
@@ -45,12 +52,6 @@ SequelizeEmployeeServices.belongsTo(SequelizeServices, {
   foreignKey: 'serviceId',
   targetKey: 'id',
   as: 'service',
-});
-
-SequelizeEmployeeServices.belongsTo(SequelizePiecesServices, {
-  foreignKey: 'serviceId',
-  targetKey: 'serviceId',
-  as: 'pieces',
 });
 
 SequelizeEmployeeServices.belongsTo(SequelizeEmployee, {

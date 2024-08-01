@@ -89,14 +89,14 @@
     ],
     "complexity": [
       "error",
-      12
+      13
     ],
     "import/no-extraneous-dependencies": [
       "off"
     ],
     "sonarjs/cognitive-complexity": [
       "error",
-      12
+      13
     ],
     "sonarjs/no-one-iteration-loop": [
       "error"

@@ -21,6 +21,7 @@ export const insertServiceCompleteMock = {
   totalService: 800,
   date: '2024-05-09',
   paymentStatus: false,
+  principalEmployeeId: 2,
   pieces: [{
     pieceId: 2,
     qtdUnit: 2,

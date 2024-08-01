@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import chai from 'chai';
 import jwt from 'jsonwebtoken';
 import chaiHttp = require('chai-http');
-import SequelizePiece from '../../../database/models/SequelizePieces';
+import SequelizePiece from '../../../database/models/5-SequelizePieces';
 import { findAll, findPieces } from '../../mocks/pieceMocks';
 // @ts-check
 import App from '../../../app';
