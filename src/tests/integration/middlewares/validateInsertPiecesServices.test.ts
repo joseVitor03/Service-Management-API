@@ -27,6 +27,7 @@ describe('validateInsertPieceServices Test', function () {
         totalService: 700,
         date: '2024-05-21',
         paymentStatus: false,
+        principalEmployeeId: 1,
         pieces: [{
           pieceId: 2,
         }],
@@ -50,6 +51,7 @@ describe('validateInsertPieceServices Test', function () {
         totalService: 700,
         date: '2024-05-21',
         paymentStatus: false,
+        principalEmployeeId: 1,
         pieces: [{
           pieceId: 2,
           qtdUnit: 2,

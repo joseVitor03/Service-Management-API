@@ -1,5 +1,5 @@
 import { Op } from 'sequelize';
-import SequelizeCar from '../database/models/SequelizeCar';
+import SequelizeCar from '../database/models/2-SequelizeCar';
 import { ICar } from '../interfaces/databaseModels/ICar';
 import { ICarModel } from '../interfaces/ICarModel';
 

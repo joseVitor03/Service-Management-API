@@ -9,12 +9,20 @@ export default {
         allowNull: false,
         primaryKey: true,
         field: 'service_id',
+        references: {
+          model: 'services',
+          key: 'id',
+        },
       },
       employeeId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
         field: 'employee_id',
+        references: {
+          model: 'employees',
+          key: 'id',
+        },
       },
       labor: {
         allowNull: true,

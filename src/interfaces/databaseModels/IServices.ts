@@ -3,5 +3,6 @@ export default interface IServices {
   clientId: number;
   totalService: number;
   date: string;
-  paymentStatus: boolean
+  paymentStatus: boolean;
+  principalEmployeeId: number;
 }

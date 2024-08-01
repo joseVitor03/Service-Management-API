@@ -3,19 +3,19 @@ import { EmployeeService } from '../interfaces/IServiceModel';
 
 export default class ValidateService {
   static validateInsertService(req: Request, res: Response, next: NextFunction) {
-    const { clientId, totalService, date, pieces, employeeServices, paymentStatus } = req.body;
+    const { clientId, totalService, date, pieces, employeeServices, paymentStatus,
+      principalEmployeeId,
+    } = req.body;
     const currentDate = new Date();
     if (!clientId || !totalService || !date || !employeeServices
-      || paymentStatus === undefined || !pieces) {
+      || paymentStatus === undefined || !pieces || !principalEmployeeId) {
       return res.status(400).json({ message: 'dados do serviço incompleto.' });
     }
     if (!Array.isArray(employeeServices) || !Array.isArray(pieces)) {
       return res.status(400).json({ message: '"employeeService" e "pieces" em formato incorreto' });
     }
-    if (employeeServices.length === 0) {
-      return res.status(400).json(
-        { message: 'Precisa ter dados em "employeeServices"' },
-      );
+    if (employeeServices.length === 0 && pieces.length === 0) {
+      return res.status(400).json({ message: '"employeeService" ou "pieces" precisam ter dados' });
     }
     const serviceDate = new Date(date);
     if (serviceDate > currentDate) {
@@ -27,29 +27,35 @@ export default class ValidateService {
 
   static validateInsertEmployeeServices(req: Request, res: Response, next: NextFunction) {
     const { employeeServices } = req.body;
-    let result = {} as any;
-    employeeServices.forEach((service: EmployeeService) => {
-      if (!service.employeeId || service.description === undefined || service.labor === undefined) {
-        result = { status: 400,
-          data:
-          { message: 'Algum campo do serviço do funcionário esta incorreto' } };
-      } else if (typeof service.description !== 'string' && service.description !== null) {
-        result = { status: 400,
-          data: { message: 'description precisa ser uma string ou nulo' },
-        };
-      } else if ((typeof service.labor !== 'number' && service.labor !== null)
-        || typeof service.employeeId !== 'number') {
-        result = { status: 400,
-          data:
+    let result = {} as { status: number, data?: { message: string } };
+    if (employeeServices.length > 0) {
+      employeeServices.forEach((service: EmployeeService) => {
+        if (!service.employeeId || service.description === undefined
+          || service.labor === undefined) {
+          result = { status: 400,
+            data:
+            { message: 'Algum campo do serviço do funcionário esta incorreto' } };
+        } else if (typeof service.description !== 'string' && service.description !== null) {
+          result = { status: 400,
+            data: { message: 'description precisa ser uma string ou nulo' },
+          };
+        } else if ((typeof service.labor !== 'number' && service.labor !== null)
+            || typeof service.employeeId !== 'number') {
+          result = { status: 400,
+            data:
           { message: 'labor precisa ser um número ou nulo e employeeId precisa ser um número' } };
-      } else {
-        result = { status: 200 };
-      }
-    });
-
+        } else {
+          result = { status: 200 };
+        }
+      });
+    } else {
+      result = { status: 200 };
+    }
     if (result.status !== 200) {
       return res.status(result.status).json(result.data);
     }
+    console.log('aaaaaaa');
+
     next();
   }
 
@@ -69,10 +75,14 @@ export default class ValidateService {
           result = { status: 200 };
         }
       });
+    } else {
+      result = { status: 200 };
     }
     if (result.status !== 200) {
       return res.status(result.status).json(result.data);
     }
+    console.log('aaaaaa');
+
     next();
   }
 

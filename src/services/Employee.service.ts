@@ -1,4 +1,4 @@
-import SequelizeEmployeeServices from '../database/models/SequelizeEmployeeServices';
+import SequelizeEmployeeServices from '../database/models/7-SequelizeEmployeeServices';
 import { EmployeeProductivityType, TypedEmployeeProductivity } from '../interfaces/IEmployeeModel';
 import IEmployee from '../interfaces/databaseModels/IEmployee';
 import EmployeeModel from '../models/EmployeeModel';

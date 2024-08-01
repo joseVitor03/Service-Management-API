@@ -14,6 +14,10 @@ export default {
         type: DataTypes.INTEGER,
         allowNull: false,
         field: 'client_id',
+        references: {
+          model: 'clients',
+          key: 'id',
+        },
       },
       totalService: {
         type: DataTypes.DECIMAL(10, 2),
@@ -29,7 +33,14 @@ export default {
         allowNull: false,
         field: 'payment_status',
       },
-    });
+      principalEmployeeId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        field: 'principal_employee_id',
+        references: {
+          model: 'employees',
+          key: 'id',
+        } } });
   },
   down(queryInterface: QueryInterface) {
     return queryInterface.dropTable('services');

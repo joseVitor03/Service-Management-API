@@ -1,7 +1,8 @@
 import { Model, InferAttributes, InferCreationAttributes,
   DataTypes, CreationOptional } from 'sequelize';
 import db from '.';
-import SequelizeClient from './SequelizeClient';
+import SequelizeClient from './3-SequelizeClient';
+import SequelizeEmployee from './4-SequelizeEmployee';
 
 class SequelizeServices extends Model<InferAttributes<SequelizeServices>,
 InferCreationAttributes<SequelizeServices>> {
@@ -14,6 +15,8 @@ InferCreationAttributes<SequelizeServices>> {
   declare date: string;
 
   declare paymentStatus: boolean;
+
+  declare principalEmployeeId: number;
 }
 
 SequelizeServices.init({
@@ -27,6 +30,10 @@ SequelizeServices.init({
     type: DataTypes.INTEGER,
     allowNull: false,
     field: 'client_id',
+    references: {
+      model: 'clients',
+      key: 'id',
+    },
   },
   totalService: {
     type: DataTypes.DECIMAL(10, 2),
@@ -42,11 +49,26 @@ SequelizeServices.init({
     allowNull: false,
     field: 'payment_status',
   },
+  principalEmployeeId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    field: 'principal_employee_id',
+    references: {
+      model: 'employees',
+      key: 'id',
+    },
+  },
 }, {
   timestamps: false,
   sequelize: db,
   tableName: 'services',
   modelName: 'services',
+});
+
+SequelizeServices.belongsTo(SequelizeEmployee, {
+  foreignKey: 'principalEmployeeId',
+  targetKey: 'id',
+  as: 'principalEmployee',
 });
 
 SequelizeServices.belongsTo(SequelizeClient, {

@@ -1,8 +1,8 @@
-import SequelizeEmployeeServices from '../database/models/SequelizeEmployeeServices';
+import SequelizeEmployeeServices from '../database/models/7-SequelizeEmployeeServices';
 import IPieceServices from './databaseModels/IPiecesServices';
 import IServices from './databaseModels/IServices';
-import SequelizeServices from '../database/models/SequelizeServices';
-import SequelizePiecesServices from '../database/models/SequelizePiecesServices';
+import SequelizeServices from '../database/models/6-SequelizeServices';
+import SequelizePiecesServices from '../database/models/8-SequelizePiecesServices';
 
 export default interface IServiceModel {
   findAllServicesPaymentStatusFalse(): Promise<IServices[]>;
@@ -76,6 +76,7 @@ export interface BasicDataService {
   totalService: string,
   date: string,
   paymentStatus: boolean,
+  principalEmployee: Employee,
   client: {
     id: number,
     name: string,
@@ -125,7 +126,8 @@ export type TypeInsertService = {
   totalService: number;
   date: string;
   clientId: number;
-  paymentStatus: boolean
+  paymentStatus: boolean,
+  principalEmployeeId: number,
   pieces: {
     pieceId: number;
     qtdUnit: number;

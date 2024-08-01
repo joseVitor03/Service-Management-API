@@ -1,5 +1,5 @@
 import { Op } from 'sequelize';
-import SequelizePiece from '../database/models/SequelizePieces';
+import SequelizePiece from '../database/models/5-SequelizePieces';
 import { IPieceModel } from '../interfaces/IPieceModel';
 import { IPieces } from '../interfaces/databaseModels/IPieces';
 

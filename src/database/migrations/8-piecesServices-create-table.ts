@@ -9,6 +9,10 @@ export default {
         allowNull: false,
         primaryKey: true,
         field: 'service_id',
+        references: {
+          model: 'services',
+          key: 'id',
+        },
       },
       qtdUnit: {
         type: DataTypes.INTEGER,
@@ -20,6 +24,10 @@ export default {
         allowNull: true,
         primaryKey: true,
         field: 'piece_id',
+        references: {
+          model: 'pieces',
+          key: 'id',
+        },
       },
       priceUnit: {
         type: DataTypes.DECIMAL(10, 2),

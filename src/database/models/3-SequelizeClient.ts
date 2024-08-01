@@ -1,7 +1,7 @@
 import { Model, CreationOptional, DataTypes,
   InferAttributes, InferCreationAttributes } from 'sequelize';
 import db from '.';
-import SequelizeCar from './SequelizeCar';
+import SequelizeCar from './2-SequelizeCar';
 
 class SequelizeClient extends Model<InferAttributes<SequelizeClient>,
 InferCreationAttributes<SequelizeClient>> {

@@ -1,5 +1,5 @@
 import { IAdminModel } from '../interfaces/IAdminModel';
-import SequelizeAdmin from '../database/models/SequelizeAdmin';
+import SequelizeAdmin from '../database/models/1-SequelizeAdmin';
 import { IAdmin } from '../interfaces/databaseModels/IAdmin';
 
 export default class AdminModel implements IAdminModel {
