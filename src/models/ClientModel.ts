@@ -6,13 +6,13 @@ import { IClient } from '../interfaces/databaseModels/IClient';
 import SequelizeServices from '../database/models/6-SequelizeServices';
 import ServiceModel from './ServiceModel';
 import SequelizeEmployeeServices from '../database/models/7-SequelizeEmployeeServices';
-import SequelizePiecesServices from '../database/models/8-SequelizePiecesServices';
+import SequelizeItensServices from '../database/models/8-SequelizeItensServices';
 
 export default class ClientModel implements IClientModel {
   private service = SequelizeServices;
   private serviceModel = new ServiceModel();
   private employeeService = SequelizeEmployeeServices;
-  private piecesServices = SequelizePiecesServices;
+  private itensServices = SequelizeItensServices;
   constructor(private model = SequelizeClient) {}
 
   async insertClient({ name, phone, plate, carColor, carId }: Omit<IClient, 'id'>):
@@ -55,13 +55,16 @@ export default class ClientModel implements IClientModel {
 
   async deleteClient(id: number): Promise<number> {
     const services = await this.serviceModel.servicesByClient(id);
+
     await Promise.all(services.map(async (service) => {
       await this.employeeService.destroy({ where: { serviceId: service.id } });
-      await this.piecesServices.destroy({ where: { serviceId: service.id } });
+      await this.itensServices.destroy({ where: { serviceId: service.id } });
+
       return null;
     }));
-    const result = await this.model.destroy({ where: { id } });
+
     await this.service.destroy({ where: { clientId: id } });
+    const result = await this.model.destroy({ where: { id } });
     return result;
   }
 

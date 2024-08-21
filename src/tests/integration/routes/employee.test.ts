@@ -43,7 +43,7 @@ describe('testando rotas de employee', function () {
   });
 
   it('testando rota DELETE, deletando funcionário', async function () {
-    sinon.stub(SequelizeEmployee, 'destroy').resolves(1 as number);
+    sinon.stub(SequelizeEmployee, 'update').resolves([1] as any);
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
     const { status, body } = await chai.request(app).delete('/employee/1')
@@ -54,7 +54,7 @@ describe('testando rotas de employee', function () {
   });
 
   it('testando rota DELETE, deletando funcionário inexistente', async function () {
-    sinon.stub(SequelizeEmployee, 'destroy').resolves(0 as number);
+    sinon.stub(SequelizeEmployee, 'update').resolves([0] as any);
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
     const { status, body } = await chai.request(app).delete('/employee/1')

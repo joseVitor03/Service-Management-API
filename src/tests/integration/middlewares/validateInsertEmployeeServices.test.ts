@@ -30,8 +30,8 @@ describe('validateInsertEmployeeService Test', function () {
           date: '2024-05-21',
           paymentStatus: false,
           principalEmployeeId: 1,
-          pieces: [{
-            pieceId: 2,
+          itens: [{
+            itemId: 2,
             qtdUnit: 2,
             priceUnit: 250,
           }],
@@ -56,8 +56,8 @@ describe('validateInsertEmployeeService Test', function () {
         date: '2024-05-20',
         paymentStatus: false,
         principalEmployeeId: 1,
-        pieces: [{
-          pieceId: 2,
+        itens: [{
+          itemId: 2,
           qtdUnit: 2,
           priceUnit: 250,
         }],

@@ -51,7 +51,7 @@ SequelizeServices.init({
   },
   principalEmployeeId: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
     field: 'principal_employee_id',
     references: {
       model: 'employees',

@@ -26,12 +26,12 @@ export default class EmployeeService {
     return { status: 'SUCCESSFUL', data: result };
   }
 
-  async updateEmployee({ id, name }: IEmployee): Promise<ServiceResponse<IEmployee>> {
-    const result = await this.employeeModel.updateEmployee({ id, name });
+  async updateEmployee({ id, name, active }: IEmployee): Promise<ServiceResponse<IEmployee>> {
+    const result = await this.employeeModel.updateEmployee({ id, name, active });
     if (result === 0) {
       return { status: 'NOT_FOUND', data: { message: 'funcionário não encontrado.' } };
     }
-    return { status: 'SUCCESSFUL', data: { id, name } };
+    return { status: 'SUCCESSFUL', data: { id, name, active } };
   }
 
   async employeeProductivityByDate(data: { dateInitial: string; dateFinal: string; id: string }):

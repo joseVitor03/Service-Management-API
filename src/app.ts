@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import carsRouter from './routes/CarRouter';
-import pieceRouter from './routes/PieceRouter';
+import itemRouter from './routes/ItemRouter';
 import adminRouter from './routes/AdminRouter';
 import employeeRouter from './routes/EmployeeRouter';
 import clientRouter from './routes/ClientRouter';
@@ -41,7 +41,7 @@ class App {
 
   private routes() {
     this.app.use(carsRouter);
-    this.app.use(pieceRouter);
+    this.app.use(itemRouter);
     this.app.use(adminRouter);
     this.app.use(employeeRouter);
     this.app.use(clientRouter);

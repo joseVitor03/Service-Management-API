@@ -12,12 +12,15 @@ export default class EmployeeModel implements IEmployeeModel {
 
   constructor(private model = SequelizeEmployee) {}
   async removeEmployee(id: number): Promise<number> {
-    const result = await this.model.destroy({ where: { id } });
+    const [result] = await this.model.update({ active: false }, { where: { id } });
     return result;
   }
 
   async listEmployees(): Promise<IEmployee[]> {
-    const result = await this.model.findAll();
+    const result = await this.model.findAll({ where: { active: true },
+      attributes: {
+        exclude: ['active'],
+      } });
     return result;
   }
 
@@ -27,7 +30,10 @@ export default class EmployeeModel implements IEmployeeModel {
   }
 
   async insertEmployee(name: string): Promise<IEmployee> {
-    const [result] = await this.model.findOrCreate({ where: { name } });
+    const [result] = await this.model.findOrCreate({ where: { name, active: true },
+      attributes: {
+        exclude: ['active'],
+      } });
     return result;
   }
 
@@ -49,7 +55,9 @@ export default class EmployeeModel implements IEmployeeModel {
           }],
         }],
       }, {
-        model: SequelizeEmployee, as: 'employee',
+        model: SequelizeEmployee,
+        as: 'employee',
+        attributes: { exclude: ['active'] },
       }] });
     return result;
   }

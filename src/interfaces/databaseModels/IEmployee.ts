@@ -1,4 +1,5 @@
 export default interface IEmployee {
   id: number;
-  name: string
+  name: string;
+  active: boolean
 }

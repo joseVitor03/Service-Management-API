@@ -12,12 +12,12 @@ const { app } = new App();
 const { expect } = chai;
 const bearer = 'Bearer any';
 
-describe('validateInsertPieceServices Test', function () {
+describe('validateInsertItenServices Test', function () {
   afterEach(function () {
     sinon.restore();
   });
 
-  it('testando caso pieces seja maior que zero e não tenha todos os campos', async function () {
+  it('testando caso itens seja maior que zero e não tenha todos os campos', async function () {
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
     const { status, body } = await chai.request(app).post('/services')
@@ -28,8 +28,8 @@ describe('validateInsertPieceServices Test', function () {
         date: '2024-05-21',
         paymentStatus: false,
         principalEmployeeId: 1,
-        pieces: [{
-          pieceId: 2,
+        itens: [{
+          itemId: 2,
         }],
         employeeServices: [{
           employeeId: 1,
@@ -38,10 +38,10 @@ describe('validateInsertPieceServices Test', function () {
         }] });
 
     expect(status).to.be.equal(400);
-    expect(body).to.be.eqls({ message: 'pieceId, qtdUnit e priceUnit são obrigatórios' });
+    expect(body).to.be.eqls({ message: 'itemId, qtdUnit e priceUnit são obrigatórios' });
   });
 
-  it('testando caso pieces caso algum campo de pieces não seja number', async function () {
+  it('testando caso itens caso algum campo de itens não seja number', async function () {
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
     const { status, body } = await chai.request(app).post('/services')
@@ -52,8 +52,8 @@ describe('validateInsertPieceServices Test', function () {
         date: '2024-05-21',
         paymentStatus: false,
         principalEmployeeId: 1,
-        pieces: [{
-          pieceId: 2,
+        itens: [{
+          itemId: 2,
           qtdUnit: 2,
           priceUnit: '250',
         }],
@@ -64,6 +64,6 @@ describe('validateInsertPieceServices Test', function () {
         }] });
 
     expect(status).to.be.equal(400);
-    expect(body).to.be.eqls({ message: 'pieceId, qtdUnit e priceUnit precisam ser números' });
+    expect(body).to.be.eqls({ message: 'itemId, qtdUnit e priceUnit precisam ser números' });
   });
 });

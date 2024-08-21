@@ -2,14 +2,14 @@ import { Model, InferAttributes, InferCreationAttributes,
   DataTypes, CreationOptional } from 'sequelize';
 import db from '.';
 
-class SequelizePiece extends Model<InferAttributes<SequelizePiece>,
-InferCreationAttributes<SequelizePiece>> {
+class SequelizeItens extends Model<InferAttributes<SequelizeItens>,
+InferCreationAttributes<SequelizeItens>> {
   declare id: CreationOptional<number>;
 
   declare name: string;
 }
 
-SequelizePiece.init({
+SequelizeItens.init({
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -22,9 +22,9 @@ SequelizePiece.init({
   },
 }, {
   sequelize: db,
-  tableName: 'pieces',
+  tableName: 'itens',
   timestamps: false,
-  modelName: 'pieces',
+  modelName: 'itens',
 });
 
-export default SequelizePiece;
+export default SequelizeItens;

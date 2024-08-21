@@ -18,7 +18,7 @@ describe('validateToken Test', function () {
   });
 
   it('testando validação caso não tenha token', async function () {
-    const { status, body } = await chai.request(app).get('/pieces');
+    const { status, body } = await chai.request(app).get('/itens');
 
     expect(status).to.be.equal(401);
     expect(body).to.be.eqls({ message: 'É necessário um token' });
@@ -27,7 +27,7 @@ describe('validateToken Test', function () {
   it('testando validação de token incorreto', async function () {
     sinon.stub(jwt, 'verify').throws();
 
-    const { status, body } = await chai.request(app).get('/pieces').set('Authorization', bearer);
+    const { status, body } = await chai.request(app).get('/itens').set('Authorization', bearer);
 
     expect(status).to.be.equal(403);
     expect(body).to.be.eqls({ message: 'Token incorreto ou expirado' });

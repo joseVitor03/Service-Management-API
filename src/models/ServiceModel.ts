@@ -3,18 +3,18 @@ import IServiceModel, { IServiceResult,
   InsertService, TypeInsertService } from '../interfaces/IServiceModel';
 import SequelizeServices from '../database/models/6-SequelizeServices';
 import SequelizeClient from '../database/models/3-SequelizeClient';
-import SequelizePiecesServices from '../database/models/8-SequelizePiecesServices';
+import SequelizeItensServices from '../database/models/8-SequelizeItensServices';
 import SequelizeEmployeeServices from '../database/models/7-SequelizeEmployeeServices';
 import SequelizeCar from '../database/models/2-SequelizeCar';
 import SequelizeEmployee from '../database/models/4-SequelizeEmployee';
-import SequelizePiece from '../database/models/5-SequelizePieces';
+import SequelizeItens from '../database/models/5-SequelizeItens';
 import IServices from '../interfaces/databaseModels/IServices';
-import IPieceServices from '../interfaces/databaseModels/IPiecesServices';
+import IItensServices from '../interfaces/databaseModels/IItensServices';
 import IEmployeeServices from '../interfaces/databaseModels/IEmployeeServices';
 
 export default class ServiceModel implements IServiceModel {
   private employeeService = SequelizeEmployeeServices;
-  private piecesServices = SequelizePiecesServices;
+  private itensServices = SequelizeItensServices;
   constructor(private model = SequelizeServices) {}
 
   async updateStatusService({ id, paymentStatus }: { id: number; paymentStatus: boolean }):
@@ -37,16 +37,16 @@ export default class ServiceModel implements IServiceModel {
       }, {
         model: SequelizeEmployee, as: 'principalEmployee',
       }],
-      order: [['id', 'DESC']],
+      order: [['date', 'DESC']],
       attributes: { exclude: ['clientId', 'principalEmployeeId'] }, // Exclua clientId do resultado principal
     });
     return result;
   }
 
   async deleteService(id: number): Promise<number> {
-    const result = await this.model.destroy({ where: { id } });
     await this.employeeService.destroy({ where: { serviceId: id } });
-    await this.piecesServices.destroy({ where: { serviceId: id } });
+    await this.itensServices.destroy({ where: { serviceId: id } });
+    const result = await this.model.destroy({ where: { id } });
 
     return result;
   }
@@ -65,16 +65,16 @@ export default class ServiceModel implements IServiceModel {
       }, {
         model: SequelizeEmployee, as: 'principalEmployee',
       }],
-      order: [['id', 'DESC']],
+      order: [['date', 'DESC']],
       attributes: { exclude: ['clientId', 'principalEmployeeId'] }, // Exclua clientId do resultado principal
     });
     return result;
   }
 
   async findService(id: number): Promise<IServiceResult> {
-    const dataService = await this.piecesServices.findAll({ where: { serviceId: id },
-      attributes: { exclude: ['serviceId', 'pieceId'] },
-      include: [{ model: SequelizePiece, as: 'pieceName' }, {
+    const dataService = await this.itensServices.findAll({ where: { serviceId: id },
+      attributes: { exclude: ['serviceId', 'itemId'] },
+      include: [{ model: SequelizeItens, as: 'itemName' }, {
         model: SequelizeServices,
         as: 'service',
         attributes: { exclude: ['clientId', 'principalEmployeeId'] },
@@ -118,12 +118,12 @@ export default class ServiceModel implements IServiceModel {
     });
 
     const pieces = await Promise
-      .all(data.pieces.map(async (piece: Omit<IPieceServices, 'serviceId'>) => {
-        const [responsePieces] = await this.piecesServices.findOrCreate({
+      .all(data.itens.map(async (item: Omit<IItensServices, 'serviceId'>) => {
+        const [responsePieces] = await this.itensServices.findOrCreate({
           where: { serviceId: service.id,
-            pieceId: piece.pieceId,
-            qtdUnit: piece.qtdUnit,
-            priceUnit: piece.priceUnit },
+            itemId: item.itemId,
+            qtdUnit: item.qtdUnit,
+            priceUnit: item.priceUnit },
         });
         return responsePieces;
       }));

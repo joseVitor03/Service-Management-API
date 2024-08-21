@@ -56,7 +56,7 @@ serviceRouter.post(
   Validate.validateToken,
   ValidateService.validateInsertService,
   ValidateService.validateInsertEmployeeServices,
-  ValidateService.validateInsertPiecesServices,
+  ValidateService.validateInsertItensServices,
   (req: Request, res: Response) => serviceController.insertService(req, res),
 );
 

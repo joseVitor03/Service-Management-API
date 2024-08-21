@@ -16,7 +16,6 @@ export default {
       },
       employeeId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
         primaryKey: true,
         field: 'employee_id',
         references: {

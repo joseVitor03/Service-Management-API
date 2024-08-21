@@ -3,19 +3,19 @@ import { EmployeeService } from '../interfaces/IServiceModel';
 
 export default class ValidateService {
   static validateInsertService(req: Request, res: Response, next: NextFunction) {
-    const { clientId, totalService, date, pieces, employeeServices, paymentStatus,
+    const { clientId, totalService, date, itens, employeeServices, paymentStatus,
       principalEmployeeId,
     } = req.body;
     const currentDate = new Date();
     if (!clientId || !totalService || !date || !employeeServices
-      || paymentStatus === undefined || !pieces || !principalEmployeeId) {
+      || paymentStatus === undefined || !itens || !principalEmployeeId) {
       return res.status(400).json({ message: 'dados do serviço incompleto.' });
     }
-    if (!Array.isArray(employeeServices) || !Array.isArray(pieces)) {
-      return res.status(400).json({ message: '"employeeService" e "pieces" em formato incorreto' });
+    if (!Array.isArray(employeeServices) || !Array.isArray(itens)) {
+      return res.status(400).json({ message: '"employeeService" e "itens" em formato incorreto' });
     }
-    if (employeeServices.length === 0 && pieces.length === 0) {
-      return res.status(400).json({ message: '"employeeService" ou "pieces" precisam ter dados' });
+    if (employeeServices.length === 0 && itens.length === 0) {
+      return res.status(400).json({ message: '"employeeService" ou "itens" precisam ter dados' });
     }
     const serviceDate = new Date(date);
     if (serviceDate > currentDate) {
@@ -54,23 +54,22 @@ export default class ValidateService {
     if (result.status !== 200) {
       return res.status(result.status).json(result.data);
     }
-    console.log('aaaaaaa');
 
     next();
   }
 
-  static validateInsertPiecesServices(req: Request, res: Response, next: NextFunction) {
-    const { pieces } = req.body;
+  static validateInsertItensServices(req: Request, res: Response, next: NextFunction) {
+    const { itens } = req.body;
     let result = {} as { status: number, data?: { message: string } };
-    if (pieces.length > 0) {
-      pieces.forEach((piece: { pieceId: number; qtdUnit: number; priceUnit: number }) => {
-        if (!piece.pieceId || !piece.priceUnit || !piece.qtdUnit) {
+    if (itens.length > 0) {
+      itens.forEach((item: { itemId: number; qtdUnit: number; priceUnit: number }) => {
+        if (!item.itemId || !item.priceUnit || !item.qtdUnit) {
           result = { status: 400,
-            data: { message: 'pieceId, qtdUnit e priceUnit são obrigatórios' } };
-        } else if (typeof piece.pieceId !== 'number' || typeof piece.qtdUnit !== 'number'
-        || typeof piece.priceUnit !== 'number') {
+            data: { message: 'itemId, qtdUnit e priceUnit são obrigatórios' } };
+        } else if (typeof item.itemId !== 'number' || typeof item.qtdUnit !== 'number'
+        || typeof item.priceUnit !== 'number') {
           result = { status: 400,
-            data: { message: 'pieceId, qtdUnit e priceUnit precisam ser números' } };
+            data: { message: 'itemId, qtdUnit e priceUnit precisam ser números' } };
         } else {
           result = { status: 200 };
         }
@@ -81,7 +80,6 @@ export default class ValidateService {
     if (result.status !== 200) {
       return res.status(result.status).json(result.data);
     }
-    console.log('aaaaaa');
 
     next();
   }

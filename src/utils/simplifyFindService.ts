@@ -1,9 +1,9 @@
-import { BasicDataService, Pieces,
+import { BasicDataService, Itens,
   SimplifyFindServiceType, TypedData } from '../interfaces/IServiceModel';
 
 export default function simplifyFindService(dataService: TypedData): SimplifyFindServiceType {
   const basicData : SimplifyFindServiceType = { employees: [] as any,
-    pieces: [] as unknown as Pieces[],
+    itens: [] as unknown as Itens[],
     basicServiceData: {} as unknown as BasicDataService };
 
   dataService.dataService.forEach((data: any) => {
@@ -14,10 +14,10 @@ export default function simplifyFindService(dataService: TypedData): SimplifyFin
         basicData.basicServiceData = { ...data.service.dataValues } as unknown as BasicDataService;
       }
     }
-    if (data.pieceName) {
-      basicData.pieces.push({ ...data.pieceName.dataValues,
+    if (data.itemName) {
+      basicData.itens.push({ ...data.itemName.dataValues,
         qtdUnit: data.qtdUnit,
-        priceUnit: data.priceUnit } as unknown as Pieces);
+        priceUnit: data.priceUnit } as unknown as Itens);
     }
   });
 

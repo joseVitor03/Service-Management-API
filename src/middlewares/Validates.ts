@@ -20,14 +20,14 @@ export default class Validate {
     next();
   }
 
-  static validatePiece(req: Request, res: Response, next:NextFunction) {
+  static validateItem(req: Request, res: Response, next:NextFunction) {
     const { id, name } = req.body;
     if (!id || !name) {
       return res.status(400).json({ message: '"id" e "name" são obrigatórios' });
     }
     if (typeof name !== 'string' || name.length < 4) {
       return res.status(400).json(
-        { message: 'Para cadastrar uma nova peça precisa ter pelo menos 4 caracteres' },
+        { message: 'Para cadastrar um novo item precisa ter pelo menos 4 caracteres' },
       );
     }
     next();

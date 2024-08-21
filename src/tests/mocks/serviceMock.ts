@@ -22,8 +22,8 @@ export const insertServiceCompleteMock = {
   date: '2024-05-09',
   paymentStatus: false,
   principalEmployeeId: 2,
-  pieces: [{
-    pieceId: 2,
+  itens: [{
+    itemId: 2,
     qtdUnit: 2,
     priceUnit: 100,
   }],
@@ -140,11 +140,11 @@ export const findServiceMockDataService = [
   },
 ];
 
-export const findServiceMockPieceService = [
+export const findServiceMockItemService = [
   {
     qtdUnit: 2,
     priceUnit: '125.00',
-    pieceName: { dataValues: {
+    itemName: { dataValues: {
       id: 1,
       name: 'PASTILHA DE FREIO',
     } },
@@ -166,12 +166,13 @@ export const findServiceMockPieceService = [
           brand: 'FIAT',
         },
       },
+      principalEmployee: { id: 1, name: 'FABIO' },
     } },
   },
   {
     qtdUnit: 4,
     priceUnit: '250.00',
-    pieceName: { dataValues: {
+    itemName: { dataValues: {
       id: 2,
       name: 'DISCO DE FREIO',
     } },
@@ -193,8 +194,10 @@ export const findServiceMockPieceService = [
           brand: 'FIAT',
         },
       },
-    },
-  },
+      principalEmployee: {
+        id: 1,
+        name: 'FABIO',
+      } } },
 ];
 
 export const findServiceMockEmployee = [
@@ -203,9 +206,7 @@ export const findServiceMockEmployee = [
     description: 'MÃO DE OBRA',
     employee: {
       id: 1,
-      name: 'FABIO',
-    },
-  } },
+      name: 'FABIO' } } },
 ];
 export const finalFindServiceResult = {
   employees: [{
@@ -217,7 +218,7 @@ export const finalFindServiceResult = {
     },
   },
   ],
-  pieces: [{
+  itens: [{
     id: 1,
     name: 'PASTILHA DE FREIO',
     qtdUnit: 2,
@@ -241,10 +242,9 @@ export const finalFindServiceResult = {
       phone: FONE_EXAMPLE,
       carColor: 'Vermelho',
       plate: 'XYZ-9A87',
-      car: {
-        id: 2,
-        name: 'PALIO',
-        year: 2015,
-        brand: 'FIAT',
-      } } },
+      car: { id: 2, name: 'PALIO', year: 2015, brand: 'FIAT' } },
+    principalEmployee: {
+      id: 1,
+      name: 'FABIO',
+    } },
 };

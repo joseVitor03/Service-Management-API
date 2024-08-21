@@ -1,6 +1,6 @@
-export default interface IPieceServices {
+export default interface IItensServices {
   serviceId: number;
-  pieceId: number;
+  itemId: number;
   qtdUnit: number;
   priceUnit: number
 }

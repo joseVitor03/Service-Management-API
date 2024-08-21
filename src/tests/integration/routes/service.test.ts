@@ -5,11 +5,11 @@ import chaiHttp = require('chai-http');
 import SequelizeServices from '../../../database/models/6-SequelizeServices';
 import { finalFindServiceResult,
   findServiceMockEmployee,
-  findServiceMockPieceService, listServiceFalseMock, insertServiceCompleteMock,
+  findServiceMockItemService, listServiceFalseMock, insertServiceCompleteMock,
   listServiceTrueMock,
   servicesByClientMock } from '../../mocks/serviceMock';
 import SequelizeEmployeeServices from '../../../database/models/7-SequelizeEmployeeServices';
-import SequelizePiecesServices from '../../../database/models/8-SequelizePiecesServices';
+import SequelizeItensServices from '../../../database/models/8-SequelizeItensServices';
 import App from '../../../app';
 import servicesByDatesMock from '../../mocks/serviceMock2';
 
@@ -54,8 +54,8 @@ describe('testando rota de services', async function () {
   it('testando rota GET para encontrar um serviço com detalhes', async function () {
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
-    sinon.stub(SequelizePiecesServices, 'findAll')
-      .resolves(findServiceMockPieceService as any);
+    sinon.stub(SequelizeItensServices, 'findAll')
+      .resolves(findServiceMockItemService as any);
 
     sinon.stub(SequelizeEmployeeServices, 'findAll')
       .resolves(findServiceMockEmployee as any);
@@ -72,7 +72,7 @@ describe('testando rota de services', async function () {
     async function () {
       sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
       sinon.stub(SequelizeServices, 'findAll').resolves([]);
-      sinon.stub(SequelizePiecesServices, 'findAll')
+      sinon.stub(SequelizeItensServices, 'findAll')
         .resolves([] as any);
 
       sinon.stub(SequelizeEmployeeServices, 'findAll')
@@ -89,7 +89,7 @@ describe('testando rota de services', async function () {
   it('testando rota GET /services/findService/:id, mas o id não é um numero', async function () {
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
     sinon.stub(SequelizeServices, 'findAll').resolves([]);
-    sinon.stub(SequelizePiecesServices, 'findAll')
+    sinon.stub(SequelizeItensServices, 'findAll')
       .resolves([] as any);
 
     sinon.stub(SequelizeEmployeeServices, 'findAll')
@@ -144,7 +144,7 @@ describe('testando rota de services', async function () {
       serviceId: 3, employeeId: 2, labor: 600.00, description: 'aloo',
     }] as any);
 
-    sinon.stub(SequelizePiecesServices, 'findOrCreate').resolves([{
+    sinon.stub(SequelizeItensServices, 'findOrCreate').resolves([{
       serviceId: 3, qtdUnit: 2, pieceId: 2, priceUnit: 100,
     }] as any);
 
@@ -217,7 +217,7 @@ describe('testando rota de services', async function () {
   it('testando rota DELETE /services/:id', async function () {
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
     sinon.stub(SequelizeServices, 'destroy').resolves(1 as any);
-    sinon.stub(SequelizePiecesServices, 'destroy').resolves(1 as any);
+    sinon.stub(SequelizeItensServices, 'destroy').resolves(1 as any);
     sinon.stub(SequelizeEmployeeServices, 'destroy').resolves(1 as any);
 
     const { status, body } = await chai.request(app).delete('/services/1')
@@ -230,7 +230,7 @@ describe('testando rota de services', async function () {
   it('testando rota DELETE /services/:id, mas não possui servico', async function () {
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
     sinon.stub(SequelizeServices, 'destroy').resolves(0 as any);
-    sinon.stub(SequelizePiecesServices, 'destroy').resolves(0 as any);
+    sinon.stub(SequelizeItensServices, 'destroy').resolves(0 as any);
     sinon.stub(SequelizeEmployeeServices, 'destroy').resolves(0 as any);
 
     const { status, body } = await chai.request(app).delete('/services/2')

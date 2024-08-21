@@ -35,12 +35,10 @@ export default {
       },
       principalEmployeeId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         field: 'principal_employee_id',
-        references: {
-          model: 'employees',
-          key: 'id',
-        } } });
+        references: { model: 'employees', key: 'id' },
+      } });
   },
   down(queryInterface: QueryInterface) {
     return queryInterface.dropTable('services');

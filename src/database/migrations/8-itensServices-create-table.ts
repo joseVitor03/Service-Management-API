@@ -1,9 +1,9 @@
 import { Model, DataTypes, QueryInterface } from 'sequelize';
-import IPieceServices from '../../interfaces/databaseModels/IPiecesServices';
+import IItensServices from '../../interfaces/databaseModels/IItensServices';
 
 export default {
   up(queryInterface: QueryInterface) {
-    return queryInterface.createTable<Model<IPieceServices>>('pieces_services', {
+    return queryInterface.createTable<Model<IItensServices>>('itens_services', {
       serviceId: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -19,13 +19,13 @@ export default {
         allowNull: true,
         field: 'qtd_unit',
       },
-      pieceId: {
+      itemId: {
         type: DataTypes.INTEGER,
         allowNull: true,
         primaryKey: true,
-        field: 'piece_id',
+        field: 'item_id',
         references: {
-          model: 'pieces',
+          model: 'itens',
           key: 'id',
         },
       },
@@ -37,6 +37,6 @@ export default {
     });
   },
   down(queryInterface: QueryInterface) {
-    return queryInterface.dropTable('pieces_services');
+    return queryInterface.dropTable('itens_services');
   },
 };

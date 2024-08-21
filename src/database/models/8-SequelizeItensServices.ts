@@ -2,20 +2,20 @@ import { Model, InferAttributes, InferCreationAttributes,
   DataTypes } from 'sequelize';
 import db from '.';
 import SequelizeServices from './6-SequelizeServices';
-import SequelizePiece from './5-SequelizePieces';
+import SequelizeItens from './5-SequelizeItens';
 
-class SequelizePiecesServices extends Model<InferAttributes<SequelizePiecesServices>,
-InferCreationAttributes<SequelizePiecesServices>> {
+class SequelizeItensServices extends Model<InferAttributes<SequelizeItensServices>,
+InferCreationAttributes<SequelizeItensServices>> {
   declare serviceId: number;
 
-  declare pieceId: number;
+  declare itemId: number;
 
   declare qtdUnit: number;
 
   declare priceUnit: number;
 }
 
-SequelizePiecesServices.init({
+SequelizeItensServices.init({
   serviceId: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -31,13 +31,13 @@ SequelizePiecesServices.init({
     allowNull: true,
     field: 'qtd_unit',
   },
-  pieceId: {
+  itemId: {
     type: DataTypes.INTEGER,
     allowNull: true,
     primaryKey: true,
-    field: 'piece_id',
+    field: 'item_id',
     references: {
-      model: 'pieces',
+      model: 'itens',
       key: 'id',
     },
   },
@@ -49,20 +49,20 @@ SequelizePiecesServices.init({
 }, {
   timestamps: false,
   sequelize: db,
-  tableName: 'pieces_services',
-  modelName: 'piecesServices',
+  tableName: 'itens_services',
+  modelName: 'itensServices',
 });
 
-SequelizePiecesServices.belongsTo(SequelizePiece, {
-  foreignKey: 'pieceId',
+SequelizeItensServices.belongsTo(SequelizeItens, {
+  foreignKey: 'itemId',
   targetKey: 'id',
-  as: 'pieceName',
+  as: 'itemName',
 });
 
-SequelizePiecesServices.belongsTo(SequelizeServices, {
+SequelizeItensServices.belongsTo(SequelizeServices, {
   foreignKey: 'serviceId',
   targetKey: 'id',
   as: 'service',
 });
 
-export default SequelizePiecesServices;
+export default SequelizeItensServices;

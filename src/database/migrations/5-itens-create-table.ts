@@ -1,9 +1,9 @@
 import { QueryInterface, Model, DataTypes } from 'sequelize';
-import { IPieces } from '../../interfaces/databaseModels/IPieces';
+import { IItens } from '../../interfaces/databaseModels/IItens';
 
 export default {
   up(queryInterface: QueryInterface) {
-    return queryInterface.createTable<Model<IPieces>>('pieces', {
+    return queryInterface.createTable<Model<IItens>>('itens', {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -18,6 +18,6 @@ export default {
   },
 
   down(queryInterface: QueryInterface) {
-    return queryInterface.dropTable('pieces');
+    return queryInterface.dropTable('itens');
   },
 };

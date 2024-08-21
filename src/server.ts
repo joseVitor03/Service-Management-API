@@ -1,3 +1,5 @@
 import App from './app';
 
-new App().start(3001);
+const app = new App();
+
+app.start(3001);

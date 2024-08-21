@@ -5,9 +5,11 @@ export default {
     await queryInterface.bulkInsert('employees', [
       {
         name: 'FABIO',
+        active: true,
       },
       {
         name: 'LEANDRO',
+        active: true,
       },
     ], {});
   },

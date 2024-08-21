@@ -2,10 +2,10 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import SequelizeServices from '../../../database/models/6-SequelizeServices';
 import ServicesService from '../../../services/Service.service';
-import SequelizePiecesServices from '../../../database/models/8-SequelizePiecesServices';
+import SequelizeItensServices from '../../../database/models/8-SequelizeItensServices';
 import SequelizeEmployeeServices from '../../../database/models/7-SequelizeEmployeeServices';
 import { finalFindServiceResult, findServiceMockEmployee,
-  findServiceMockPieceService, listServiceFalseMock,
+  findServiceMockItemService, listServiceFalseMock,
   listServiceTrueMock } from '../../mocks/serviceMock';
 
 describe('teste Unitário de Service.service', function () {
@@ -52,10 +52,10 @@ describe('teste Unitário de Service.service', function () {
 
   it(`testando se a função findService retorna um objeto com status: SUCCESSFUL 
   e data com dados do serviço`, async function () {
-    const builtServicesPiece = findServiceMockPieceService.map((data) => {
-      const builtService = SequelizePiecesServices.build(data as any);
+    const builtServicesPiece = findServiceMockItemService.map((data) => {
+      const builtService = SequelizeItensServices.build(data as any);
       const plainService = builtService.get({ plain: true }) as any;
-      plainService.pieceName = data.pieceName;
+      plainService.itemName = data.itemName;
       plainService.service = data.service;
       return plainService;
     });
@@ -65,7 +65,7 @@ describe('teste Unitário de Service.service', function () {
       plainService.dataValues = { ...data.dataValues };
       return plainService;
     });
-    sinon.stub(SequelizePiecesServices, 'findAll').resolves(builtServicesPiece);
+    sinon.stub(SequelizeItensServices, 'findAll').resolves(builtServicesPiece);
     sinon.stub(SequelizeEmployeeServices, 'findAll').resolves(builtServicesEmployee);
 
     const { status, data } = await servicesService.findService(1);

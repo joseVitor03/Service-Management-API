@@ -7,6 +7,8 @@ InferCreationAttributes<SequelizeEmployee>> {
   declare id: CreationOptional<number>;
 
   declare name: string;
+
+  declare active: boolean;
 }
 
 SequelizeEmployee.init({
@@ -17,6 +19,10 @@ SequelizeEmployee.init({
   },
   name: {
     type: DataTypes.STRING,
+    allowNull: false,
+  },
+  active: {
+    type: DataTypes.BOOLEAN,
     allowNull: false,
   },
 }, {

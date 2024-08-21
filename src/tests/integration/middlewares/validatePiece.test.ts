@@ -12,7 +12,7 @@ const { app } = new App();
 const { expect } = chai;
 const bearer = 'Bearer any';
 
-describe('validatePieces Test', function () {
+describe('validateitens Test', function () {
   afterEach(function () {
     sinon.restore();
   });
@@ -20,7 +20,7 @@ describe('validatePieces Test', function () {
   it('testando se a requisição PATCH cai na validação de campos obrigatórios', async function () {
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
-    const { status, body } = await chai.request(app).patch('/pieces').set('Authorization', bearer)
+    const { status, body } = await chai.request(app).patch('/itens').set('Authorization', bearer)
       .send({
         name: 'carburador',
       });
@@ -34,7 +34,7 @@ describe('validatePieces Test', function () {
     async function () {
       sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
-      const { status, body } = await chai.request(app).patch('/pieces').set('Authorization', bearer)
+      const { status, body } = await chai.request(app).patch('/itens').set('Authorization', bearer)
         .send({
           id: 5,
           name: 'car',
@@ -42,7 +42,7 @@ describe('validatePieces Test', function () {
 
       expect(status).to.be.equal(400);
       expect(body).to.be.eqls(
-        { message: 'Para cadastrar uma nova peça precisa ter pelo menos 4 caracteres' },
+        { message: 'Para cadastrar um novo item precisa ter pelo menos 4 caracteres' },
       );
     },
   );

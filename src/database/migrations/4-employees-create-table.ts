@@ -13,6 +13,10 @@ export default {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      active: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
     });
   },
   down(queryInterface: QueryInterface) {

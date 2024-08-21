@@ -1,8 +1,8 @@
 import SequelizeEmployeeServices from '../database/models/7-SequelizeEmployeeServices';
-import IPieceServices from './databaseModels/IPiecesServices';
+import IItensServices from './databaseModels/IItensServices';
 import IServices from './databaseModels/IServices';
 import SequelizeServices from '../database/models/6-SequelizeServices';
-import SequelizePiecesServices from '../database/models/8-SequelizePiecesServices';
+import SequelizeItensServices from '../database/models/8-SequelizeItensServices';
 
 export default interface IServiceModel {
   findAllServicesPaymentStatusFalse(): Promise<IServices[]>;
@@ -18,13 +18,13 @@ export default interface IServiceModel {
 
 export interface InsertService {
   service: SequelizeServices;
-  pieces: SequelizePiecesServices[];
+  pieces: SequelizeItensServices[];
   employeeServices: SequelizeEmployeeServices[];
 
 }
 
 export interface IServiceResult {
-  dataService: IPieceServices[] | IServices[],
+  dataService: IItensServices[] | IServices[],
   employeesOfService: SequelizeEmployeeServices[]
 }
 
@@ -56,10 +56,10 @@ export interface Employee {
   name: string;
 }
 
-export interface Pieces {
+export interface Itens {
   qtdUnit: number,
   priceUnit: string,
-  pieceName: {
+  itemName: {
     id: number,
     name: string
   }
@@ -96,7 +96,7 @@ export interface TypedData {
   dataService: {
     qtdUnit: number,
     priceUnit: string,
-    pieceName: {
+    itemName: {
       id: number,
       name: string
     },
@@ -117,7 +117,7 @@ export type SimplifyFindServiceType = {
     labor: string,
     description: string
   }[],
-  pieces: Pieces[],
+  itens: Itens[],
   basicServiceData: BasicDataService
 };
 
@@ -128,8 +128,8 @@ export type TypeInsertService = {
   clientId: number;
   paymentStatus: boolean,
   principalEmployeeId: number,
-  pieces: {
-    pieceId: number;
+  itens: {
+    itemId: number;
     qtdUnit: number;
     priceUnit: number
   }[]
