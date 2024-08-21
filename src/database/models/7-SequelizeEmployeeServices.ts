@@ -27,10 +27,10 @@ SequelizeEmployeeServices.init({
     type: DataTypes.INTEGER,
     primaryKey: true,
     field: 'employee_id',
-    // references: {
-    //   model: 'employees',
-    //   key: 'id',
-    // },
+    references: {
+      model: 'employees',
+      key: 'id',
+    },
   },
   labor: {
     allowNull: true,
