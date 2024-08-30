@@ -21,7 +21,8 @@ export default class Validate {
   }
 
   static validateItem(req: Request, res: Response, next:NextFunction) {
-    const { id, name } = req.body;
+    const { id } = req.params;
+    const { name } = req.body;
     if (!id || !name) {
       return res.status(400).json({ message: '"id" e "name" são obrigatórios' });
     }

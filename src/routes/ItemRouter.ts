@@ -28,7 +28,7 @@ itemRouter.delete(
 );
 
 itemRouter.patch(
-  '/itens',
+  '/itens/:id',
   Validate.validateToken,
   Validate.validateItem,
   (req: Request, res: Response) => itemController.updateItem(req, res),

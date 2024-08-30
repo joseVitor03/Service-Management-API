@@ -12,8 +12,16 @@ export default class itensModel implements IItensModel {
   }
 
   async updateItem({ id, name }: { id: number; name: string; }): Promise<number> {
-    const [result] = await this.model.update({ name }, { where: { id } });
-    return result;
+    const item = await this.model.findOne({ where: { name } });
+    if (item === null) {
+      console.log(item);
+      const [result] = await this.model.update({ name }, { where: { id } });
+      console.log(result);
+      return result;
+    }
+    console.log(item);
+
+    return 0;
   }
 
   async insertItem(name: string): Promise<IItens> {

@@ -31,7 +31,9 @@ export default class ItemService {
   async updateItem({ id, name }: { id: number, name: string }): Promise<ServiceResponse<IItens>> {
     const result = await this.itemModel.updateItem({ id, name: name.toUpperCase() });
     if (result === 0) {
-      return { status: 'NOT_FOUND', data: { message: 'Item não encontrado' } };
+      return { status: 'NOT_FOUND',
+        data: { message: `Item não encontrado ou
+      já possuí este item na base de dados` } };
     }
     return { status: 'SUCCESSFUL', data: { id, name } };
   }

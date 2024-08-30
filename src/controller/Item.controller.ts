@@ -3,10 +3,10 @@ import ItemService from '../services/Item.service';
 import mapStatusHTTP from '../utils/mapStatusHTTP';
 
 export default class ItemController {
-  constructor(private pieceService = new ItemService()) {}
+  constructor(private itemService = new ItemService()) {}
 
   async listItem(_req: Request, res: Response) {
-    const { status, data } = await this.pieceService.listItens();
+    const { status, data } = await this.itemService.listItens();
     return res.status(mapStatusHTTP(status)).json(data);
   }
 
@@ -15,7 +15,7 @@ export default class ItemController {
     if (typeof name !== 'string' || name.length === 0) {
       return res.status(400).json({ message: 'Requisição com dados inválidos' });
     }
-    const { status, data } = await this.pieceService.findItem(name);
+    const { status, data } = await this.itemService.findItem(name);
     return res.status(mapStatusHTTP(status)).json(data);
   }
 
@@ -26,19 +26,20 @@ export default class ItemController {
         { message: 'Para cadastrar um novo item precisa ter pelo menos 4 caracteres' },
       );
     }
-    const { status, data } = await this.pieceService.insertItem(name);
+    const { status, data } = await this.itemService.insertItem(name);
     return res.status(mapStatusHTTP(status)).json(data);
   }
 
   async deleteItem(req: Request, res: Response) {
     const { id } = req.params;
-    const { status, data } = await this.pieceService.deleteItem(Number(id));
+    const { status, data } = await this.itemService.deleteItem(Number(id));
     return res.status(mapStatusHTTP(status)).json(data);
   }
 
   async updateItem(req: Request, res: Response) {
-    const { id, name } = req.body;
-    const { status, data } = await this.pieceService.updateItem({ id, name });
+    const { id } = req.params;
+    const { name } = req.body;
+    const { status, data } = await this.itemService.updateItem({ id: Number(id), name });
     return res.status(mapStatusHTTP(status)).json(data);
   }
 }
