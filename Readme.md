@@ -68,7 +68,7 @@ Faça o `build` da aplicação pelo Docker:
 $ docker-compose up -d --build
 ```
 Com esse comando as portas:
-`http://localhost:3001`e `http://localhost:3306` estarão ocupadas com o oficina_api e oficina_db respectivamente.
+`http://localhost:3001`e `http://localhost:(escolhida no .env)` estarão ocupadas com o oficina_api e oficina_db respectivamente.
 
 Após inserir os valores no .env, faça esses comandos para criar as tabelas, fazer as migrações e seeders:
 ```bash
@@ -126,7 +126,7 @@ $ npm run db:reset
 }
 
 ```
-##### RESPONSE:
+##### RESPONSE:W
 ```json
 {
   "id": 3,
@@ -163,7 +163,7 @@ $ npm run db:reset
 <details>
 <sumary><h3>Solicitações e Respostas das rotas de itens</h3></sumary>
 
-<h4 id="#get-list-itens">GET /itens</h4>
+<h4 id="get-list-itens">GET /itens</h4>
 
 ##### RESPONSE:
 ```json
@@ -255,4 +255,149 @@ $ npm run db:reset
   "name": "COXIM"
 }
 ```
+</details>
+
+### Rotas para Carros:
+
+| rotas       | descrição      
+|-------------------|----------------------
+| <kbd>GET /cars</kbd>  | listando carros [response-details](#list-cars)
+| <kbd>GET /cars/findCars?name=</kbd>  | encontrar carros pelo nome. Usando a query `name` [response-details](#find-cars)
+|<kbd>POST /cars/brand</kbd>  | encontrar carros pela marca [request-details](#find-cars-brand)
+|<kbd>POST /cars</kbd>  | cadastrar carro [request-details](#insert-car)
+|<kbd>DELETE /cars/:id</kbd>  | deletando carro [response-details](#delete-car)
+|<kbd>PUT /cars/:id</kbd>  | atualizando carro [request-details](#update-car)
+
+<details>
+<sumary>Solicitações e Respostas das rotas de carros</sumary>
+
+<h4 id="list-cars">GET /cars</h4>
+
+#### RESPONSE:
+```json
+[
+  {
+    "id": 1,
+    "name": "HONDA CIVIC",
+    "year": 2020,
+    "brand": "HONDA"
+  },
+  {
+    "id": 2,
+    "name": "PALIO",
+    "year": 2015,
+    "brand": "FIAT"
+  },
+  {
+    "id": 3,
+    "name": "VOLKSWAGEN GOL",
+    "year": 2024,
+    "brand": "VOLKSWAGEN"
+  }]
+```
+<h4 id="find-cars">GET /cars/findCars?name=fi</h4>
+
+#### RESPONSE:
+```json
+[{
+    "id": 34,
+    "name": "FORD FIESTA",
+    "year": 2024,
+    "brand": "FORD"
+  },
+  {
+    "id": 64,
+    "name": "HONDA FIT",
+    "year": 2024,
+    "brand": "HONDA"
+  },
+  {
+    "id": 90,
+    "name": "NISSAN PATHFINDER",
+    "year": 2024,
+    "brand": "NISSAN"
+  }]
+```
+<h4 id="find-cars-brand">POST /cars/brand</h4>
+
+#### REQUEST:
+```json
+{
+  "brand": "HONDA"
+}
+```
+#### RESPONSE:
+```json
+[
+  {
+    "id": 1,
+    "name": "HONDA CIVIC",
+    "year": 2020,
+    "brand": "HONDA"
+  },
+  {
+    "id": 63,
+    "name": "HONDA CIVIC",
+    "year": 2024,
+    "brand": "HONDA"
+  },
+  {
+    "id": 64,
+    "name": "HONDA FIT",
+    "year": 2024,
+    "brand": "HONDA"
+  }]
+```
+
+<h4 id="insert-car">POST /cars</h4>
+
+#### REQUEST:
+```json
+{
+  "name": "GOLF",
+  "brand": "VOLKSWAGEN",
+  "year": 2020
+}
+```
+
+#### RESPONSE:
+```json
+{
+  "id": 103,
+  "name": "GOLF",
+  "brand": "VOLKSWAGEN",
+  "year": 2020
+}
+```
+
+<h4 id="delete-car">DELETE /cars/2</h4>
+
+#### RESPONSE:
+```json
+{
+  "message": "carro excluído"
+}
+```
+
+<h4 id="update-car">PUT /cars/2</h4>
+
+#### REQUEST:
+```json
+{
+  "name": "GOLF",
+  "brand": "VOLKSWAGEN",
+  "year": 2020
+}
+```
+
+#### RESPONSE:
+```json
+{
+  "id": 2,
+  "name": "GOLF",
+  "brand": "VOLKSWAGEN",
+  "year": 2020
+}
+```
+
 </details>

@@ -15,14 +15,14 @@ export default class CarService {
     return { status: 'CREATED', data: result };
   }
 
-  async removeCar({ name, brand, year }: Omit<ICar, 'id'>):
-  Promise<ServiceResponse<Omit<ICar, 'id'>>> {
-    const result = await this.carModel.removeCar({ name, year, brand });
+  async removeCar(id: number):
+  Promise<ServiceResponse<{ message:string }>> {
+    const result = await this.carModel.removeCar(id);
     if (result === 0) {
       return { status: 'NOT_FOUND', data: { message: 'carro não encontrado' } };
     }
 
-    return { status: 'SUCCESSFUL', data: { name, brand, year } };
+    return { status: 'SUCCESSFUL', data: { message: 'carro excluído' } };
   }
 
   async findCar(name: string): Promise<ServiceResponse<ICar[]>> {

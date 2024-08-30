@@ -88,12 +88,12 @@ describe('testando rotas de employee', function () {
     expect(body).to.be.eqls({ message: 'funcionário não encontrado.' });
   });
 
-  it('testando rota POST /employee/service/:employeeId', async function () {
+  it('testando rota POST /employee/:employeeId/services', async function () {
     sinon.stub(SequelizeEmployeeServices, 'findAll')
       .resolves(employeeProductivityByDateMock as any);
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
-    const { status, body } = await chai.request(app).post('/employee/services/1')
+    const { status, body } = await chai.request(app).post('/employee/:employeeId/services')
       .set('Authorization', bearer).send({
         dateInitial: '2024-01-10',
         dateFinal: '2024-05-30' });
@@ -103,13 +103,13 @@ describe('testando rotas de employee', function () {
   });
 
   it(
-    'testando rota POST /employee/service/:employeeId, mas sem serviços nesse intervalo de datas',
+    'testando rota POST /employee/:employeeId/services, mas sem serviços nesse intervalo de datas',
     async function () {
       sinon.stub(SequelizeEmployeeServices, 'findAll')
         .resolves([] as any);
       sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
-      const { status, body } = await chai.request(app).post('/employee/services/1')
+      const { status, body } = await chai.request(app).post('/employee/:employeeId/services')
         .set('Authorization', bearer).send({
           dateInitial: '2024-01-10',
           dateFinal: '2024-05-30' });

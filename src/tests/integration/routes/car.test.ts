@@ -56,23 +56,17 @@ describe('Cars Test', function () {
     sinon.stub(SequelizeCar, 'destroy').resolves(1);
     sinon.stub(jwt, 'verify').returns({ email: 'any', password: 'any' } as any);
 
-    const { status, body } = await chai.request(app).delete('/cars').send({ name: 'HB20',
-      year: 2020,
-      brand: 'HYUNDAI' }).set('Authorization', bearer);
+    const { status, body } = await chai.request(app).delete('/cars/1').set('Authorization', bearer);
 
     expect(status).to.be.equal(200);
-    expect(body).to.be.deep.equal({ name: 'HB20',
-      year: 2020,
-      brand: 'HYUNDAI' });
+    expect(body).to.be.deep.equal({ message: 'carro excluído' });
   });
 
   it('testando remover carro inexistente', async function () {
     sinon.stub(SequelizeCar, 'destroy').resolves(0);
     sinon.stub(jwt, 'verify').returns({ email: 'any', password: 'any' } as any);
 
-    const { status, body } = await chai.request(app).delete('/cars').send({ name: 'HB20',
-      year: 2020,
-      brand: 'HYUNDAI' }).set('Authorization', bearer);
+    const { status, body } = await chai.request(app).delete('/cars/2').set('Authorization', bearer);
 
     expect(status).to.be.equal(404);
     expect(body).to.be.deep.equal({ message: 'carro não encontrado' });
@@ -82,7 +76,7 @@ describe('Cars Test', function () {
     sinon.stub(SequelizeCar, 'update').resolves([1]);
     sinon.stub(jwt, 'verify').returns({ email: 'any', password: 'any' } as any);
 
-    const { status, body } = await chai.request(app).put('/cars').send(updateCarMock)
+    const { status, body } = await chai.request(app).put('/cars/2').send(updateCarMock)
       .set('Authorization', bearer);
 
     expect(status).to.be.equal(200);

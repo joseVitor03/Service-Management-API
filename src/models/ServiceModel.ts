@@ -134,7 +134,6 @@ export default class ServiceModel implements IServiceModel {
         const [result] = await this.employeeService.findOrCreate({ where: {
           serviceId: service.id, employeeId, labor, description,
         } });
-        console.log(result);
 
         return result;
       }));

@@ -125,11 +125,12 @@ describe('testando rota de items', function () {
   it(
     'testando rota PATCH /itens',
     async function () {
+      sinon.stub(SequelizeItens, 'findOne').resolves(null);
       sinon.stub(SequelizeItens, 'update').resolves([1] as [number]);
       sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
-      const { status, body } = await chai.request(app).patch('/itens')
-        .send({ id: 2, name: 'cabeçote' })
+      const { status, body } = await chai.request(app).patch('/itens/2')
+        .send({ name: 'cabeçote' })
         .set('Authorization', bearer);
 
       expect(status).to.be.equal(200);
@@ -137,17 +138,19 @@ describe('testando rota de items', function () {
     },
   );
   it(
-    'testando rota PATCH /itens, mas com item inexistente',
+    'testando rota PATCH /itens, mas com item inexistente ou já cadastrado',
     async function () {
+      sinon.stub(SequelizeItens, 'findOne').resolves({ id: 2, name: 'filtro de oleo' } as any);
       sinon.stub(SequelizeItens, 'update').resolves([0] as [number]);
       sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
-      const { status, body } = await chai.request(app).patch('/itens')
-        .send({ id: 2, name: 'filtro de oleo' })
+      const { status, body } = await chai.request(app).patch('/itens/2')
+        .send({ name: 'filtro de oleo' })
         .set('Authorization', bearer);
 
       expect(status).to.be.equal(404);
-      expect(body).to.be.deep.equal({ message: 'Item não encontrado' });
+      expect(body).to.be.deep.equal({ message: `Item não encontrado ou
+      já possuí este item na base de dados` });
     },
   );
 });

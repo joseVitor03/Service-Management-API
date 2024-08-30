@@ -10,6 +10,10 @@ import { mockListClients, mockFindClient,
   mockInsertClient, mockUpdateClient,
   findClientById } from '../../mocks/clientMocks';
 import { mockCars } from '../../mocks/carMocks';
+import SequelizeServices from '../../../database/models/6-SequelizeServices';
+import { servicesByClientMock } from '../../mocks/serviceMock';
+import SequelizeEmployeeServices from '../../../database/models/7-SequelizeEmployeeServices';
+import SequelizeItensServices from '../../../database/models/8-SequelizeItensServices';
 
 chai.use(chaiHttp);
 
@@ -139,6 +143,10 @@ describe('testando rotas client', function () {
 
   it('DELETE /clients, deletando cliente', async function () {
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
+    sinon.stub(SequelizeServices, 'findAll').resolves(servicesByClientMock as any);
+    sinon.stub(SequelizeEmployeeServices, 'destroy').resolves(5 as any);
+    sinon.stub(SequelizeItensServices, 'destroy').resolves(5 as any);
+    sinon.stub(SequelizeServices, 'destroy').resolves(5 as any);
     sinon.stub(SequelizeClient, 'destroy').resolves(1 as any);
 
     const { status, body } = await chai.request(app).delete('/clients/1')
@@ -150,6 +158,10 @@ describe('testando rotas client', function () {
 
   it('DELETE /clients, caso não encontre cliente', async function () {
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
+    sinon.stub(SequelizeServices, 'findAll').resolves([]);
+    sinon.stub(SequelizeEmployeeServices, 'destroy').resolves(0 as any);
+    sinon.stub(SequelizeItensServices, 'destroy').resolves(0 as any);
+    sinon.stub(SequelizeServices, 'destroy').resolves(0 as any);
     sinon.stub(SequelizeClient, 'destroy').resolves(0 as any);
 
     const { status, body } = await chai.request(app).delete('/clients/1')

@@ -24,7 +24,7 @@ export default class Validate {
     const { id } = req.params;
     const { name } = req.body;
     if (!id || !name) {
-      return res.status(400).json({ message: '"id" e "name" são obrigatórios' });
+      return res.status(400).json({ message: '"name" é obrigatório' });
     }
     if (typeof name !== 'string' || name.length < 4) {
       return res.status(400).json(

@@ -17,8 +17,8 @@ export default class CarModel implements ICarModel {
     return result;
   }
 
-  async removeCar({ name, brand, year }: Omit<ICar, 'id'>): Promise<number> {
-    const result = await this.model.destroy({ where: { name, brand, year } });
+  async removeCar(id: number): Promise<number> {
+    const result = await this.model.destroy({ where: { id } });
     return result;
   }
 

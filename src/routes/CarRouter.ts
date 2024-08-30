@@ -31,16 +31,15 @@ carsRouter.post(
 );
 
 carsRouter.put(
-  '/cars',
+  '/cars/:id',
   Validate.validateToken,
   Validate.validateCar,
   (req: Request, res: Response) => carController.updateCar(req, res),
 );
 
 carsRouter.delete(
-  '/cars',
+  '/cars/:id',
   Validate.validateToken,
-  Validate.validateCar,
   (req: Request, res: Response) => carController.removeCar(req, res),
 );
 

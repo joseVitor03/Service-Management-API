@@ -12,7 +12,7 @@ const { app } = new App();
 const { expect } = chai;
 const bearer = 'Bearer any';
 
-describe('validateitens Test', function () {
+describe('validateItens Test', function () {
   afterEach(function () {
     sinon.restore();
   });
@@ -20,13 +20,10 @@ describe('validateitens Test', function () {
   it('testando se a requisição PATCH cai na validação de campos obrigatórios', async function () {
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
-    const { status, body } = await chai.request(app).patch('/itens').set('Authorization', bearer)
-      .send({
-        name: 'carburador',
-      });
+    const { status, body } = await chai.request(app).patch('/itens/2').set('Authorization', bearer);
 
     expect(status).to.be.equal(400);
-    expect(body).to.be.eqls({ message: '"id" e "name" são obrigatórios' });
+    expect(body).to.be.eqls({ message: '"name" é obrigatório' });
   });
 
   it(
@@ -34,9 +31,9 @@ describe('validateitens Test', function () {
     async function () {
       sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
-      const { status, body } = await chai.request(app).patch('/itens').set('Authorization', bearer)
+      const { status, body } = await chai.request(app).patch('/itens/2')
+        .set('Authorization', bearer)
         .send({
-          id: 5,
           name: 'car',
         });
 

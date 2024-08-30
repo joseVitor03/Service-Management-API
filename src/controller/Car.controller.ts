@@ -18,8 +18,8 @@ export default class CarController {
   }
 
   async removeCar(req: Request, res: Response) {
-    const { name, brand, year } = req.body;
-    const { status, data } = await this.carService.removeCar({ name, year, brand });
+    const { id } = req.params;
+    const { status, data } = await this.carService.removeCar(Number(id));
     return res.status(mapStatusHTTP(status)).json(data);
   }
 
@@ -39,8 +39,9 @@ export default class CarController {
   }
 
   async updateCar(req: Request, res: Response) {
-    const { id, name, brand, year } = req.body;
-    const { status, data } = await this.carService.updateCar({ id, name, brand, year });
+    const { id } = req.params;
+    const { name, brand, year } = req.body;
+    const { status, data } = await this.carService.updateCar({ id: Number(id), name, brand, year });
     return res.status(mapStatusHTTP(status)).json(data);
   }
 }
