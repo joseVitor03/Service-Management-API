@@ -17,22 +17,21 @@ describe('validateUpdateEmployee Test', function () {
     sinon.restore();
   });
 
-  it('testando campos "id" e "name" são obrigatórios', async function () {
+  it('testando se campo "name" é obrigatório', async function () {
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
-    const { status, body } = await chai.request(app).patch('/employee')
+    const { status, body } = await chai.request(app).patch('/employees/1')
       .set('Authorization', bearer);
 
     expect(status).to.be.equal(400);
-    expect(body).to.be.eqls({ message: '"id" e "name" são obrigatórios' });
+    expect(body).to.be.eqls({ message: 'name é obrigatório' });
   });
 
   it('testando campo "name" precisa ter pelo menos 5 caracteres', async function () {
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
-    const { status, body } = await chai.request(app).patch('/employee')
+    const { status, body } = await chai.request(app).patch('/employees/1')
       .set('Authorization', bearer).send({
-        id: 2,
         name: 'carl',
       });
 

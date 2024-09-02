@@ -23,8 +23,9 @@ export default class ClientModel implements IClientModel {
       plate,
       carId,
       carColor },
-    include: { model: SequelizeCar, as: 'car' },
+    include: [{ model: SequelizeCar, as: 'car' }],
     attributes: { exclude: ['carId'] } });
+
     return result;
   }
 
@@ -75,6 +76,7 @@ export default class ClientModel implements IClientModel {
       plate,
       carId,
       carColor }, { where: { id } });
+
     return result;
   }
 

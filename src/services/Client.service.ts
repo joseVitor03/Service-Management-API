@@ -51,7 +51,9 @@ export default class ClientService {
       carId,
       carColor: carColor.toLocaleUpperCase() });
     if (result === 0) {
-      return { status: 'NOT_FOUND', data: { message: 'cliente inexistente.' } };
+      return { status: 'INVALID_DATA',
+        data:
+      { message: 'cliente inexistente ou com os dados iguais.' } };
     }
     return { status: 'SUCCESSFUL', data: client };
   }

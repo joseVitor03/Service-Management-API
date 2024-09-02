@@ -23,8 +23,9 @@ export default class EmployeeController {
   }
 
   async updateEmployee(req: Request, res: Response) {
-    const { id, name, active } = req.body;
-    const { status, data } = await this.employeeService.updateEmployee({ id, name, active });
+    const { id } = req.params;
+    const { name } = req.body;
+    const { status, data } = await this.employeeService.updateEmployee({ id: Number(id), name });
     return res.status(mapStatusHTTP(status)).json(data);
   }
 

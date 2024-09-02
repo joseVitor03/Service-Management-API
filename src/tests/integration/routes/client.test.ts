@@ -137,8 +137,8 @@ describe('testando rotas client', function () {
         carColor: 'PRATA',
       });
 
-    expect(status).to.be.equal(404);
-    expect(body).to.be.eqls({ message: 'cliente inexistente.' });
+    expect(status).to.be.equal(400);
+    expect(body).to.be.eqls({ message: 'cliente inexistente ou com os dados iguais.' });
   });
 
   it('DELETE /clients, deletando cliente', async function () {

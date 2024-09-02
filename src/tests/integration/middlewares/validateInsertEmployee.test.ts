@@ -20,7 +20,8 @@ describe('validateInsertEmployee Test', function () {
   it('testando campo "name" obrigatório', async function () {
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
-    const { status, body } = await chai.request(app).post('/employee').set('Authorization', bearer);
+    const { status, body } = await chai.request(app).post('/employees')
+      .set('Authorization', bearer);
 
     expect(status).to.be.equal(400);
     expect(body).to.be.eqls({ message: ' "name" é obrigatório' });
@@ -29,7 +30,7 @@ describe('validateInsertEmployee Test', function () {
   it('testando campo "name" caso tenha menos de 5 caracteres', async function () {
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
-    const { status, body } = await chai.request(app).post('/employee').set('Authorization', bearer)
+    const { status, body } = await chai.request(app).post('/employees').set('Authorization', bearer)
       .send({
         name: 'car',
       });

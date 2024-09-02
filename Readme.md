@@ -401,3 +401,498 @@ $ npm run db:reset
 ```
 
 </details>
+
+
+### Rotas para Funcionários:
+
+| rotas    | descrição          
+|----------------|-----------------
+| GET /employees   | lista de funcionários [response-details](#list-employees)
+| GET /employees/:id/services  | lista de serviços do funcionário [response-details](#list-services-by-employee)
+| POST /employees  | cadastrar funcionário [request-details](#insert-employee)
+| POST /employees/:employeeId/services  | lista de serviços do funcionário em um intervalo de datas [request-details](#list-services-by-employee-in-date-range)
+| DELETE /employees/:id  | "excluir" funcionário [response-details](#delete-employee)
+| PATCH /employees/:id   | atualizar nome do funcionário [request-details](#update-employee)
+
+<details>
+<sumary>Solicitações e Respostas das rotas de funcionários</sumary>
+
+<h4 id="list-employees">GET /employees</h4>
+
+#### RESPONSE:
+```json
+[
+  {
+    "id": 1,
+    "name": "FABIO"
+  },
+  {
+    "id": 2,
+    "name": "LEANDRO"
+  }
+]
+```
+
+<h4>GET /employees/1/services</h4>
+
+#### RESPONSE:
+```json
+[
+  {
+    "labor": "500.00",
+    "description": null,
+    "service": {
+      "id": 2,
+      "totalService": "1750.00",
+      "date": "2024-04-20",
+      "paymentStatus": false,
+      "principalEmployeeId": 1,
+      "client": {
+        "id": 2,
+        "name": "Ciclano",
+        "phone": "98765-4321",
+        "carColor": "Vermelho",
+        "plate": "XYZ-9A87",
+        "car": {
+          "id": 2,
+          "name": "PALIO",
+          "year": 2015,
+          "brand": "FIAT"
+        }
+      }
+    }
+  }
+]
+```
+
+<h4 id="insert-employee">POST /employees</h4>
+
+#### REQUEST:
+```json
+{
+  "name": "cleber"
+}
+```
+
+#### RESPONSE:
+```json
+{
+  "id": 3,
+  "name": "CLEBER",
+  "active": true
+}
+```
+
+<h4 id="employee-productivity">POST /employees/1/services</h4>
+
+#### REQUEST:
+```json
+{
+  "dateInitial": "2024-01-10",
+  "dateFinal": "2024-06-20"
+}
+```
+
+#### RESPONSE
+```json
+[
+  {
+    "labor": "500.00",
+    "description": "MÃO DE OBRA",
+    "service": {
+      "id": 2,
+      "date": "2024-04-20",
+      "client": {
+        "id": 2,
+        "name": "Ciclano",
+        "carColor": "Vermelho",
+        "plate": "XYZ-9A87",
+        "car": {
+          "id": 2,
+          "name": "PALIO",
+          "year": 2015,
+          "brand": "FIAT"
+        }
+      }
+    },
+    "employee": {
+      "id": 1,
+      "name": "FABIO"
+    }
+  }
+]
+```
+
+<h4 id="delete-employee">DELETE /employees/1</h4>
+
+#### RESPONSE
+```json
+{
+  "message": "funcionário excluído."
+}
+```
+
+<h4 id="update-employee">PATCH /employees/2</h4>
+
+#### REQUEST:
+```json
+{
+  "name": "leandro"
+}
+```
+
+#### RESPONSE:
+```json
+{
+  "id": 2,
+  "name": "Leandro"
+}
+```
+
+</details>
+
+### Rotas para Clientes:
+
+|  rotas    | descrição           
+|-------------|------------------
+| GET /clients   | listar clientes [response-details](#list-clients)
+| GET /clients/:id   | encontrar cliente pelo id [response-details](#get-client)
+| POST /clients   | cadastrar cliente [request-details](#insert-client)
+| POST /clients/findClient  | encontrar cliente pelo nome e/ou placa [request-details](#find-client-by-name-our-plate)
+| DELETE /clients/:id  | deletar cliente [response-details](#delete-client)
+| PUT /clients/:id  | atualizar dados do cliente [request-details](#update-client)
+
+<details>
+<sumary>Solicitações e Respostas das rotas de clientes</sumary>
+
+<h4 id="list-clients">GET /clients</h4>
+
+#### RESPONSE:
+```json
+[
+  {
+    "id": 1,
+    "name": "Fulano",
+    "phone": "12345-6789",
+    "carColor": "Azul",
+    "plate": "ABC-1B23",
+    "car": {
+      "id": 1,
+      "name": "HONDA CIVIC",
+      "year": 2020,
+      "brand": "HONDA"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Ciclano",
+    "phone": "98765-4321",
+    "carColor": "Vermelho",
+    "plate": "XYZ-9A87",
+    "car": {
+      "id": 2,
+      "name": "PALIO",
+      "year": 2015,
+      "brand": "FIAT"
+    }
+  }
+]
+```
+<h4 id="get-client">GET /clients/1</h4>
+
+```json
+{
+  "id": 1,
+  "name": "Fulano",
+  "phone": "12345-6789",
+  "carId": 1,
+  "carColor": "Azul",
+  "plate": "ABC-1B23",
+  "car": {
+    "id": 1,
+    "name": "HONDA CIVIC",
+    "year": 2020,
+    "brand": "HONDA"
+  }
+}
+```
+
+<h4 id="insert-client">POST /clients</h4>
+
+#### REQUEST:
+```json
+{
+  "name": "Cleber",
+  "carId": 4,
+  "plate": "MCH3B23",
+  "phone": "12 34567-8901",
+  "carColor": "PRATA"
+}
+```
+
+#### RESPONSE:
+```json
+{
+  "id": 4,
+  "name": "CLEBER",
+  "phone": "12 34567-8901",
+  "carColor": "PRATA",
+  "plate": "MCH-3B23",
+  "car": {
+    "id": 4,
+    "name": "VOLKSWAGEN VOYAGE",
+    "year": 2024,
+    "brand": "VOLKSWAGEN"
+  }
+}
+```
+
+<h4 id="find-client-by-name-our-plate">POST /clients/findClient</h4>
+
+#### REQUEST:
+```json
+{
+  "name": "",
+  "plate": "X"
+}
+```
+#### RESPONSE:
+```json
+[
+  {
+    "id": 2,
+    "name": "Ciclano",
+    "phone": "12 98765-4321",
+    "carColor": "Vermelho",
+    "plate": "XYZ-9A87",
+    "car": {
+      "id": 2,
+      "name": "PALIO",
+      "year": 2015,
+      "brand": "FIAT"
+    }
+  }
+]
+```
+
+<h4 id="delete-client">DELETE /clients/1</h4>
+
+#### RESPONSE:
+```json
+{
+  "message": "cliente excluído"
+}
+```
+
+<h4 id="update-client">PUT /clients/2</h4>
+
+#### REQUEST:
+```json
+{
+  "name": "ana maria",
+  "carId": 1,
+  "plate": "MCH-1A23",
+  "phone": "12 34568-9102",
+  "carColor": "PRATA"
+}
+```
+
+#### RESPONSE:
+```json
+{
+  "id": 1,
+  "name": "ana maria",
+  "phone": "12 34568-9102",
+  "plate": "MCH-1A23",
+  "carId": 1,
+  "carColor": "PRATA"
+}
+```
+
+</details>
+
+### Rotas para Serviços
+
+|  rotas   | descrição       
+|----------------|-----------------
+| GET /services/paymentStatusFalse  | lista de serviços com pagamento pendente [response-details](#list-services-false)
+| GET /services/paymentStatusTrue  | lista de serviços com pagamento efetuado [response-details](#list-services-true)
+| GET /services/:id  | detalhes de um serviço [response-details](#find-service)
+| POST /services   | cadastrar serviço. Pode fazer o cadastro com o `employeeServices` ou o `itens` com o array vázio, mas não os dois. [request-details](#insert-service)
+| PATCH /services/:id  | atualizar status de pagamento do serviço. [request-details](#update-service)
+| DELETE /services/:id  | deletar serviço [response-details](#delete-service)
+
+<details>
+<sumary>Solicitações e Respostas das rotas de serviços</sumary>
+
+<h4 id="list-services-false">GET /services/paymentStatusFalse</h4>
+
+#### RESPONSE
+```json
+[
+  {
+    "id": 2,
+    "totalService": "1750.00",
+    "date": "2024-04-20",
+    "paymentStatus": false,
+    "client": {
+      "id": 2,
+      "name": "Ciclano",
+      "phone": "98765-4321",
+      "carColor": "Vermelho",
+      "plate": "XYZ-9A87",
+      "car": {
+        "id": 2,
+        "name": "PALIO",
+        "year": 2015,
+        "brand": "FIAT"
+      }
+    },
+    "principalEmployee": {
+      "id": 1,
+      "name": "FABIO",
+      "active": true
+    }
+  }
+]
+```
+
+<h4 id="list-services-true">GET /services/paymentStatusTrue</h4>
+
+#### RESPONSE
+```json
+[
+  {
+    "id": 1,
+    "totalService": "750.00",
+    "date": "2024-05-19",
+    "paymentStatus": true,
+    "client": {
+      "id": 1,
+      "name": "Fulano",
+      "phone": "12345-6789",
+      "carColor": "Azul",
+      "plate": "ABC-1B23",
+      "car": {
+        "id": 1,
+        "name": "HONDA CIVIC",
+        "year": 2020,
+        "brand": "HONDA"
+      }
+    },
+    "principalEmployee": {
+      "id": 2,
+      "name": "LEANDRO",
+      "active": true
+    }
+  }
+]
+```
+<h4 id="find-service">GET /services/1</h4>
+
+#### RESPONSE:
+```json
+{
+  "employees": [
+    {
+      "labor": "250.00",
+      "description": "MÃO DE OBRA",
+      "employee": {
+        "id": 1,
+        "name": "FABIO"
+      }
+    },
+    {
+      "labor": "250.00",
+      "description": "ALINHAMENTO DE CABEÇOTE",
+      "employee": {
+        "id": 2,
+        "name": "LEANDRO"
+      }
+    }
+  ],
+  "itens": [
+    {
+      "id": 1,
+      "name": "OLEO 15W40",
+      "qtdUnit": 2,
+      "priceUnit": "125.00"
+    }
+  ],
+  "basicServiceData": {
+    "id": 1,
+    "totalService": "750.00",
+    "date": "2024-05-19",
+    "paymentStatus": true,
+    "client": {
+      "id": 1,
+      "name": "Fulano",
+      "phone": "12345-6789",
+      "carColor": "Azul",
+      "plate": "ABC-1B23",
+      "car": {
+        "id": 1,
+        "name": "HONDA CIVIC",
+        "year": 2020,
+        "brand": "HONDA"
+      }
+    },
+    "principalEmployee": {
+      "id": 2,
+      "name": "LEANDRO"
+    }
+  }
+}
+```
+
+<h4 id="insert-services">POST /services</h4>
+
+#### REQUEST:
+```json
+{
+  "clientId": 2,
+  "totalService": 800,
+  "date": "2024-03-19",
+  "paymentStatus": false,
+  "principalEmployeeId": 2,
+  "itens": [
+    {
+      "qtdUnit": 2,
+      "priceUnit": 100,
+      "itemId": 2
+    }],
+  "employeeServices": []
+}
+```
+#### RESPONSE:
+```json
+{
+  "message": "serviço registrado."
+}
+```
+
+<h4 id="update-service">PATCH /services/1</h4>
+
+#### REQUEST:
+```json
+{
+  "paymentStatus": true
+}
+```
+#### RESPONSE:
+```json
+{
+  "message": "status do serviço atualizado."
+}
+```
+
+<h4 id="delete-service">DELETE /services/2</h4>
+
+#### RESPONSE:
+```json
+{
+  "message": "serviço deletado."
+}
+```
+
+</details>

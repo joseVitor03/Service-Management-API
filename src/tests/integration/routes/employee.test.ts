@@ -24,7 +24,7 @@ describe('testando rotas de employee', function () {
     sinon.stub(SequelizeEmployee, 'findAll').resolves(mockFindAll as any);
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
-    const { status, body } = await chai.request(app).get('/employee').set('Authorization', bearer);
+    const { status, body } = await chai.request(app).get('/employees').set('Authorization', bearer);
 
     expect(status).to.be.equal(200);
     expect(body).to.be.deep.equal(mockFindAll);
@@ -34,7 +34,7 @@ describe('testando rotas de employee', function () {
     sinon.stub(SequelizeEmployee, 'findOrCreate').resolves([mockInsert] as any);
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
-    const { status, body } = await chai.request(app).post('/employee').send({
+    const { status, body } = await chai.request(app).post('/employees').send({
       name: 'Leonardo',
     }).set('Authorization', bearer);
 
@@ -46,7 +46,7 @@ describe('testando rotas de employee', function () {
     sinon.stub(SequelizeEmployee, 'update').resolves([1] as any);
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
-    const { status, body } = await chai.request(app).delete('/employee/1')
+    const { status, body } = await chai.request(app).delete('/employees/3')
       .set('Authorization', bearer);
 
     expect(status).to.be.equal(200);
@@ -57,7 +57,7 @@ describe('testando rotas de employee', function () {
     sinon.stub(SequelizeEmployee, 'update').resolves([0] as any);
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
-    const { status, body } = await chai.request(app).delete('/employee/1')
+    const { status, body } = await chai.request(app).delete('/employees/2')
       .set('Authorization', bearer);
 
     expect(status).to.be.equal(404);
@@ -68,8 +68,8 @@ describe('testando rotas de employee', function () {
     sinon.stub(SequelizeEmployee, 'update').resolves([1] as any);
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
-    const { status, body } = await chai.request(app).patch('/employee')
-      .send({ id: 1, name: 'Fabio' })
+    const { status, body } = await chai.request(app).patch('/employees/1')
+      .send({ name: 'Fabio' })
       .set('Authorization', bearer);
 
     expect(status).to.be.equal(200);
@@ -80,8 +80,8 @@ describe('testando rotas de employee', function () {
     sinon.stub(SequelizeEmployee, 'update').resolves([0] as any);
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
-    const { status, body } = await chai.request(app).patch('/employee')
-      .send({ id: 1, name: 'Fabio' })
+    const { status, body } = await chai.request(app).patch('/employees/1')
+      .send({ name: 'Fabio' })
       .set('Authorization', bearer);
 
     expect(status).to.be.equal(404);
@@ -93,7 +93,7 @@ describe('testando rotas de employee', function () {
       .resolves(employeeProductivityByDateMock as any);
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
-    const { status, body } = await chai.request(app).post('/employee/:employeeId/services')
+    const { status, body } = await chai.request(app).post('/employees/:employeeId/services')
       .set('Authorization', bearer).send({
         dateInitial: '2024-01-10',
         dateFinal: '2024-05-30' });
@@ -109,7 +109,7 @@ describe('testando rotas de employee', function () {
         .resolves([] as any);
       sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
 
-      const { status, body } = await chai.request(app).post('/employee/:employeeId/services')
+      const { status, body } = await chai.request(app).post('/employees/:employeeId/services')
         .set('Authorization', bearer).send({
           dateInitial: '2024-01-10',
           dateFinal: '2024-05-30' });

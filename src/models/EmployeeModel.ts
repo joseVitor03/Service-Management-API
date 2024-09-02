@@ -24,16 +24,17 @@ export default class EmployeeModel implements IEmployeeModel {
     return result;
   }
 
-  async updateEmployee({ id, name }: IEmployee): Promise<number> {
+  async updateEmployee({ id, name }: Omit<IEmployee, 'active'>): Promise<number> {
     const [result] = await this.model.update({ name }, { where: { id } });
     return result;
   }
 
   async insertEmployee(name: string): Promise<IEmployee> {
-    const [result] = await this.model.findOrCreate({ where: { name, active: true },
-      attributes: {
-        exclude: ['active'],
-      } });
+    const [result] = await this.model.findOrCreate({ where: {
+      name: name.toLocaleUpperCase(), active: true },
+    attributes: {
+      exclude: ['active'],
+    } });
     return result;
   }
 

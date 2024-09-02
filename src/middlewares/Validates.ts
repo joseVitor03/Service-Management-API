@@ -95,9 +95,9 @@ export default class Validate {
   }
 
   static validateUpdateEmployee(req: Request, res: Response, next: NextFunction) {
-    const { id, name } = req.body;
-    if (!id || !name) {
-      return res.status(400).json({ message: '"id" e "name" são obrigatórios' });
+    const { name } = req.body;
+    if (!name) {
+      return res.status(400).json({ message: 'name é obrigatório' });
     }
     if (name.length < 5) {
       return res.status(400).json({ message: '"name" precisa ter pelo menos 5 caracteres' });

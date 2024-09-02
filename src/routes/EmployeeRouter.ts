@@ -5,41 +5,41 @@ import ValidateService from '../middlewares/ValidateService';
 
 const employeeRouter = Router();
 const employeeController = new EmployeeController();
-
+const EMPLOYEE = '/employees';
 employeeRouter.post(
-  '/employee',
+  `${EMPLOYEE}`,
   Validate.validateToken,
   Validate.validateInsertEmployee,
   (req: Request, res: Response) => employeeController.insertEmployee(req, res),
 );
 
 employeeRouter.get(
-  '/employee',
+  `${EMPLOYEE}`,
   Validate.validateToken,
   (req: Request, res: Response) => employeeController.listEmployees(req, res),
 );
 
 employeeRouter.post(
-  '/employee/:employeeId/services',
+  `${EMPLOYEE}/:employeeId/services`,
   Validate.validateToken,
   ValidateService.validateDateService,
   (req: Request, res: Response) => employeeController.employeeProductivityByDate(req, res),
 );
 
 employeeRouter.get(
-  '/employee/:id/services',
+  `${EMPLOYEE}/:id/services`,
   Validate.validateToken,
   (req: Request, res: Response) => employeeController.listServicesByEmployee(req, res),
 );
 
 employeeRouter.delete(
-  '/employee/:id',
+  `${EMPLOYEE}/:id`,
   Validate.validateToken,
   (req: Request, res: Response) => employeeController.removeEmployee(req, res),
 );
 
 employeeRouter.patch(
-  '/employee',
+  `${EMPLOYEE}/:id`,
   Validate.validateToken,
   Validate.validateUpdateEmployee,
   (req: Request, res: Response) => employeeController.updateEmployee(req, res),
