@@ -433,7 +433,7 @@ $ npm run db:reset
 ]
 ```
 
-<h4>GET /employees/1/services</h4>
+<h4 id="list-services-by-employee">GET /employees/1/services</h4>
 
 #### RESPONSE:
 ```json
