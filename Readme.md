@@ -483,7 +483,7 @@ $ npm run db:reset
 }
 ```
 
-<h4 id="employee-productivity">POST /employees/1/services</h4>
+<h4 id="list-services-by-employee-in-date-range">POST /employees/1/services</h4>
 
 #### REQUEST:
 ```json
