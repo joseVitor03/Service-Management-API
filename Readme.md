@@ -845,7 +845,7 @@ $ npm run db:reset
 }
 ```
 
-<h4 id="insert-services">POST /services</h4>
+<h4 id="insert-service">POST /services</h4>
 
 #### REQUEST:
 ```json
