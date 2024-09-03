@@ -433,7 +433,7 @@ $ npm run db:reset
 ]
 ```
 
-<h4>GET /employees/1/services</h4>
+<h4 id="list-services-by-employee">GET /employees/1/services</h4>
 
 #### RESPONSE:
 ```json
@@ -483,7 +483,7 @@ $ npm run db:reset
 }
 ```
 
-<h4 id="employee-productivity">POST /employees/1/services</h4>
+<h4 id="list-services-by-employee-in-date-range">POST /employees/1/services</h4>
 
 #### REQUEST:
 ```json
@@ -845,7 +845,7 @@ $ npm run db:reset
 }
 ```
 
-<h4 id="insert-services">POST /services</h4>
+<h4 id="insert-service">POST /services</h4>
 
 #### REQUEST:
 ```json
