@@ -3,9 +3,9 @@
 <h4>Glossário</h4>
 
 - O que é possivel fazer?
+- Tecnologias Utilizadas
 - Como rodar o projeto no seu computador?
 - API ENDPOINTS
-- Tecnologias Utilizadas
 - Diagrama de Entidades e Relacionamentos do Banco de Dados
 
 ## Como ver o funcionamento deste projeto?
@@ -16,6 +16,21 @@
 ## O que é possivel fazer?
 
 **Service Management API é uma API Restful para gerenciar serviços em uma oficina mecânica para automóveis. Nela, o administrador tem acesso a informações sobre clientes, funcionários e serviços de forma rápida e simples.**
+
+## Tecnologias Utilizadas:
+
+<div align="center">
+
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white)
+![Mocha](https://img.shields.io/badge/-mocha-%238D6748?style=for-the-badge&logo=mocha&logoColor=white)
+![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
+![Nodemon](https://img.shields.io/badge/NODEMON-%23323330.svg?style=for-the-badge&logo=nodemon&logoColor=%BBDEAD)
+![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)
+
+</div>
 
 ## Como rodar este projeto no seu computador?
 
@@ -897,20 +912,6 @@ $ npm run db:reset
 
 </details>
 
-## Tecnologias Utilizadas:
-
-<div align="center">
-
-![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
-![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
-![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white)
-![Mocha](https://img.shields.io/badge/-mocha-%238D6748?style=for-the-badge&logo=mocha&logoColor=white)
-![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
-![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
-![Nodemon](https://img.shields.io/badge/NODEMON-%23323330.svg?style=for-the-badge&logo=nodemon&logoColor=%BBDEAD)
-![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)
-
-</div>
 
 ## Diagrama de Entidades e Relacionamentos do Banco de Dados:
 
