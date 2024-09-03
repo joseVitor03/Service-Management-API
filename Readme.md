@@ -82,7 +82,7 @@ $ npm run db:reset
 ```
 
 ## 📍API ENDPOINTS
-⚠️**Para usar todas rotas o usuário precisa adicionar o token recebido na /login e utilizá-la no Headers com o nome Authorization e inserir o valor `Bearer #valorToken`**
+⚠️**Para usar todas rotas o usuário precisa adicionar o token recebido na /login e utilizá-la no Headers com o nome Authorization e inserir o valor `Bearer valorToken`**
 
 ⚠️**A única que foge dessa observação acima é a rota /login**
 ### Rotas para Administradores:
