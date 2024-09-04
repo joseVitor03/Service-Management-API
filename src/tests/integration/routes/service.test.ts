@@ -60,7 +60,7 @@ describe('testando rota de services', async function () {
     sinon.stub(SequelizeEmployeeServices, 'findAll')
       .resolves(findServiceMockEmployee as any);
 
-    const { status, body } = await chai.request(app).get('/services/findService/2')
+    const { status, body } = await chai.request(app).get('/services/2')
       .set('Authorization', bearer);
 
     expect(status).to.be.equal(200);
@@ -68,7 +68,7 @@ describe('testando rota de services', async function () {
   });
 
   it(
-    'testando rota GET /services/findService/:id, mas não encontra nenhum serviço',
+    'testando rota GET /services/:id, mas não encontra nenhum serviço',
     async function () {
       sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
       sinon.stub(SequelizeServices, 'findAll').resolves([]);
@@ -78,7 +78,7 @@ describe('testando rota de services', async function () {
       sinon.stub(SequelizeEmployeeServices, 'findAll')
         .resolves([] as any);
 
-      const { status, body } = await chai.request(app).get('/services/findService/2')
+      const { status, body } = await chai.request(app).get('/services/2')
         .set('Authorization', bearer);
 
       expect(status).to.be.equal(404);
@@ -86,7 +86,7 @@ describe('testando rota de services', async function () {
     },
   );
 
-  it('testando rota GET /services/findService/:id, mas o id não é um numero', async function () {
+  it('testando rota GET /services/:id, mas o id não é um numero', async function () {
     sinon.stub(jwt, 'verify').returns({ name: 'any' } as any);
     sinon.stub(SequelizeServices, 'findAll').resolves([]);
     sinon.stub(SequelizeItensServices, 'findAll')
@@ -95,7 +95,7 @@ describe('testando rota de services', async function () {
     sinon.stub(SequelizeEmployeeServices, 'findAll')
       .resolves([] as any);
 
-    const { status, body } = await chai.request(app).get('/services/findService/b')
+    const { status, body } = await chai.request(app).get('/services/b')
       .set('Authorization', bearer);
 
     expect(status).to.be.equal(400);

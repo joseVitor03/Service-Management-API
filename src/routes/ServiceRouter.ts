@@ -26,11 +26,6 @@ serviceRouter.get(
   (req: Request, res: Response) => serviceController.servicesByClient(req, res),
 );
 
-serviceRouter.get(
-  `${SERVICE_ROUTE}/findService/:id`,
-  Validate.validateToken,
-  (req: Request, res: Response) => serviceController.findService(req, res),
-);
 
 serviceRouter.get(
   `${SERVICE_ROUTE}/dates`,
@@ -49,6 +44,12 @@ serviceRouter.get(
   '/services/paymentStatusTrue',
   Validate.validateToken,
   (req: Request, res: Response) => serviceController.listServicesPaymentStatusTrue(req, res),
+);
+
+serviceRouter.get(
+  `${SERVICE_ROUTE}/:id`,
+  Validate.validateToken,
+  (req: Request, res: Response) => serviceController.findService(req, res),
 );
 
 serviceRouter.post(
