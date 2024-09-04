@@ -732,7 +732,7 @@ $ npm run db:reset
 |----------------|-----------------
 | GET /services/paymentStatusFalse  | lista de serviços com pagamento pendente [response-details](#list-services-false)
 | GET /services/paymentStatusTrue  | lista de serviços com pagamento efetuado [response-details](#list-services-true)
-| GET /services/findService/:id  | detalhes de um serviço [response-details](#find-service)
+| GET /services/:id  | detalhes de um serviço [response-details](#find-service)
 | POST /services   | cadastrar serviço. Pode fazer o cadastro com o `employeeServices` ou o `itens` com o array vázio, mas não os dois. [request-details](#insert-service)
 | PATCH /services/:id  | atualizar status de pagamento do serviço. [request-details](#update-service)
 | DELETE /services/:id  | deletar serviço [response-details](#delete-service)
@@ -803,7 +803,7 @@ $ npm run db:reset
   }
 ]
 ```
-<h4 id="find-service">GET /services/findService/1</h4>
+<h4 id="find-service">GET /services/1</h4>
 
 #### RESPONSE:
 ```json
