@@ -5,6 +5,9 @@ export default {
     await queryInterface.bulkInsert('services', [
       {
         client_id: 1,
+        car_id: 3,
+        plate: 'ASD-1Q23',
+        car_color: 'preto',
         total_service: 750.00,
         date: new Date(2024, 4, 19),
         payment_status: true,
@@ -12,6 +15,9 @@ export default {
       },
       {
         client_id: 2,
+        car_id: 55,
+        plate: 'ASD-1Q24',
+        car_color: 'vermelho',
         total_service: 1750.00,
         date: new Date('2024-04-20'),
         payment_status: false,

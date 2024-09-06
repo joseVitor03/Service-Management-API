@@ -29,16 +29,15 @@ export default class ServiceModel implements IServiceModel {
       include: [{
         model: SequelizeClient,
         as: 'client',
-        attributes: { exclude: ['carId'] }, // Exclua o atributo carId do cliente
-        include: [{
-          model: SequelizeCar,
-          as: 'car',
-        }],
+        attributes: { exclude: ['carId', 'carColor', 'plate'] }, // Exclua o atributo carId do cliente
       }, {
         model: SequelizeEmployee, as: 'principalEmployee',
+      },
+      {
+        model: SequelizeCar, as: 'car',
       }],
       order: [['date', 'DESC']],
-      attributes: { exclude: ['clientId', 'principalEmployeeId'] }, // Exclua clientId do resultado principal
+      attributes: { exclude: ['clientId', 'principalEmployeeId', 'carId'] }, // Exclua clientId do resultado principal
     });
     return result;
   }
@@ -57,16 +56,15 @@ export default class ServiceModel implements IServiceModel {
       include: [{
         model: SequelizeClient,
         as: 'client',
-        attributes: { exclude: ['carId'] }, // Exclua o atributo carId do cliente
-        include: [{
-          model: SequelizeCar,
-          as: 'car',
-        }],
+        attributes: { exclude: ['carId', 'carColor', 'plate'] }, // Exclua o atributo carId do cliente
       }, {
         model: SequelizeEmployee, as: 'principalEmployee',
+      }, {
+        model: SequelizeCar,
+        as: 'car',
       }],
       order: [['date', 'DESC']],
-      attributes: { exclude: ['clientId', 'principalEmployeeId'] }, // Exclua clientId do resultado principal
+      attributes: { exclude: ['clientId', 'principalEmployeeId', 'carId'] }, // Exclua clientId do resultado principal
     });
     return result;
   }
@@ -77,15 +75,17 @@ export default class ServiceModel implements IServiceModel {
       include: [{ model: SequelizeItens, as: 'itemName' }, {
         model: SequelizeServices,
         as: 'service',
-        attributes: { exclude: ['clientId', 'principalEmployeeId'] },
+        attributes: { exclude: ['clientId', 'principalEmployeeId', 'carId'] },
         include: [{
           model: SequelizeClient,
           as: 'client',
-          attributes: { exclude: ['carId'] },
-          include: [{ model: SequelizeCar, as: 'car' }] }, {
+          attributes: { exclude: ['carId', 'carColor', 'plate'] },
+        }, {
           model: SequelizeEmployee,
           as: 'principalEmployee',
           attributes: { exclude: ['active'] },
+        }, {
+          model: SequelizeCar, as: 'car',
         }] }] });
 
     const employeesOfService = await this.employeeService.findAll({ where: { serviceId: id },
@@ -101,7 +101,7 @@ export default class ServiceModel implements IServiceModel {
         include: [{
           model: SequelizeClient,
           as: 'client',
-          attributes: { exclude: ['carId'] },
+          attributes: { exclude: ['carId', 'carColor', 'plate'] },
           include: [{
             model: SequelizeCar, as: 'car' }] },
         { model: SequelizeEmployee, as: 'principalEmployee' }] });
@@ -117,6 +117,9 @@ export default class ServiceModel implements IServiceModel {
     const [service] = await this.model.findOrCreate({
       where: { totalService: data.totalService,
         clientId: data.clientId,
+        carColor: data.carColor.toLocaleUpperCase(),
+        carId: data.carId,
+        plate: data.plate,
         date: data.date,
         paymentStatus: data.paymentStatus,
         principalEmployeeId: data.principalEmployeeId },
@@ -150,17 +153,24 @@ export default class ServiceModel implements IServiceModel {
 
   async servicesByClient(clientId: number): Promise<IServices[]> {
     const result = await this.model.findAll({ where: { clientId },
-      attributes: { exclude: ['clientId', 'principalEmployeeId'] },
+      attributes: { exclude: ['clientId', 'principalEmployeeId', 'carId'] },
       include: [{
-        model: SequelizeClient, as: 'client',
-      }, { model: SequelizeEmployee, as: 'principalEmployee' }] });
+        model: SequelizeClient,
+        as: 'client',
+        attributes: { exclude: ['carId', 'carColor', 'plate'] },
+      }, { model: SequelizeEmployee, as: 'principalEmployee' },
+      { model: SequelizeCar, as: 'car' }] });
     return result;
   }
 
   async servicesByDatesInterval(data: { dateInitial: string; dateFinal: string; }):
   Promise<IServices[]> {
     const result = await this.model.findAll({ where: {
-      date: { [Op.between]: [data.dateInitial, data.dateFinal] } } });
+      date: { [Op.between]: [data.dateInitial, data.dateFinal] } },
+    include: [{
+      model: SequelizeEmployee, as: 'principalEmployee',
+    }, { model: SequelizeCar, as: 'car' }],
+    attributes: { exclude: ['carId', 'principalEmployeeId', 'clientId'] } });
     return result;
   }
 }

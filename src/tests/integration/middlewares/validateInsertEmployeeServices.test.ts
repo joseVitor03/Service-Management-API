@@ -28,6 +28,9 @@ describe('validateInsertEmployeeService Test', function () {
           clientId: 2,
           totalService: 700,
           date: '2024-05-21',
+          plate: 'ABC-1D23',
+          carId: 33,
+          carColor: 'azul',
           paymentStatus: false,
           principalEmployeeId: 1,
           itens: [{
@@ -53,6 +56,9 @@ describe('validateInsertEmployeeService Test', function () {
       .send({
         clientId: 2,
         totalService: 700,
+        plate: 'ABC-1D23',
+        carId: 33,
+        carColor: 'azul',
         date: '2024-05-20',
         paymentStatus: false,
         principalEmployeeId: 1,

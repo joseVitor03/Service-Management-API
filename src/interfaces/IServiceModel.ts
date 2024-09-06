@@ -75,6 +75,9 @@ export interface BasicDataService {
   id: number,
   totalService: string,
   date: string,
+  plate: string,
+  carColor: string,
+  car: Car,
   paymentStatus: boolean,
   principalEmployee: Employee,
   client: {
@@ -83,12 +86,6 @@ export interface BasicDataService {
     phone: string,
     carColor: string,
     plate: string,
-    car: {
-      id: number,
-      name: string,
-      year: number,
-      brand: string
-    }
   }
 }
 
@@ -123,6 +120,9 @@ export type SimplifyFindServiceType = {
 
 export type TypeInsertService = {
   employeeServices: EmployeeService[],
+  carColor: string,
+  plate: string,
+  carId: number,
   totalService: number;
   date: string;
   clientId: number;

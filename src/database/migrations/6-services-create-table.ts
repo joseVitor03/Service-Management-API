@@ -10,6 +10,24 @@ export default {
         autoIncrement: true,
         primaryKey: true,
       },
+      carId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        field: 'car_id',
+        references: {
+          model: 'cars',
+          key: 'id',
+        },
+      },
+      plate: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      carColor: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        field: 'car_color',
+      },
       clientId: {
         type: DataTypes.INTEGER,
         allowNull: false,

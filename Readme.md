@@ -736,7 +736,8 @@ $ npm run db:reset
 | POST /services   | cadastrar serviço. Pode fazer o cadastro com o `employeeServices` ou o `itens` com o array vázio, mas não os dois. [request-details](#insert-service)
 | PATCH /services/:id  | atualizar status de pagamento do serviço. [request-details](#update-service)
 | DELETE /services/:id  | deletar serviço [response-details](#delete-service)
-
+| GET /services/client/:id  | lista de serviços do cliente [response-details](#services-client)
+| GET /services/dates |  lista de serviços em um intervalo de datas [response-details](#services-dates)
 <details>
 <sumary>Solicitações e Respostas das rotas de serviços</sumary>
 
@@ -747,26 +748,26 @@ $ npm run db:reset
 [
   {
     "id": 2,
+    "plate": "ASD-1Q24",
+    "carColor": "vermelho",
     "totalService": "1750.00",
     "date": "2024-04-20",
     "paymentStatus": false,
     "client": {
       "id": 2,
       "name": "Ciclano",
-      "phone": "98765-4321",
-      "carColor": "Vermelho",
-      "plate": "XYZ-9A87",
-      "car": {
-        "id": 2,
-        "name": "PALIO",
-        "year": 2015,
-        "brand": "FIAT"
-      }
+      "phone": "98765-4321"
     },
     "principalEmployee": {
       "id": 1,
       "name": "FABIO",
       "active": true
+    },
+    "car": {
+      "id": 55,
+      "name": "HYUNDAI TUCSON",
+      "year": 2024,
+      "brand": "HYUNDAI"
     }
   }
 ]
@@ -779,26 +780,26 @@ $ npm run db:reset
 [
   {
     "id": 1,
+    "plate": "ASD-1Q23",
+    "carColor": "preto",
     "totalService": "750.00",
     "date": "2024-05-19",
     "paymentStatus": true,
     "client": {
       "id": 1,
       "name": "Fulano",
-      "phone": "12345-6789",
-      "carColor": "Azul",
-      "plate": "ABC-1B23",
-      "car": {
-        "id": 1,
-        "name": "HONDA CIVIC",
-        "year": 2020,
-        "brand": "HONDA"
-      }
+      "phone": "12345-6789"
     },
     "principalEmployee": {
       "id": 2,
       "name": "LEANDRO",
       "active": true
+    },
+    "car": {
+      "id": 3,
+      "name": "VOLKSWAGEN GOL",
+      "year": 2024,
+      "brand": "VOLKSWAGEN"
     }
   }
 ]
@@ -836,25 +837,25 @@ $ npm run db:reset
   ],
   "basicServiceData": {
     "id": 1,
+    "plate": "ASD-1Q23",
+    "carColor": "preto",
     "totalService": "750.00",
     "date": "2024-05-19",
     "paymentStatus": true,
     "client": {
       "id": 1,
       "name": "Fulano",
-      "phone": "12345-6789",
-      "carColor": "Azul",
-      "plate": "ABC-1B23",
-      "car": {
-        "id": 1,
-        "name": "HONDA CIVIC",
-        "year": 2020,
-        "brand": "HONDA"
-      }
+      "phone": "12345-6789"
     },
     "principalEmployee": {
       "id": 2,
       "name": "LEANDRO"
+    },
+    "car": {
+      "id": 3,
+      "name": "VOLKSWAGEN GOL",
+      "year": 2024,
+      "brand": "VOLKSWAGEN"
     }
   }
 }
@@ -866,7 +867,10 @@ $ npm run db:reset
 ```json
 {
   "clientId": 2,
-  "totalService": 800,
+  "carId": 3,
+  "plate": "QWE-2R34",
+  "carColor": "azul",
+  "totalService": 700,
   "date": "2024-03-19",
   "paymentStatus": false,
   "principalEmployeeId": 2,
@@ -876,7 +880,11 @@ $ npm run db:reset
       "priceUnit": 100,
       "itemId": 2
     }],
-  "employeeServices": []
+  "employeeServices": [{
+    "employeeId": 2,
+    "labor": 500,
+    "description": null
+  }]
 }
 ```
 #### RESPONSE:
@@ -909,6 +917,177 @@ $ npm run db:reset
   "message": "serviço deletado."
 }
 ```
+<h4 id="services-client">GET /services/client/2</h4>
+
+#### RESPONSE:
+```json
+[
+  {
+    "id": 2,
+    "plate": "ASD-1Q24",
+    "carColor": "vermelho",
+    "totalService": "1750.00",
+    "date": "2024-04-20",
+    "paymentStatus": false,
+    "client": {
+      "id": 2,
+      "name": "Ciclano",
+      "phone": "98765-4321"
+    },
+    "principalEmployee": {
+      "id": 1,
+      "name": "FABIO",
+      "active": true
+    },
+    "car": {
+      "id": 55,
+      "name": "HYUNDAI TUCSON",
+      "year": 2024,
+      "brand": "HYUNDAI"
+    }
+  },
+  {
+    "id": 3,
+    "plate": "QWE-2R34",
+    "carColor": "AZUL",
+    "totalService": "800.00",
+    "date": "2024-03-19",
+    "paymentStatus": false,
+    "client": {
+      "id": 2,
+      "name": "Ciclano",
+      "phone": "98765-4321"
+    },
+    "principalEmployee": {
+      "id": 2,
+      "name": "LEANDRO",
+      "active": true
+    },
+    "car": {
+      "id": 3,
+      "name": "VOLKSWAGEN GOL",
+      "year": 2024,
+      "brand": "VOLKSWAGEN"
+    }
+  },
+  {
+    "id": 4,
+    "plate": "QWE-2R34",
+    "carColor": "AZUL",
+    "totalService": "700.00",
+    "date": "2024-03-19",
+    "paymentStatus": false,
+    "client": {
+      "id": 2,
+      "name": "Ciclano",
+      "phone": "98765-4321"
+    },
+    "principalEmployee": {
+      "id": 2,
+      "name": "LEANDRO",
+      "active": true
+    },
+    "car": {
+      "id": 3,
+      "name": "VOLKSWAGEN GOL",
+      "year": 2024,
+      "brand": "VOLKSWAGEN"
+    }
+  }
+]
+```
+
+<h4 id="services-dates">GET /services/dates</h4>
+
+#### REQUEST:
+```json
+{
+  "dateInitial": "2023-02-10",
+  "dateFinal": "2024-10-29"
+}
+```
+
+#### RESPONSE:
+```json
+[
+  {
+    "id": 1,
+    "plate": "ASD-1Q23",
+    "carColor": "preto",
+    "totalService": "750.00",
+    "date": "2024-05-19",
+    "paymentStatus": true,
+    "principalEmployee": {
+      "id": 2,
+      "name": "LEANDRO",
+      "active": true
+    },
+    "car": {
+      "id": 3,
+      "name": "VOLKSWAGEN GOL",
+      "year": 2024,
+      "brand": "VOLKSWAGEN"
+    }
+  },
+  {
+    "id": 2,
+    "plate": "ASD-1Q24",
+    "carColor": "vermelho",
+    "totalService": "1750.00",
+    "date": "2024-04-20",
+    "paymentStatus": false,
+    "principalEmployee": {
+      "id": 1,
+      "name": "FABIO",
+      "active": true
+    },
+    "car": {
+      "id": 55,
+      "name": "HYUNDAI TUCSON",
+      "year": 2024,
+      "brand": "HYUNDAI"
+    }
+  },
+  {
+    "id": 3,
+    "plate": "QWE-2R34",
+    "carColor": "AZUL",
+    "totalService": "800.00",
+    "date": "2024-03-19",
+    "paymentStatus": false,
+    "principalEmployee": {
+      "id": 2,
+      "name": "LEANDRO",
+      "active": true
+    },
+    "car": {
+      "id": 3,
+      "name": "VOLKSWAGEN GOL",
+      "year": 2024,
+      "brand": "VOLKSWAGEN"
+    }
+  },
+  {
+    "id": 4,
+    "plate": "QWE-2R34",
+    "carColor": "AZUL",
+    "totalService": "700.00",
+    "date": "2024-03-19",
+    "paymentStatus": false,
+    "principalEmployee": {
+      "id": 2,
+      "name": "LEANDRO",
+      "active": true
+    },
+    "car": {
+      "id": 3,
+      "name": "VOLKSWAGEN GOL",
+      "year": 2024,
+      "brand": "VOLKSWAGEN"
+    }
+  }
+]
+```
 
 </details>
 
@@ -916,5 +1095,5 @@ $ npm run db:reset
 ## Diagrama de Entidades e Relacionamentos do Banco de Dados:
 
 <details>
-<img src="./images/Captura de tela de 2024-09-03 17-31-29.png">
+<img src="./images/Captura de tela de 2024-09-06 16-57-06.png">
 </details>

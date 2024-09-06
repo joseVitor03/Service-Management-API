@@ -26,11 +26,14 @@ export default class ServiceController {
   }
 
   async insertService(req:Request, res: Response) {
-    const { clientId, totalService, date, itens, employeeServices, paymentStatus,
+    const { clientId, carColor, plate, carId, totalService, date, itens, employeeServices, paymentStatus,
       principalEmployeeId,
     } = req.body;
 
     const { status, data } = await this.servicesService.insertService({ clientId,
+      carColor, 
+      plate, 
+      carId,
       totalService,
       date,
       itens,

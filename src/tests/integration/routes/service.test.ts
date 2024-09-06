@@ -19,8 +19,8 @@ const { expect } = chai;
 chai.use(chaiHttp);
 const bearer = 'Bearer any';
 
-describe('testando rota de services', async function () {
-  afterEach(() => {
+describe('testando rota de services', function () {
+  afterEach(function () {
     sinon.restore();
   });
   it(
@@ -60,7 +60,7 @@ describe('testando rota de services', async function () {
     sinon.stub(SequelizeEmployeeServices, 'findAll')
       .resolves(findServiceMockEmployee as any);
 
-    const { status, body } = await chai.request(app).get('/services/2')
+    const { status, body } = await chai.request(app).get('/services/3')
       .set('Authorization', bearer);
 
     expect(status).to.be.equal(200);
@@ -134,6 +134,9 @@ describe('testando rota de services', async function () {
     sinon.stub(SequelizeServices, 'findOrCreate').resolves([{
       id: 3,
       clientId: 2,
+      plate: 'ABC-1D23',
+      carId: 33,
+      carColor: 'azul',
       totalService: 800,
       date: '2024-05-09',
       paymentStatus: false,

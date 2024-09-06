@@ -3,12 +3,19 @@ import { Model, InferAttributes, InferCreationAttributes,
 import db from '.';
 import SequelizeClient from './3-SequelizeClient';
 import SequelizeEmployee from './4-SequelizeEmployee';
+import SequelizeCar from './2-SequelizeCar';
 
 class SequelizeServices extends Model<InferAttributes<SequelizeServices>,
 InferCreationAttributes<SequelizeServices>> {
   declare id: CreationOptional<number>;
 
   declare clientId: number;
+
+  declare carId: number;
+
+  declare plate: string;
+
+  declare carColor: string;
 
   declare totalService: number;
 
@@ -34,6 +41,24 @@ SequelizeServices.init({
       model: 'clients',
       key: 'id',
     },
+  },
+  carId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    field: 'car_id',
+    references: {
+      model: 'cars',
+      key: 'id',
+    },
+  },
+  plate: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  carColor: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    field: 'car_color',
   },
   totalService: {
     type: DataTypes.DECIMAL(10, 2),
@@ -75,6 +100,12 @@ SequelizeServices.belongsTo(SequelizeClient, {
   foreignKey: 'clientId',
   targetKey: 'id',
   as: 'client',
+});
+
+SequelizeServices.belongsTo(SequelizeCar, {
+  foreignKey: 'carId',
+  targetKey: 'id',
+  as: 'car',
 });
 
 export default SequelizeServices;

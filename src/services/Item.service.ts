@@ -12,11 +12,13 @@ export default class ItemService {
 
   async findItem(name: string): Promise<ServiceResponse<IItens[]>> {
     const result = await this.itemModel.findItem(name.toUpperCase());
+
     return { status: 'SUCCESSFUL', data: result };
   }
 
   async insertItem(name: string): Promise<ServiceResponse<IItens>> {
     const result = await this.itemModel.insertItem(name.toUpperCase());
+
     return { status: 'CREATED', data: result };
   }
 

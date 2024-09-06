@@ -10,7 +10,7 @@ import { finalFindServiceResult, findServiceMockEmployee,
 
 describe('teste Unitário de Service.service', function () {
   const servicesService = new ServicesService();
-  afterEach(() => {
+  afterEach(function () {
     sinon.restore();
   });
   it(
@@ -21,6 +21,7 @@ describe('teste Unitário de Service.service', function () {
         const builtService = SequelizeServices.build(service as any);
         const plainService = builtService.dataValues as any;
         plainService.client = service.client;
+        plainService.car = service.car;
         return plainService;
       });
       sinon.stub(SequelizeServices, 'findAll').resolves(builtServices);
@@ -39,6 +40,7 @@ describe('teste Unitário de Service.service', function () {
         const builtService = SequelizeServices.build(service as any);
         const plainService = builtService.get({ plain: true }) as any;
         plainService.client = service.client;
+        plainService.car = service.car;
         return plainService;
       });
       sinon.stub(SequelizeServices, 'findAll').resolves(builtServices);

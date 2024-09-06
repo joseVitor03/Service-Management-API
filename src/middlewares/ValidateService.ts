@@ -3,11 +3,11 @@ import { EmployeeService } from '../interfaces/IServiceModel';
 
 export default class ValidateService {
   static validateInsertService(req: Request, res: Response, next: NextFunction) {
-    const { clientId, totalService, date, itens, employeeServices, paymentStatus,
+    const { clientId, carColor, plate, carId, totalService, date, itens, employeeServices, paymentStatus,
       principalEmployeeId,
     } = req.body;
     const currentDate = new Date();
-    if (!clientId || !totalService || !date || !employeeServices
+    if (!clientId || !carColor || !plate || !carId || !totalService || !date || !employeeServices
       || paymentStatus === undefined || !itens || !principalEmployeeId) {
       return res.status(400).json({ message: 'dados do serviço incompleto.' });
     }
