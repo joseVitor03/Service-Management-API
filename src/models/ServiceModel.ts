@@ -97,14 +97,18 @@ export default class ServiceModel implements IServiceModel {
 
     if (dataService.length === 0) {
       const service = await this.model.findAll({ where: { id },
-        attributes: { exclude: ['clientId', 'principalEmployeeId'] },
+        attributes: { exclude: ['clientId', 'principalEmployeeId', 'carId'] },
         include: [{
           model: SequelizeClient,
           as: 'client',
           attributes: { exclude: ['carId', 'carColor', 'plate'] },
-          include: [{
-            model: SequelizeCar, as: 'car' }] },
-        { model: SequelizeEmployee, as: 'principalEmployee' }] });
+        },
+        { model: SequelizeEmployee, as: 'principalEmployee' },
+        {
+          model: SequelizeCar, as: 'car' }],
+      });
+      console.log(service);
+
       return { dataService: service, employeesOfService };
     }
 
