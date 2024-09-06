@@ -38,16 +38,16 @@
     "sinon-chai": "^3.7.0",
     "ts-node": "^10.9.2",
     "eslint-config-trybe-backend": "^2.1.0",
+    "typescript": "^5.4.2",
+    "@types/jsonwebtoken": "^9.0.6",
     "ts-node-dev": "^2.0.0"
   },
   "dependencies": {
-    "@types/jsonwebtoken": "^9.0.6",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.18.3",
     "jsonwebtoken": "^9.0.2",
-    "sequelize": "^6.37.1",
-    "typescript": "^5.4.2"
+    "sequelize": "^6.37.1"
   }
 }

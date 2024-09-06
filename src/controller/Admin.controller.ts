@@ -8,6 +8,7 @@ export default class AdminController {
   async insertAdmin(req: Request, res: Response) {
     const { email, password } = req.body;
     const { status, data } = await this.adminService.insertAdmin({ email, password });
+
     return res.status(mapStatusHTTP(status)).json(data);
   }
 
