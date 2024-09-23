@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node /build/server.js",
+    "start": "node ./build/server.js",
     "db:reset": "npx -y tsc && npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "dev": "nodemon ./src/server.ts",
     "test": "mocha -r ts-node/register src/tests/**/**/*.test.ts --exit -t 60000 --exit",
