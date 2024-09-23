@@ -1,5 +1,5 @@
 import App from './app';
 
 const app = new App();
-
-app.start(3001);
+const port = process.env.DB_PORT || 3306;
+app.start(port);
